@@ -27,26 +27,26 @@
 		</javaTypeResolver>
 
 		<!-- 生成模型的包名和位置 -->
-		<javaModelGenerator targetPackage="com.bole.po.model.admin"
+		<javaModelGenerator targetPackage="com.bole.po.model.user"
 			targetProject="bole-dao">
             <property name="enableSubPackages" value="false" />
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
 
 		<!-- 生成的映射文件包名和位置 -->
-		<sqlMapGenerator targetPackage="com.hos.po.xml.admin"
+		<sqlMapGenerator targetPackage="com.bole.po.xml.user"
 			targetProject="bole-dao">
 			<property name="enableSubPackages" value="false" />
 		</sqlMapGenerator>
 
 		<!-- 生成DAO的包名和位置 -->
-		<javaClientGenerator targetPackage="com.hos.po.dao.admin"
+		<javaClientGenerator targetPackage="com.bole.po.dao.user"
 			targetProject="bole-dao" type="XMLMAPPER">
 			<property name="enableSubPackages" value="false" />
 		</javaClientGenerator>
 
-		<!-- 管理员表 -->
-		<table schema="bole" tableName="admin_account"
+		<!-- 用户表 -->
+		<table schema="bole_db" tableName="user"
 			enableInsert="true"
 			enableSelectByPrimaryKey="true"
 			enableUpdateByPrimaryKey="true"
@@ -55,33 +55,18 @@
 			enableDeleteByExample="false"
 			enableSelectByExample="false"
 			enableCountByExample="false">
-			<columnOverride  column="id" property="id" javaType="java.lang.Long" jdbcType="NUMERIC"/>
-			<columnOverride  column="version" property="version" javaType="java.lang.Long" jdbcType="NUMERIC"/>
-			<columnOverride  column="role_id" property="roleId" javaType="java.lang.Long" jdbcType="NUMERIC"/>
-			<columnOverride  column="organization_id" property="organizationId" javaType="java.lang.Long" jdbcType="NUMERIC"/>
-			<columnOverride  column="enable" property="enable" javaType="java.lang.Short" jdbcType="NUMERIC"/>
+			<generatedKey column="user_id" sqlStatement="mysql" identity="true" />
+			<columnOverride  column="user_id" property="userId" javaType="java.lang.Long" jdbcType="NUMERIC"/>
+			<columnOverride  column="p_id" property="pId" javaType="java.lang.Long" jdbcType="NUMERIC"/>
+			<columnOverride  column="add_time" property="addTime" javaType="java.lang.Long" jdbcType="NUMERIC"/>
+			<columnOverride  column="update_time" property="updateTime" javaType="java.lang.Long" jdbcType="NUMERIC"/>
+			
+			<columnOverride column="user_type" property="userType" javaType="java.lang.Short" jdbcType="NUMERIC"/>
+			<columnOverride column="level" property="level" javaType="java.lang.Short" jdbcType="NUMERIC"/>
 		</table>
-
-		<!-- 管理员权限表 -->
-		<table schema="bole" tableName="admin_authority"
-			enableInsert="true"
-			enableSelectByPrimaryKey="true"
-			enableUpdateByPrimaryKey="true"
-			selectByExampleQueryId="false"
-			enableUpdateByExample="false"
-			enableDeleteByExample="false"
-			enableSelectByExample="false"
-			enableCountByExample="false">
-			<generatedKey column="id" sqlStatement="mysql" identity="true" />
-			<columnOverride  column="id" property="id" javaType="java.lang.Long" jdbcType="NUMERIC"/>
-			<columnOverride  column="version" property="version" javaType="java.lang.Long" jdbcType="NUMERIC"/>
-			<columnOverride  column="position" property="position" javaType="java.lang.Long" jdbcType="NUMERIC"/>
-			<columnOverride  column="parent_id" property="parentId" javaType="java.lang.Long" jdbcType="NUMERIC"/>
-			<columnOverride  column="enable" property="enable" javaType="java.lang.Short" jdbcType="NUMERIC"/>
-		</table>
-
-		<!-- 机构表 -->
-		<table schema="bole" tableName="admin_organization"
+		
+		<!-- 用户表升级日志表 -->
+		<table schema="bole_db" tableName="user_level_log"
 			enableInsert="true"
 			enableSelectByPrimaryKey="true"
 			enableUpdateByPrimaryKey="true"
@@ -92,14 +77,19 @@
 			enableCountByExample="false">
 			<generatedKey column="id" sqlStatement="mysql" identity="true" />
 			<columnOverride  column="id" property="id" javaType="java.lang.Long" jdbcType="NUMERIC"/>
-			<columnOverride  column="version" property="version" javaType="java.lang.Long" jdbcType="NUMERIC"/>
-			<columnOverride  column="position" property="position" javaType="java.lang.Long" jdbcType="NUMERIC"/>
-			<columnOverride  column="parent_id" property="parentId" javaType="java.lang.Long" jdbcType="NUMERIC"/>
-			<columnOverride  column="enable" property="enable" javaType="java.lang.Short" jdbcType="NUMERIC"/>
-		</table>
+			<columnOverride  column="user_id" property="userId" javaType="java.lang.Long" jdbcType="NUMERIC"/>
+			<columnOverride  column="admin_id" property="adminId" javaType="java.lang.Long" jdbcType="NUMERIC"/>
+			<columnOverride  column="add_time" property="addTime" javaType="java.lang.Long" jdbcType="NUMERIC"/>
+			
+			
+			<columnOverride column="log_type" property="logType" javaType="java.lang.Short" jdbcType="NUMERIC"/>
+			<columnOverride column="level_pre" property="levelPre" javaType="java.lang.Short" jdbcType="NUMERIC"/>
+			<columnOverride column="level_after" property="levelAfter" javaType="java.lang.Short" jdbcType="NUMERIC"/>
 
-		<!-- 用户组表 -->
-		<table schema="bole" tableName="admin_role"
+		</table>
+		
+		<!-- 用户团队级别统计表 -->
+		<table schema="bole_db" tableName="user_level_stat"
 			enableInsert="true"
 			enableSelectByPrimaryKey="true"
 			enableUpdateByPrimaryKey="true"
@@ -110,12 +100,16 @@
 			enableCountByExample="false">
 			<generatedKey column="id" sqlStatement="mysql" identity="true" />
 			<columnOverride  column="id" property="id" javaType="java.lang.Long" jdbcType="NUMERIC"/>
-			<columnOverride  column="version" property="version" javaType="java.lang.Long" jdbcType="NUMERIC"/>
-			<columnOverride  column="enable" property="enable" javaType="java.lang.Short" jdbcType="NUMERIC"/>
+			<columnOverride  column="user_id" property="userId" javaType="java.lang.Long" jdbcType="NUMERIC"/>
+			<columnOverride  column="add_time" property="addTime" javaType="java.lang.Long" jdbcType="NUMERIC"/>
+			<columnOverride  column="update_time" property="updateTime" javaType="java.lang.Long" jdbcType="NUMERIC"/>
+			
+			<columnOverride column="level" property="level" javaType="java.lang.Short" jdbcType="NUMERIC"/>
+			
 		</table>
-
-		<!-- 用户组权限表 -->
-		<table schema="bole" tableName="admin_role_authority"
+		
+		<!-- 用户提现申请表 -->
+		<table schema="bole_db" tableName="user_score_cash"
 			enableInsert="true"
 			enableSelectByPrimaryKey="true"
 			enableUpdateByPrimaryKey="true"
@@ -126,9 +120,36 @@
 			enableCountByExample="false">
 			<generatedKey column="id" sqlStatement="mysql" identity="true" />
 			<columnOverride  column="id" property="id" javaType="java.lang.Long" jdbcType="NUMERIC"/>
-			<columnOverride  column="role_id" property="roleId" javaType="java.lang.Long" jdbcType="NUMERIC"/>
-			<columnOverride  column="authority_id" property="authorityId" javaType="java.lang.Short" jdbcType="NUMERIC"/>
+			<columnOverride  column="user_id" property="userId" javaType="java.lang.Long" jdbcType="NUMERIC"/>
+			<columnOverride  column="add_time" property="addTime" javaType="java.lang.Long" jdbcType="NUMERIC"/>
+			<columnOverride  column="update_time" property="updateTime" javaType="java.lang.Long" jdbcType="NUMERIC"/>
+			
+			<columnOverride column="status" property="status" javaType="java.lang.Short" jdbcType="NUMERIC"/>
+			
 		</table>
+		
+		
+		<!-- 用户充值明细表 -->
+		<table schema="bole_db" tableName="user_score_detail"
+			enableInsert="true"
+			enableSelectByPrimaryKey="true"
+			enableUpdateByPrimaryKey="true"
+			selectByExampleQueryId="false"
+			enableUpdateByExample="false"
+			enableDeleteByExample="false"
+			enableSelectByExample="false"
+			enableCountByExample="false">
+			<generatedKey column="id" sqlStatement="mysql" identity="true" />
+			<columnOverride  column="id" property="id" javaType="java.lang.Long" jdbcType="NUMERIC"/>
+			<columnOverride  column="user_id_from" property="userIdFrom" javaType="java.lang.Long" jdbcType="NUMERIC"/>
+			<columnOverride  column="user_id_to" property="userIdTo" javaType="java.lang.Long" jdbcType="NUMERIC"/>
+			<columnOverride  column="add_time" property="addTime" javaType="java.lang.Long" jdbcType="NUMERIC"/>
+
+			
+			<columnOverride column="score_type" property="score_Type" javaType="java.lang.Short" jdbcType="NUMERIC"/>
+			
+		</table>
+	
 
 
 	</context>

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bole.po.dao.user.UserMapper">
+	<resultMap id="BaseResultMap" type="com.bole.po.model.user.User">
+		<id column="user_id" property="userId" jdbcType="NUMERIC" />
+		<result column="user_type" property="userType" jdbcType="NUMERIC" />
+		<result column="open_id" property="openId" jdbcType="VARCHAR" />
+		<result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+		<result column="head_img" property="headImg" jdbcType="VARCHAR" />
+		<result column="game_id" property="gameId" jdbcType="VARCHAR" />
+		<result column="invite_code" property="inviteCode" jdbcType="VARCHAR" />
+		<result column="level" property="level" jdbcType="NUMERIC" />
+		<result column="p_id" property="pId" jdbcType="NUMERIC" />
+		<result column="add_time" property="addTime" jdbcType="NUMERIC" />
+		<result column="update_time" property="updateTime" jdbcType="NUMERIC" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		user_id, user_type, open_id, nick_name, head_img, game_id, invite_code, level, p_id,
+		add_time, update_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from user
+		where user_id = #{userId,jdbcType=NUMERIC}
+	</select>
+	
+	<select id="selectBySearchVo" resultMap="BaseResultMap" parameterType="com.bole.vo.UserSearchVo">
+		select
+		<include refid="Base_Column_List" />
+		from user
+		<include refid="bySearchVo"/>
+		order by user_id desc
+	</select>
+	
+	<select id="selectByListPage" resultMap="BaseResultMap" parameterType="com.bole.vo.UserSearchVo">
+		select
+		<include refid="Base_Column_List" />
+		from user
+		<include refid="bySearchVo"/>
+		order by user_id desc
+	</select>
+	
+	<sql id="bySearchVo">
+	    where 1 = 1
+	    <if test="userId != null">
+			and userId = #{userId,jdbcType=NUMERIC}
+		</if>
+		
+	    <if test="userType != null">
+			and user_type = #{userType,jdbcType=NUMERIC}
+		</if>
+		
+	    <if test="openId != null">
+			and open_id = #{openId,jdbcType=VARCHAR}
+		</if>
+		
+		<if test="gameId != null">
+			and game_id = #{gameId,jdbcType=VARCHAR}
+		</if>
+		
+		<if test="inviteCode != null">
+			and invite_code = #{inviteCode,jdbcType=VARCHAR}
+		</if>
+		
+		<if test="level != null">
+			and level = #{level,jdbcType=NUMERIC}
+		</if>
+		
+		<if test="pId != null">
+			and p_id = #{pId,jdbcType=NUMERIC}
+		</if>
+	</sql>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from user
+		where user_id = #{userId,jdbcType=NUMERIC}
+	</delete>
+	<insert id="insert" parameterType="com.bole.po.model.user.User">
+		<selectKey resultType="java.lang.Long" keyProperty="userId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into user (user_type, open_id, nick_name,
+		head_img, game_id, invite_code,
+		level, p_id, add_time,
+		update_time)
+		values (#{userType,jdbcType=NUMERIC}, #{openId,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR},
+		#{headImg,jdbcType=VARCHAR}, #{gameId,jdbcType=VARCHAR}, #{inviteCode,jdbcType=VARCHAR},
+		#{level,jdbcType=NUMERIC}, #{pId,jdbcType=NUMERIC}, #{addTime,jdbcType=NUMERIC},
+		#{updateTime,jdbcType=NUMERIC})
+	</insert>
+	<insert id="insertSelective" parameterType="com.bole.po.model.user.User">
+		<selectKey resultType="java.lang.Long" keyProperty="userId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userType != null">
+				user_type,
+			</if>
+			<if test="openId != null">
+				open_id,
+			</if>
+			<if test="nickName != null">
+				nick_name,
+			</if>
+			<if test="headImg != null">
+				head_img,
+			</if>
+			<if test="gameId != null">
+				game_id,
+			</if>
+			<if test="inviteCode != null">
+				invite_code,
+			</if>
+			<if test="level != null">
+				level,
+			</if>
+			<if test="pId != null">
+				p_id,
+			</if>
+			<if test="addTime != null">
+				add_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userType != null">
+				#{userType,jdbcType=NUMERIC},
+			</if>
+			<if test="openId != null">
+				#{openId,jdbcType=VARCHAR},
+			</if>
+			<if test="nickName != null">
+				#{nickName,jdbcType=VARCHAR},
+			</if>
+			<if test="headImg != null">
+				#{headImg,jdbcType=VARCHAR},
+			</if>
+			<if test="gameId != null">
+				#{gameId,jdbcType=VARCHAR},
+			</if>
+			<if test="inviteCode != null">
+				#{inviteCode,jdbcType=VARCHAR},
+			</if>
+			<if test="level != null">
+				#{level,jdbcType=NUMERIC},
+			</if>
+			<if test="pId != null">
+				#{pId,jdbcType=NUMERIC},
+			</if>
+			<if test="addTime != null">
+				#{addTime,jdbcType=NUMERIC},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=NUMERIC},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.bole.po.model.user.User">
+		update user
+		<set>
+			<if test="userType != null">
+				user_type = #{userType,jdbcType=NUMERIC},
+			</if>
+			<if test="openId != null">
+				open_id = #{openId,jdbcType=VARCHAR},
+			</if>
+			<if test="nickName != null">
+				nick_name = #{nickName,jdbcType=VARCHAR},
+			</if>
+			<if test="headImg != null">
+				head_img = #{headImg,jdbcType=VARCHAR},
+			</if>
+			<if test="gameId != null">
+				game_id = #{gameId,jdbcType=VARCHAR},
+			</if>
+			<if test="inviteCode != null">
+				invite_code = #{inviteCode,jdbcType=VARCHAR},
+			</if>
+			<if test="level != null">
+				level = #{level,jdbcType=NUMERIC},
+			</if>
+			<if test="pId != null">
+				p_id = #{pId,jdbcType=NUMERIC},
+			</if>
+			<if test="addTime != null">
+				add_time = #{addTime,jdbcType=NUMERIC},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=NUMERIC},
+			</if>
+		</set>
+		where user_id = #{userId,jdbcType=NUMERIC}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.bole.po.model.user.User">
+		update user
+		set user_type = #{userType,jdbcType=NUMERIC},
+		open_id = #{openId,jdbcType=VARCHAR},
+		nick_name = #{nickName,jdbcType=VARCHAR},
+		head_img = #{headImg,jdbcType=VARCHAR},
+		game_id = #{gameId,jdbcType=VARCHAR},
+		invite_code = #{inviteCode,jdbcType=VARCHAR},
+		level = #{level,jdbcType=NUMERIC},
+		p_id = #{pId,jdbcType=NUMERIC},
+		add_time = #{addTime,jdbcType=NUMERIC},
+		update_time = #{updateTime,jdbcType=NUMERIC}
+		where user_id = #{userId,jdbcType=NUMERIC}
+	</update>
+</mapper>

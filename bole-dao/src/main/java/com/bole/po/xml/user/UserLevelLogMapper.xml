@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bole.po.dao.user.UserLevelLogMapper">
+	<resultMap id="BaseResultMap" type="com.bole.po.model.user.UserLevelLog">
+		<id column="id" property="id" jdbcType="NUMERIC" />
+		<result column="user_id" property="userId" jdbcType="NUMERIC" />
+		<result column="log_type" property="logType" jdbcType="NUMERIC" />
+		<result column="level_pre" property="levelPre" jdbcType="NUMERIC" />
+		<result column="level_after" property="levelAfter" jdbcType="NUMERIC" />
+		<result column="remarks" property="remarks" jdbcType="VARCHAR" />
+		<result column="admin_id" property="adminId" jdbcType="NUMERIC" />
+		<result column="add_time" property="addTime" jdbcType="NUMERIC" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, user_id, log_type, level_pre, level_after, remarks, admin_id, add_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from user_level_log
+		where id = #{id,jdbcType=NUMERIC}
+	</select>
+	
+	<select id="selectBySearchVo" resultMap="BaseResultMap" parameterType="com.bole.vo.UserSearchVo">
+		select
+		<include refid="Base_Column_List" />
+		from user_level_log
+		<include refid="bySearchVo"/>
+		order by id desc
+	</select>
+	
+	<select id="selectByListPage" resultMap="BaseResultMap" parameterType="com.bole.vo.UserSearchVo">
+		select
+		<include refid="Base_Column_List" />
+		from user_level_log
+		<include refid="bySearchVo"/>
+		order by id desc
+	</select>
+	
+	<sql id="bySearchVo">
+	    where 1 = 1
+	    <if test="userId != null">
+			and userId = #{userId,jdbcType=NUMERIC}
+		</if>
+		
+	    <if test="logType != null">
+			and log_type = #{logType,jdbcType=NUMERIC}
+		</if>
+		
+	    <if test="adminId != null">
+			and admin_id = #{adminId,jdbcType=NUMERIC}
+		</if>
+	</sql>
+	
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from user_level_log
+		where id = #{id,jdbcType=NUMERIC}
+	</delete>
+	<insert id="insert" parameterType="com.bole.po.model.user.UserLevelLog">
+		<selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into user_level_log (user_id, log_type, level_pre,
+		level_after, remarks, admin_id,
+		add_time)
+		values (#{userId,jdbcType=NUMERIC}, #{logType,jdbcType=NUMERIC}, #{levelPre,jdbcType=NUMERIC},
+		#{levelAfter,jdbcType=NUMERIC}, #{remarks,jdbcType=VARCHAR}, #{adminId,jdbcType=NUMERIC},
+		#{addTime,jdbcType=NUMERIC})
+	</insert>
+	<insert id="insertSelective" parameterType="com.bole.po.model.user.UserLevelLog">
+		<selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into user_level_log
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="logType != null">
+				log_type,
+			</if>
+			<if test="levelPre != null">
+				level_pre,
+			</if>
+			<if test="levelAfter != null">
+				level_after,
+			</if>
+			<if test="remarks != null">
+				remarks,
+			</if>
+			<if test="adminId != null">
+				admin_id,
+			</if>
+			<if test="addTime != null">
+				add_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				#{userId,jdbcType=NUMERIC},
+			</if>
+			<if test="logType != null">
+				#{logType,jdbcType=NUMERIC},
+			</if>
+			<if test="levelPre != null">
+				#{levelPre,jdbcType=NUMERIC},
+			</if>
+			<if test="levelAfter != null">
+				#{levelAfter,jdbcType=NUMERIC},
+			</if>
+			<if test="remarks != null">
+				#{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="adminId != null">
+				#{adminId,jdbcType=NUMERIC},
+			</if>
+			<if test="addTime != null">
+				#{addTime,jdbcType=NUMERIC},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.bole.po.model.user.UserLevelLog">
+		update user_level_log
+		<set>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=NUMERIC},
+			</if>
+			<if test="logType != null">
+				log_type = #{logType,jdbcType=NUMERIC},
+			</if>
+			<if test="levelPre != null">
+				level_pre = #{levelPre,jdbcType=NUMERIC},
+			</if>
+			<if test="levelAfter != null">
+				level_after = #{levelAfter,jdbcType=NUMERIC},
+			</if>
+			<if test="remarks != null">
+				remarks = #{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="adminId != null">
+				admin_id = #{adminId,jdbcType=NUMERIC},
+			</if>
+			<if test="addTime != null">
+				add_time = #{addTime,jdbcType=NUMERIC},
+			</if>
+		</set>
+		where id = #{id,jdbcType=NUMERIC}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.bole.po.model.user.UserLevelLog">
+		update user_level_log
+		set user_id = #{userId,jdbcType=NUMERIC},
+		log_type = #{logType,jdbcType=NUMERIC},
+		level_pre = #{levelPre,jdbcType=NUMERIC},
+		level_after = #{levelAfter,jdbcType=NUMERIC},
+		remarks = #{remarks,jdbcType=VARCHAR},
+		admin_id = #{adminId,jdbcType=NUMERIC},
+		add_time = #{addTime,jdbcType=NUMERIC}
+		where id = #{id,jdbcType=NUMERIC}
+	</update>
+</mapper>

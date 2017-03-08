@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bole.po.dao.user.UserLevelStatMapper">
+	<resultMap id="BaseResultMap" type="com.bole.po.model.user.UserLevelStat">
+		<id column="id" property="id" jdbcType="NUMERIC" />
+		<result column="user_id" property="userId" jdbcType="NUMERIC" />
+		<result column="level" property="level" jdbcType="NUMERIC" />
+		<result column="total" property="total" jdbcType="INTEGER" />
+		<result column="add_time" property="addTime" jdbcType="NUMERIC" />
+		<result column="update_time" property="updateTime" jdbcType="NUMERIC" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, user_id, level, total, add_time, update_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from user_level_stat
+		where id = #{id,jdbcType=NUMERIC}
+	</select>
+	
+	<select id="selectBySearchVo" resultMap="BaseResultMap" parameterType="com.bole.vo.UserSearchVo">
+		select
+		<include refid="Base_Column_List" />
+		from user_level_stat
+		<include refid="bySearchVo"/>
+		order by id desc
+	</select>
+	
+	<select id="selectByListPage" resultMap="BaseResultMap" parameterType="com.bole.vo.UserSearchVo">
+		select
+		<include refid="Base_Column_List" />
+		from user_level_stat
+		<include refid="bySearchVo"/>
+		order by id desc
+	</select>
+	
+	<sql id="bySearchVo">
+	    where 1 = 1
+	    <if test="userId != null">
+			and userId = #{userId,jdbcType=NUMERIC}
+		</if>
+		
+	    <if test="level != null">
+			and level = #{level,jdbcType=NUMERIC}
+		</if>
+	</sql>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from user_level_stat
+		where id = #{id,jdbcType=NUMERIC}
+	</delete>
+	<insert id="insert" parameterType="com.bole.po.model.user.UserLevelStat">
+		<selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into user_level_stat (user_id, level, total,
+		add_time, update_time)
+		values (#{userId,jdbcType=NUMERIC}, #{level,jdbcType=NUMERIC}, #{total,jdbcType=INTEGER},
+		#{addTime,jdbcType=NUMERIC}, #{updateTime,jdbcType=NUMERIC})
+	</insert>
+	<insert id="insertSelective" parameterType="com.bole.po.model.user.UserLevelStat">
+		<selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into user_level_stat
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="level != null">
+				level,
+			</if>
+			<if test="total != null">
+				total,
+			</if>
+			<if test="addTime != null">
+				add_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				#{userId,jdbcType=NUMERIC},
+			</if>
+			<if test="level != null">
+				#{level,jdbcType=NUMERIC},
+			</if>
+			<if test="total != null">
+				#{total,jdbcType=INTEGER},
+			</if>
+			<if test="addTime != null">
+				#{addTime,jdbcType=NUMERIC},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=NUMERIC},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.bole.po.model.user.UserLevelStat">
+		update user_level_stat
+		<set>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=NUMERIC},
+			</if>
+			<if test="level != null">
+				level = #{level,jdbcType=NUMERIC},
+			</if>
+			<if test="total != null">
+				total = #{total,jdbcType=INTEGER},
+			</if>
+			<if test="addTime != null">
+				add_time = #{addTime,jdbcType=NUMERIC},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=NUMERIC},
+			</if>
+		</set>
+		where id = #{id,jdbcType=NUMERIC}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.bole.po.model.user.UserLevelStat">
+		update user_level_stat
+		set user_id = #{userId,jdbcType=NUMERIC},
+		level = #{level,jdbcType=NUMERIC},
+		total = #{total,jdbcType=INTEGER},
+		add_time = #{addTime,jdbcType=NUMERIC},
+		update_time = #{updateTime,jdbcType=NUMERIC}
+		where id = #{id,jdbcType=NUMERIC}
+	</update>
+</mapper>
