@@ -7,11 +7,14 @@
  
 # ignore Maven generated target folders
 target
-*.externalToolBuilder*
  
 # ignore eclipse files
 .project
 .classpath
 .settings
 .metadata
+
+# ignore windows files
+*Thumbs.db
+*thumbs.db
 
