@@ -9,7 +9,7 @@ public class UserScoreDetail {
 
     private Integer score;
 
-    private Short score_Type;
+    private Short scoreType;
 
     private Integer scorePre;
 
@@ -51,14 +51,6 @@ public class UserScoreDetail {
         this.score = score;
     }
 
-    public Short getScore_Type() {
-        return score_Type;
-    }
-
-    public void setScore_Type(Short score_Type) {
-        this.score_Type = score_Type;
-    }
-
     public Integer getScorePre() {
         return scorePre;
     }
@@ -90,4 +82,12 @@ public class UserScoreDetail {
     public void setAddTime(Long addTime) {
         this.addTime = addTime;
     }
+
+	public Short getScoreType() {
+		return scoreType;
+	}
+
+	public void setScoreType(Short scoreType) {
+		this.scoreType = scoreType;
+	}
 }
