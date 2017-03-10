@@ -1,6 +1,7 @@
 package com.bole.service.impl.user;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +12,6 @@ import com.bole.vo.UserSearchVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.meijia.utils.TimeStampUtil;
-
-
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -72,6 +71,27 @@ public class UserServiceImpl implements UserService {
 		List<User> list = mapper.selectByListPage(searchVo);
 		PageInfo info = new PageInfo(list);
 		return info;
+	}
+	
+	@Override
+	public User genUser(String openId, String nickName, String headImg, String gameId) {
+		UserSearchVo searchVo = new UserSearchVo();
+		searchVo.setOpenId(openId);
+		List<User> users = this.selectBySearchVo(searchVo);
+		User u = this.initPo();
+		if (users.isEmpty()) {
+			// 验证手机号是否已经注册，如果未注册，则自动注册用户，
+			
+			u.setOpenId(openId);
+			u.setNickName(nickName);
+			u.setHeadImg(headImg);
+			u.setGameId(gameId);
+			this.insertSelective(u);
+		} else {
+			u = users.get(0);
+		}
+
+		return u;
 	}
 	
 }

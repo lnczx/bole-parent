@@ -22,4 +22,6 @@ public interface UserService {
 
 	PageInfo selectByListPage(UserSearchVo searchVo, int pageNum, int pageSize);
 
+	User genUser(String openId, String nickName, String headImg, String gameId);
+
 }
