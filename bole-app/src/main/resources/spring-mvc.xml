@@ -31,19 +31,15 @@
     <!-- 如果当前请求为"/”时，则转发到"/home/hello” -->
     <mvc:view-controller path="/" view-name="forward:/home/index"/>
     <!-- 静态资源映射 -->
-    <mvc:resources mapping="/static/**" location="/WEB-INF/static/" />
-    <mvc:resources mapping="/lib/**" location="/WEB-INF/lib/" />
- 	<mvc:resources mapping="/attach/**" location="/WEB-INF/attach/" />
-
-
+    <mvc:resources mapping="/static/js/**" location="/WEB-INF/static/js/" />
+    <mvc:resources mapping="/static/css/**" location="/WEB-INF/static/css/" cache-period="2592000"/>
+    <mvc:resources mapping="/static/images/**" location="/WEB-INF/static/images/" cache-period="2592000"/>
 
 	<!-- 开启controller注解支持 -->
     <!-- use-default-filters="false" 只扫描指定的注解 -->
-    <context:component-scan base-package="com.simi.action.**,
-    									  com.simi.action.admin.**,
-    									  com.hos.action.**,
-    									  com.host.action.project.**,
-    									  com.host.action.student.**"
+    <context:component-scan base-package="com.bole.action.**,
+    									  com.bole.**,
+    									  com.simi.**"
     									 use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>

@@ -4,45 +4,42 @@
 <html>
 <head>
 <!--common css for all pages-->
-<%@ include file="../shared/importCss.jsp"%>
+<%@ include file="../shared/pageHeader.jsp"%>
 </head>
 <body>
-	<!--header start-->
-	<%@ include file="../shared/pageHeader.jsp"%>
-	<!--header end-->
-	<!--sidebar start-->
-	<%@ include file="../shared/sidebarMenu.jsp"%>
-	<!--sidebar end-->
-	
-	<section class="Hui-article-box">
-	<div id="Hui-tabNav" class="Hui-tabNav hidden-xs">
-		<div class="Hui-tabNav-wp">
-			<ul id="min_title_list" class="acrossTab cl">
-				<li class="active">
-					<span title="欢迎使用" data-href="/home/help">欢迎使用</span>
-					<em></em>
-				</li>
-			</ul>
-		</div>
-		<div class="Hui-tabNav-more btn-group">
-			<a id="js-tabNav-prev" class="btn radius btn-default size-S" href="javascript:;">
-				<i class="Hui-iconfont">&#xe6d4;</i>
-			</a>
-			<a id="js-tabNav-next" class="btn radius btn-default size-S" href="javascript:;">
-				<i class="Hui-iconfont">&#xe6d7;</i>
-			</a>
-		</div>
+<body ontouchstart>
+	<header class='demos-header'>
+	<h1 class="demos-title">会员专区</h1>
+	<p class='demos-sub-title'>bole会员专区管理</p>
+	</header>
+	<div class="weui-grids">
+		<a href="buttons.html" class="weui-grid js_grid">
+			<div class="weui-grid__icon">
+				<img src="<c:url value='/static/images/icon_nav_button.png'/>" alt="">
+			</div>
+			<p class="weui-grid__label">Button</p>
+		</a>
+		<a href="cell.html" class="weui-grid js_grid">
+			<div class="weui-grid__icon">
+				<img src="<c:url value='/static/images/icon_nav_cell.png'/>" alt="">
+			</div>
+			<p class="weui-grid__label">List</p>
+		</a>
+		<a href="form.html" class="weui-grid js_grid">
+			<div class="weui-grid__icon">
+				<img src="<c:url value='/static/images/icon_nav_cell.png'/>" alt="">
+			</div>
+			<p class="weui-grid__label">Form</p>
+		</a>
 	</div>
-	<div id="iframe_box" class="Hui-article">
-		<div class="show_iframe">
-			<div style="display: none" class="loading"></div>
-			<iframe id="showIframe" name="showIframe" scrolling="yes" frameborder="0" src="${sessionScope.accountAuth.appName}/home/help"></iframe>
-		</div>
-	</div>
-	</section>
+	<style>
+	.weui-footer {
+		margin: 25px 0 10px 0;
+	}
+</style>
 	<!-- js placed at the end of the document so the pages load faster -->
 	<!--common script for all pages-->
-	<%@ include file="../shared/importJs.jsp"%>
+	<%@ include file="../shared/pageFooter.jsp"%>
 	<!--script for this page-->
 </body>
 </html>
