@@ -21,6 +21,8 @@ public class User {
 
     private Long pId;
     
+    private String pGameId;
+    
     private Short enable;
 
     private Long addTime;
@@ -129,5 +131,13 @@ public class User {
 
 	public void setEnable(Short enable) {
 		this.enable = enable;
+	}
+
+	public String getpGameId() {
+		return pGameId;
+	}
+
+	public void setpGameId(String pGameId) {
+		this.pGameId = pGameId;
 	}
 }

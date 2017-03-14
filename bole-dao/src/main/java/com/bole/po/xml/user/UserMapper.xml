@@ -12,13 +12,14 @@
 		<result column="invite_code" property="inviteCode" jdbcType="VARCHAR" />
 		<result column="level" property="level" jdbcType="NUMERIC" />
 		<result column="p_id" property="pId" jdbcType="NUMERIC" />
+		<result column="p_game_id" property="pGameId" jdbcType="NUMERIC" />
 		<result column="enable" property="enable" jdbcType="NUMERIC" />
 		<result column="add_time" property="addTime" jdbcType="NUMERIC" />
 		<result column="update_time" property="updateTime" jdbcType="NUMERIC" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		user_id, user_type, open_id, nick_name, head_img, game_id, password, invite_code, level, p_id,
-		enable, add_time, update_time
+	user_id, user_type, open_id, nick_name, head_img, game_id, password, invite_code, level, p_id, p_game_id,
+	enable, add_time, update_time
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
 		select
@@ -61,6 +62,10 @@
 			and game_id = #{gameId,jdbcType=VARCHAR}
 		</if>
 		
+		<if test="pGameId != null">
+			and p_game_id = #{pGameId,jdbcType=VARCHAR}
+		</if>
+		
 		<if test="password != null">
 			and password = #{password,jdbcType=VARCHAR}
 		</if>
@@ -88,12 +93,12 @@
 		</selectKey>
 		insert into user (user_type, open_id, nick_name,
 		head_img, game_id, password, invite_code,
-		level, p_id, enable, add_time,
+		level, p_id, p_game_id, enable, add_time,
 		update_time)
 		values (#{userType,jdbcType=NUMERIC}, #{openId,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR},
 		#{headImg,jdbcType=VARCHAR}, #{gameId,jdbcType=VARCHAR}, 
 		#{password,jdbcType=VARCHAR}, #{inviteCode,jdbcType=VARCHAR},
-		#{level,jdbcType=NUMERIC}, #{pId,jdbcType=NUMERIC}, #{enable,jdbcType=NUMERIC},
+		#{level,jdbcType=NUMERIC}, #{pId,jdbcType=NUMERIC}, #{pGameId,jdbcType=VARCHAR}, #{enable,jdbcType=NUMERIC},
 		#{addTime,jdbcType=NUMERIC},#{updateTime,jdbcType=NUMERIC})
 	</insert>
 	<insert id="insertSelective" parameterType="com.bole.po.model.user.User">
@@ -128,6 +133,9 @@
 			</if>
 			<if test="pId != null">
 				p_id,
+			</if>
+			<if test="pGameId != null">
+				p_game_id,
 			</if>
 			<if test="enable != null">
 				enable,
@@ -166,6 +174,9 @@
 			</if>
 			<if test="pId != null">
 				#{pId,jdbcType=NUMERIC},
+			</if>
+			<if test="pGameId != null">
+				#{pGameId,jdbcType=VARCHAR},
 			</if>
 			<if test="enable != null">
 				#{enable,jdbcType=NUMERIC},
@@ -208,6 +219,9 @@
 			<if test="pId != null">
 				p_id = #{pId,jdbcType=NUMERIC},
 			</if>
+			<if test="pGameId != null">
+				p_game_id = #{pGameId,jdbcType=VARCHAR},
+			</if>
 			<if test="enable != null">
 				enable = #{enable,jdbcType=NUMERIC},
 			</if>
@@ -231,6 +245,7 @@
 		invite_code = #{inviteCode,jdbcType=VARCHAR},
 		level = #{level,jdbcType=NUMERIC},
 		p_id = #{pId,jdbcType=NUMERIC},
+		p_game_id = #{pGameId,jdbcType=VARCHAR},
 		enable = #{enable,jdbcType=NUMERIC},
 		add_time = #{addTime,jdbcType=NUMERIC},
 		update_time = #{updateTime,jdbcType=NUMERIC}
