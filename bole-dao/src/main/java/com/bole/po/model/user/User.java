@@ -12,12 +12,16 @@ public class User {
     private String headImg;
 
     private String gameId;
+    
+    private String password;
 
     private String inviteCode;
 
     private Short level;
 
     private Long pId;
+    
+    private Short enable;
 
     private Long addTime;
 
@@ -110,4 +114,20 @@ public class User {
     public void setUpdateTime(Long updateTime) {
         this.updateTime = updateTime;
     }
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Short getEnable() {
+		return enable;
+	}
+
+	public void setEnable(Short enable) {
+		this.enable = enable;
+	}
 }

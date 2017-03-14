@@ -45,9 +45,11 @@ public class UserServiceImpl implements UserService {
 		record.setNickName("");
 		record.setHeadImg("");
 		record.setGameId("");
+		record.setPassword("");
 		record.setInviteCode("");
 		record.setLevel((short) 0);
 		record.setpId(0L);
+		record.setEnable((short) 1);
 		record.setAddTime(TimeStampUtil.getNowSecond());
 		record.setUpdateTime(TimeStampUtil.getNowSecond());
 

@@ -8,15 +8,17 @@
 		<result column="nick_name" property="nickName" jdbcType="VARCHAR" />
 		<result column="head_img" property="headImg" jdbcType="VARCHAR" />
 		<result column="game_id" property="gameId" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
 		<result column="invite_code" property="inviteCode" jdbcType="VARCHAR" />
 		<result column="level" property="level" jdbcType="NUMERIC" />
 		<result column="p_id" property="pId" jdbcType="NUMERIC" />
+		<result column="enable" property="enable" jdbcType="NUMERIC" />
 		<result column="add_time" property="addTime" jdbcType="NUMERIC" />
 		<result column="update_time" property="updateTime" jdbcType="NUMERIC" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		user_id, user_type, open_id, nick_name, head_img, game_id, invite_code, level, p_id,
-		add_time, update_time
+		user_id, user_type, open_id, nick_name, head_img, game_id, password, invite_code, level, p_id,
+		enable, add_time, update_time
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
 		select
@@ -59,6 +61,10 @@
 			and game_id = #{gameId,jdbcType=VARCHAR}
 		</if>
 		
+		<if test="password != null">
+			and password = #{password,jdbcType=VARCHAR}
+		</if>
+		
 		<if test="inviteCode != null">
 			and invite_code = #{inviteCode,jdbcType=VARCHAR}
 		</if>
@@ -81,13 +87,14 @@
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		insert into user (user_type, open_id, nick_name,
-		head_img, game_id, invite_code,
-		level, p_id, add_time,
+		head_img, game_id, password, invite_code,
+		level, p_id, enable, add_time,
 		update_time)
 		values (#{userType,jdbcType=NUMERIC}, #{openId,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR},
-		#{headImg,jdbcType=VARCHAR}, #{gameId,jdbcType=VARCHAR}, #{inviteCode,jdbcType=VARCHAR},
-		#{level,jdbcType=NUMERIC}, #{pId,jdbcType=NUMERIC}, #{addTime,jdbcType=NUMERIC},
-		#{updateTime,jdbcType=NUMERIC})
+		#{headImg,jdbcType=VARCHAR}, #{gameId,jdbcType=VARCHAR}, 
+		#{password,jdbcType=VARCHAR}, #{inviteCode,jdbcType=VARCHAR},
+		#{level,jdbcType=NUMERIC}, #{pId,jdbcType=NUMERIC}, #{enable,jdbcType=NUMERIC},
+		#{addTime,jdbcType=NUMERIC},#{updateTime,jdbcType=NUMERIC})
 	</insert>
 	<insert id="insertSelective" parameterType="com.bole.po.model.user.User">
 		<selectKey resultType="java.lang.Long" keyProperty="userId" order="AFTER">
@@ -110,6 +117,9 @@
 			<if test="gameId != null">
 				game_id,
 			</if>
+			<if test="password != null">
+				password,
+			</if>
 			<if test="inviteCode != null">
 				invite_code,
 			</if>
@@ -118,6 +128,9 @@
 			</if>
 			<if test="pId != null">
 				p_id,
+			</if>
+			<if test="enable != null">
+				enable,
 			</if>
 			<if test="addTime != null">
 				add_time,
@@ -142,6 +155,9 @@
 			<if test="gameId != null">
 				#{gameId,jdbcType=VARCHAR},
 			</if>
+			<if test="password != null">
+				#{password,jdbcType=VARCHAR},
+			</if>
 			<if test="inviteCode != null">
 				#{inviteCode,jdbcType=VARCHAR},
 			</if>
@@ -150,6 +166,9 @@
 			</if>
 			<if test="pId != null">
 				#{pId,jdbcType=NUMERIC},
+			</if>
+			<if test="enable != null">
+				#{enable,jdbcType=NUMERIC},
 			</if>
 			<if test="addTime != null">
 				#{addTime,jdbcType=NUMERIC},
@@ -177,6 +196,9 @@
 			<if test="gameId != null">
 				game_id = #{gameId,jdbcType=VARCHAR},
 			</if>
+			<if test="password != null">
+				password = #{password,jdbcType=VARCHAR},
+			</if>
 			<if test="inviteCode != null">
 				invite_code = #{inviteCode,jdbcType=VARCHAR},
 			</if>
@@ -185,6 +207,9 @@
 			</if>
 			<if test="pId != null">
 				p_id = #{pId,jdbcType=NUMERIC},
+			</if>
+			<if test="enable != null">
+				enable = #{enable,jdbcType=NUMERIC},
 			</if>
 			<if test="addTime != null">
 				add_time = #{addTime,jdbcType=NUMERIC},
@@ -202,9 +227,11 @@
 		nick_name = #{nickName,jdbcType=VARCHAR},
 		head_img = #{headImg,jdbcType=VARCHAR},
 		game_id = #{gameId,jdbcType=VARCHAR},
+		password = #{password,jdbcType=VARCHAR},
 		invite_code = #{inviteCode,jdbcType=VARCHAR},
 		level = #{level,jdbcType=NUMERIC},
 		p_id = #{pId,jdbcType=NUMERIC},
+		enable = #{enable,jdbcType=NUMERIC},
 		add_time = #{addTime,jdbcType=NUMERIC},
 		update_time = #{updateTime,jdbcType=NUMERIC}
 		where user_id = #{userId,jdbcType=NUMERIC}

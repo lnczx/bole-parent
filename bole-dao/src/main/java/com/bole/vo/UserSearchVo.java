@@ -10,6 +10,8 @@ public class UserSearchVo  {
 	
 	private String gameId;
 	
+	private String password;
+	
 	private String inviteCode;
 	
 	private Long pId;
@@ -130,5 +132,13 @@ public class UserSearchVo  {
 
 	public void setpId(Long pId) {
 		this.pId = pId;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

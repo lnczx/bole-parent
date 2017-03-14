@@ -10,7 +10,7 @@
 <body ontouchstart>
 	<header class='demos-header'>
 	<h1 class="demos-title">会员专区</h1>
-	<p class='demos-sub-title'>会员专区管理</p>
+	<p class='demos-sub-title'>bole会员专区</p>
 	</header>
 	<div class="weui-grids">
 		<a href="buttons.html" class="weui-grid js_grid">
