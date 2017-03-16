@@ -25,7 +25,7 @@
 			
 			<div class="weui-cell">
 				<div class="weui-cell__hd">
-					<label class="weui-label">上级代理游戏ID</label>
+					<label class="weui-label">上级代理ID</label>
 				</div>
 				<div class="weui-cell__bd">
 					<form:input path="pGameId" class="weui-input"  maxLength="20" placeholder="请输入上级代理游戏ID"/>
@@ -34,24 +34,24 @@
 			
 			<div class="weui-cell">
 				<div class="weui-cell__hd">
-					<label class="weui-label">游戏ID</label>
+					<label class="weui-label">游戏ID    </label>
 				</div>
 				<div class="weui-cell__bd">
 					<form:input path="gameId" class="weui-input"  maxLength="20" placeholder="请输入游戏ID"/>
 				</div>
 			</div>
-			<div class="weui-cell weui-cell_vcode">
+			<div class="weui-cell">
 				<div class="weui-cell__hd">
-					<label class="weui-label">密码</label>
+					<label class="weui-label">密码 </label>
 				</div>
 				<div class="weui-cell__bd">
 					<form:password path="password" class="weui-input"  placeholder="请输入密码" maxLength="20"/>
 				</div>
 			</div>
 			
-			<div class="weui-cell weui-cell_vcode">
+			<div class="weui-cell">
 				<div class="weui-cell__hd">
-					<label class="weui-label">密码</label>
+					<label class="weui-label ft">确认密码</label>
 				</div>
 				<div class="weui-cell__bd">
 					<input type="password" id="password2" name="password2" class="weui-input"  placeholder="请再次输入密码" maxLength="20"/>
@@ -66,7 +66,7 @@
 	</form:form>
 	<!-- js placed at the end of the document so the pages load faster -->
 	<!--common script for all pages-->
-	<%@ include file="../shared/pageFooter.jsp"%>
+	<%@ include file="../shared/importJs.jsp"%>
 	<script src="<c:url value='/static/js/lib/jquery.validation/1.14.0/jquery.validate.min.js'/>" type="text/javascript"></script>
 	<script type="text/javascript" src="<c:url value='/static/js/bole/reg.js'/>"></script>
 	<!--script for this page-->

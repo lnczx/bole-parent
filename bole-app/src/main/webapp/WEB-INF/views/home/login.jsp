@@ -31,7 +31,7 @@
 					<form:input path="username" class="weui-input"  maxLength="20" placeholder="请输入游戏ID"/>
 				</div>
 			</div>
-			<div class="weui-cell weui-cell_vcode">
+			<div class="weui-cell">
 				<div class="weui-cell__hd">
 					<label class="weui-label">密码</label>
 				</div>
@@ -43,13 +43,13 @@
 				<input type="submit" class="weui-btn weui-btn_primary" value="登陆">
 			</div>
 			<div class="weui-btn-area">
-				<a class="weui-btn weui-btn_primary"  id="btn-wx-login">微信登陆</a>
+				<a class="weui-btn weui-btn_primary" onclick="btn_link('/home/reg')" id="btn-wx-reg">注册</a>
 			</div>
 		</div>
 	</form:form>
 	<!-- js placed at the end of the document so the pages load faster -->
 	<!--common script for all pages-->
-	<%@ include file="../shared/pageFooter.jsp"%>
+	<%@ include file="../shared/importJs.jsp"%>
 	<script src="<c:url value='/static/js/lib/jquery.validation/1.14.0/jquery.validate.min.js'/>" type="text/javascript"></script>
 	<script type="text/javascript" src="<c:url value='/static/js/bole/login.js'/>"></script>
 	<!--script for this page-->

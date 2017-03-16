@@ -1,5 +1,6 @@
 package com.bole.service.impl.user;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,10 @@ public class UserServiceImpl implements UserService {
 		record.setLevel((short) 1);
 		record.setpId(0L);
 		record.setpGameId("");
+		record.setScore(0);
+		record.setScoreLastTime(0L);
 		record.setEnable((short) 1);
+		record.setActive((short) 1);
 		record.setAddTime(TimeStampUtil.getNowSecond());
 		record.setUpdateTime(TimeStampUtil.getNowSecond());
 
@@ -95,6 +99,35 @@ public class UserServiceImpl implements UserService {
 		}
 
 		return u;
+	}
+	
+	@Override
+	public boolean isSubUser(Long pId, Long userId) {
+		boolean isExist = false;
+		int i = 0;
+		List<Long> pIds = new ArrayList<Long>();
+		pIds.add(pId);
+		while (true) {
+			UserSearchVo searchVo = new UserSearchVo();
+			searchVo.setpIds(pIds);
+			List<User> list = this.selectBySearchVo(searchVo);
+			
+			if (list.isEmpty()) {
+				isExist = false;
+				break;
+			} 
+			pIds = new ArrayList<Long>();
+			for(User item : list) {
+				pIds.add(item.getUserId());
+				if (item.getUserId().equals(userId)) {
+					isExist = true;
+					break;
+				}
+			}
+		}
+		
+		
+		return isExist;
 	}
 	
 }

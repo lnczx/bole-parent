@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
-	import="com.github.pagehelper.PageInfo" import="com.meijia.utils.PageUtil" import="com.hos.common.Constants"
+	import="com.github.pagehelper.PageInfo" import="com.meijia.utils.PageUtil" import="com.bole.common.Constants"
 	import="org.apache.taglibs.standard.tag.common.core.UrlSupport"%>
 <%
 	String urlAddress = request.getParameter("urlAddress");

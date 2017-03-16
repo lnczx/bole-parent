@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.bole.common.Constants;
 import com.bole.po.model.user.User;
 import com.simi.oa.common.PermissionException;
 
@@ -34,16 +35,17 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 					User u = accountAuth.getU();
 
 					Short userType = u.getUserType();
-
-					if (userType.equals((short) 0) && requestServletPath.indexOf("user") >= 0) {
+					
+					if (userType.equals(Constants.USER_TYPE_2)) {
 						hasPermission = true;
 					}
 
-					if (userType.equals((short) 1) && requestServletPath.indexOf("kefu") >= 0) {
+					if (userType.equals(Constants.USER_TYPE_0) && requestServletPath.indexOf("user") >= 0) {
 						hasPermission = true;
 					}
 
-					if (userType.equals((short) 2)) {
+					if (userType.equals(Constants.USER_TYPE_1) && 
+						requestServletPath.indexOf("admin") < 0) {
 						hasPermission = true;
 					}
 

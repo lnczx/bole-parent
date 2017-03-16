@@ -1,5 +1,7 @@
 package com.bole.vo;
 
+import java.util.List;
+
 public class UserSearchVo  {
 	
 	private Long userId;
@@ -17,6 +19,8 @@ public class UserSearchVo  {
 	private String inviteCode;
 	
 	private Long pId;
+	
+	private List<Long> pIds;
 	
 	private Long userIdFrom;
 	
@@ -150,5 +154,13 @@ public class UserSearchVo  {
 
 	public void setpGameId(String pGameId) {
 		this.pGameId = pGameId;
+	}
+
+	public List<Long> getpIds() {
+		return pIds;
+	}
+
+	public void setpIds(List<Long> pIds) {
+		this.pIds = pIds;
 	}
 }

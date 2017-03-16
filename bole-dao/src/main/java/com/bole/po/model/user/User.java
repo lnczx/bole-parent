@@ -23,7 +23,13 @@ public class User {
     
     private String pGameId;
     
+    private int score;
+    
+    private Long scoreLastTime;
+    
     private Short enable;
+    
+    private Short active;
 
     private Long addTime;
 
@@ -139,5 +145,29 @@ public class User {
 
 	public void setpGameId(String pGameId) {
 		this.pGameId = pGameId;
+	}
+
+	public Short getActive() {
+		return active;
+	}
+
+	public void setActive(Short active) {
+		this.active = active;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	public Long getScoreLastTime() {
+		return scoreLastTime;
+	}
+
+	public void setScoreLastTime(Long scoreLastTime) {
+		this.scoreLastTime = scoreLastTime;
 	}
 }

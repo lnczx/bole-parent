@@ -13,33 +13,21 @@
 	<p class='demos-sub-title'>bole会员专区</p>
 	</header>
 	<div class="weui-grids">
-		<a href="buttons.html" class="weui-grid js_grid">
+		<c:forEach items="${menus}" var="item">
+		<a href="#" onclick="btn_link('${item.linkUrl}')" class="weui-grid js_grid">
 			<div class="weui-grid__icon">
-				<img src="<c:url value='/static/images/icon_nav_button.png'/>" alt="">
-			</div>
-			<p class="weui-grid__label">Button</p>
+					<img src="<c:url value='${item.iconUrl}'/>" alt="">
+				</div>
+			<p class="weui-grid__label">${item.name }</p>
 		</a>
-		<a href="cell.html" class="weui-grid js_grid">
-			<div class="weui-grid__icon">
-				<img src="<c:url value='/static/images/icon_nav_cell.png'/>" alt="">
-			</div>
-			<p class="weui-grid__label">List</p>
-		</a>
-		<a href="form.html" class="weui-grid js_grid">
-			<div class="weui-grid__icon">
-				<img src="<c:url value='/static/images/icon_nav_cell.png'/>" alt="">
-			</div>
-			<p class="weui-grid__label">Form</p>
-		</a>
+		</c:forEach>
+		
 	</div>
-	<style>
-	.weui-footer {
-		margin: 25px 0 10px 0;
-	}
-</style>
+	<%@ include file="../shared/pageFooter.jsp"%>
+	
 	<!-- js placed at the end of the document so the pages load faster -->
 	<!--common script for all pages-->
-	<%@ include file="../shared/pageFooter.jsp"%>
+	<%@ include file="../shared/importJs.jsp"%>
 	<!--script for this page-->
 </body>
 </html>

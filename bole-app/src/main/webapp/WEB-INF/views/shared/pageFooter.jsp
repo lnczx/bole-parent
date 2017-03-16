@@ -1,14 +1,17 @@
-
-<!--common script for all pages-->
-<script type="text/javascript" src="<c:url value='/static/js/lib/jquery-2.1.4.min.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/static/js/lib/fastclick.js'/>"></script>
-<script>
-  $(function() {
-    FastClick.attach(document.body);
-  });
-</script>
-<script type="text/javascript" src="<c:url value='/static/js/lib/jquery-weui.min.js'/>"></script>
-
-<script type="text/javascript" src="<c:url value='/static/js/bole/common-scripts.js'/>"></script>
-
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<div class="weui-tabbar">
+	<a href="#" onclick="btn_link('/home/index')" class="weui-tabbar__item weui-bar__item--on">
+		<div class="weui-tabbar__icon">
+			<img src="<c:url value='/static/images/icon_nav_button.png'/>" alt="">
+		</div>
+		<p class="weui-tabbar__label">首页</p>
+	</a>
+	
+	<a href="#tab4" class="weui-tabbar__item">
+		<div class="weui-tabbar__icon">
+			<img src="<c:url value='/static/images/icon_nav_cell.png'/>" alt="">
+		</div>
+		<p class="weui-tabbar__label">我的</p>
+	</a>
+</div>
+</div>

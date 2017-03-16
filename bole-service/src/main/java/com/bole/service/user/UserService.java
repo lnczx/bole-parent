@@ -24,4 +24,6 @@ public interface UserService {
 
 	User genUser(String openId, String nickName, String headImg, String gameId);
 
+	boolean isSubUser(Long pId, Long userId);
+
 }
