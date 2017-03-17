@@ -126,12 +126,14 @@ public class HomeController extends BaseController {
         return "home/index";
     }
     
+    @AuthPassport
 	@RequestMapping(value = "/success", method = { RequestMethod.GET })
 	public String successView(Model model, String nextUrl) {
 		model.addAttribute("nextUrl", nextUrl);
 		return "home/success";
 	}
 
+    @AuthPassport
 	@RequestMapping(value = "/fail", method = { RequestMethod.GET })
 	public String failView(Model model, String nextUrl) {
 		

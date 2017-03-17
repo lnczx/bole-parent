@@ -18,7 +18,7 @@
 		</div>
 		<div class="weui-msg__opr-area">
 			<p class="weui-btn-area">
-				<a href="#" onclick="${nextUrl}" class="weui-btn weui-btn_primary">查看</a>
+				<a href="#" onclick="btn_link('${nextUrl}')" class="weui-btn weui-btn_primary">查看</a>
 			</p>
 		</div>
 		

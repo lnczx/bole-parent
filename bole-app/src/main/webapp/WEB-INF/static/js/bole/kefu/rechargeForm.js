@@ -13,6 +13,12 @@ $(function() {
 				digits : true,
 				min : 1,
 			},
+			
+			scoreTypeSelect : {
+				required : true,
+			
+			},
+		
 		},
 		
 		messages : {
@@ -27,6 +33,10 @@ $(function() {
 				required : "请输入钻石数",
 				digits : "请输入正确钻石数",
 				min : "钻石数不能为0",
+			},
+			
+			scoreTypeSelect : {
+				required : "请选择充值类型",
 			},
 		},
 		
@@ -50,7 +60,7 @@ $(function() {
 	
 });
 
-$("#scoreType").select({
+$("#scoreTypeSelect").select({
 	title : "选择充值类型",
 	items : [ {
 		title : "赠送",
@@ -58,5 +68,12 @@ $("#scoreType").select({
 	}, {
 		title : "付款",
 		value : "1",
-	}]
+	} ],
+
+	beforeClose : function(values, titles) {
+
+		$("#scoreType").val(values);
+		return true;
+	},
+
 });

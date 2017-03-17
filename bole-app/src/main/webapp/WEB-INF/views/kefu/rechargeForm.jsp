@@ -43,7 +43,8 @@
 					<label for="name" class="weui-label">充值类型</label>
 				</div>
 				<div class="weui-cell__bd">
-					<input class="weui-input" id="scoreType" name="scoreType" type="text" value="">
+					<input class="weui-input" id="scoreTypeSelect" name="scoreTypeSelect"  type="text" value="">
+					<input type="hidden" name="scoreType"/>
 				</div>
 			</div>
 			<div class="weui-cells__title"></div>

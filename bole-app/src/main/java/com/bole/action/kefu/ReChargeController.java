@@ -1,5 +1,6 @@
 package com.bole.action.kefu;
 
+import java.net.URLEncoder;
 import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -110,7 +111,7 @@ public class ReChargeController extends BaseController {
 		record.setScore(score);
 		record.setScoreType(scoreType);
 		record.setScorePre(userTo.getScore());
-		record.setScoreAfter(userTo.getScore() + score);
+		record.setScoreAfter( (userTo.getScore() + score) );
 		record.setRemarks(formData.getRemarks());
 		record.setAddTime(TimeStampUtil.getNowSecond());
 		
@@ -121,8 +122,10 @@ public class ReChargeController extends BaseController {
 			//todo async user payback
 		}
 		
-		String returnUrl = "/home/success?nextUrl=/user/rechargeList?";
-		returnUrl+="&userIdTo="+userIdTo;
+		String returnUrl = "/home/success?nextUrl=";
+		String nextUrl = "/user/rechargeList?userIdTo="+userIdTo;
+		nextUrl = URLEncoder.encode(nextUrl);
+		returnUrl = returnUrl + nextUrl;
 		return "redirect:" + returnUrl;
 
 	}
