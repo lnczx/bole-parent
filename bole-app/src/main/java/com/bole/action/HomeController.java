@@ -55,10 +55,10 @@ public class HomeController extends BaseController {
     		menu2.setName("代理管理");
     		menus.add(menu2);
     		
-    		//代理管理
+    		//充值记录
     		MenuVo menu3 = new MenuVo();
     		menu3.setIconUrl("/static/images/icon_nav_cell.png");
-    		menu3.setLinkUrl("/kefu/agentList");
+    		menu3.setLinkUrl("/user/rechargeList");
     		menu3.setName("充值记录");
     		menus.add(menu3);
     		
@@ -79,10 +79,10 @@ public class HomeController extends BaseController {
     		menu2.setName("代理管理");
     		menus.add(menu2);
     		
-    		//代理管理
+    		//充值记录
     		MenuVo menu3 = new MenuVo();
     		menu3.setIconUrl("/static/images/icon_nav_cell.png");
-    		menu3.setLinkUrl("/kefu/agentList");
+    		menu3.setLinkUrl("/user/rechargeList");
     		menu3.setName("充值记录");
     		menus.add(menu3);
     	}
@@ -104,8 +104,8 @@ public class HomeController extends BaseController {
     		//返利记录
     		MenuVo menu3 = new MenuVo();
     		menu3.setIconUrl("/static/images/icon_nav_up.png");
-    		menu3.setLinkUrl("/kefu/agentList");
-    		menu3.setName("返利记录");
+    		menu3.setLinkUrl("/user/rechargeList");
+    		menu3.setName("充值记录");
     		menus.add(menu3);
     		//申请提现
     		MenuVo menu4 = new MenuVo();

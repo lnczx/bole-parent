@@ -22,6 +22,10 @@ public class UserSearchVo  {
 	
 	private List<Long> pIds;
 	
+	private String gameIdFrom;
+	
+	private String gameIdTo;
+	
 	private Long userIdFrom;
 	
 	private Long userIdTo;
@@ -35,6 +39,8 @@ public class UserSearchVo  {
 	private Short status;
 	
 	private Short scoreType;
+	
+	private Long linkDetailId;
 
 	public Long getUserId() {
 		return userId;
@@ -162,5 +168,29 @@ public class UserSearchVo  {
 
 	public void setpIds(List<Long> pIds) {
 		this.pIds = pIds;
+	}
+
+	public Long getLinkDetailId() {
+		return linkDetailId;
+	}
+
+	public void setLinkDetailId(Long linkDetailId) {
+		this.linkDetailId = linkDetailId;
+	}
+
+	public String getGameIdFrom() {
+		return gameIdFrom;
+	}
+
+	public void setGameIdFrom(String gameIdFrom) {
+		this.gameIdFrom = gameIdFrom;
+	}
+
+	public String getGameIdTo() {
+		return gameIdTo;
+	}
+
+	public void setGameIdTo(String gameIdTo) {
+		this.gameIdTo = gameIdTo;
 	}
 }

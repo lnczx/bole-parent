@@ -11,6 +11,8 @@ public class UserScoreDetailVo extends UserScoreDetail {
 	private String scoreTypeName;
 	
 	private String addTimeStr;
+	
+	private Integer totalPayBack;
 
 	public String getGameIdTo() {
 		return gameIdTo;
@@ -42,5 +44,13 @@ public class UserScoreDetailVo extends UserScoreDetail {
 
 	public void setAddTimeStr(String addTimeStr) {
 		this.addTimeStr = addTimeStr;
+	}
+
+	public int getTotalPayBack() {
+		return totalPayBack;
+	}
+
+	public void setTotalPayBack(int totalPayBack) {
+		this.totalPayBack = totalPayBack;
 	}
 }

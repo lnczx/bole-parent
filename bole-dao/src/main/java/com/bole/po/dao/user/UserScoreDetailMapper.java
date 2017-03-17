@@ -2,7 +2,6 @@ package com.bole.po.dao.user;
 
 import java.util.List;
 
-import com.bole.po.model.user.UserScoreCash;
 import com.bole.po.model.user.UserScoreDetail;
 import com.bole.vo.UserSearchVo;
 
@@ -22,4 +21,6 @@ public interface UserScoreDetailMapper {
     List<UserScoreDetail> selectByListPage(UserSearchVo searchVo);
     
     List<UserScoreDetail> selectBySearchVo(UserSearchVo searchVo);  
+    
+    Integer totalPayBack(UserSearchVo searchVo);
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bole.action.BaseController;
+import com.bole.common.Constants;
 import com.bole.po.model.user.User;
 import com.bole.service.user.UserService;
 import com.bole.vo.UserSearchVo;
@@ -22,7 +23,6 @@ import com.github.pagehelper.PageInfo;
 import com.meijia.utils.StringUtil;
 import com.meijia.utils.TimeStampUtil;
 import com.simi.oa.auth.AuthPassport;
-import com.simi.oa.common.ConstantOa;
 
 @Controller
 @RequestMapping(value = "/admin")
@@ -43,8 +43,8 @@ public class KefuController extends BaseController {
 		if (searchVo.getUserType() == null) searchVo.setUserType((short) 1);
 		
 		model.addAttribute("searchModel", searchVo);
-		int pageNo = ServletRequestUtils.getIntParameter(request, ConstantOa.PAGE_NO_NAME, ConstantOa.DEFAULT_PAGE_NO);
-		int pageSize = ConstantOa.DEFAULT_PAGE_SIZE;
+		int pageNo = ServletRequestUtils.getIntParameter(request, Constants.PAGE_NO_NAME, Constants.DEFAULT_PAGE_NO);
+		int pageSize = Constants.DEFAULT_PAGE_SIZE;
 		
 		PageInfo pageInfo = userService.selectByListPage(searchVo, pageNo, pageSize);
 		model.addAttribute("contentModel", pageInfo);

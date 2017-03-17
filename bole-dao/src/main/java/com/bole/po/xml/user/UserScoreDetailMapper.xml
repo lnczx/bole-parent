@@ -9,11 +9,12 @@
 		<result column="score_type" property="scoreType" jdbcType="NUMERIC" />
 		<result column="score_pre" property="scorePre" jdbcType="INTEGER" />
 		<result column="score_after" property="scoreAfter" jdbcType="INTEGER" />
+		<result column="link_detail_id" property="linkDetailId" jdbcType="NUMERIC" />
 		<result column="remarks" property="remarks" jdbcType="VARCHAR" />
 		<result column="add_time" property="addTime" jdbcType="NUMERIC" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, user_id_from, user_id_to, score, score_type, score_pre, score_after, remarks,
+		id, user_id_from, user_id_to, score, score_type, score_pre, score_after, link_detail_id, remarks,
 		add_time
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
@@ -39,18 +40,37 @@
 		order by id desc
 	</select>
 	
+	<select id="totalPayBack" resultType="java.lang.Integer" parameterType="com.bole.vo.UserSearchVo">
+		select
+		sum(score) as total
+		from user_score_detail
+		<include refid="bySearchVo"/>
+	</select>
+	
 	<sql id="bySearchVo">
 	    where 1 = 1
 	    <if test="userIdFrom != null">
 			and user_id_from = #{userIdFrom,jdbcType=NUMERIC}
 		</if>
 		
+		<if test="gameIdFrom != null">
+			and user_id_from = (select user_id from user where game_id = #{gameIdFrom,jdbcType=VARCHAR})
+		</if>
+		
 		<if test="userIdTo != null">
 			and user_id_to = #{userIdTo,jdbcType=NUMERIC}
 		</if>
 		
+		<if test="gameIdTo != null">
+			and user_id_to = (select user_id from user where game_id = #{gameIdTo,jdbcType=VARCHAR})
+		</if>
+		
 	    <if test="scoreType != null">
 			and score_type = #{scoreType,jdbcType=NUMERIC}
+		</if>
+		
+		<if test="linkDetailId != null">
+			and link_detail_id = #{linkDetailId,jdbcType=NUMERIC}
 		</if>
 	</sql>
 	
@@ -63,10 +83,11 @@
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		insert into user_score_detail (user_id_from, user_id_to, score,
-		score_type, score_pre, score_after,
+		score_type, score_pre, score_after, link_detail_id,
 		remarks, add_time)
 		values (#{userIdFrom,jdbcType=NUMERIC}, #{userIdTo,jdbcType=NUMERIC}, #{score,jdbcType=INTEGER},
-		#{scoreType,jdbcType=NUMERIC}, #{scorePre,jdbcType=INTEGER}, #{scoreAfter,jdbcType=INTEGER},
+		#{scoreType,jdbcType=NUMERIC}, #{scorePre,jdbcType=INTEGER}, 
+		#{scoreAfter,jdbcType=INTEGER}, #{linkDetailId,jdbcType=NUMERIC},
 		#{remarks,jdbcType=VARCHAR}, #{addTime,jdbcType=NUMERIC})
 	</insert>
 	<insert id="insertSelective" parameterType="com.bole.po.model.user.UserScoreDetail">
@@ -93,6 +114,9 @@
 			<if test="scoreAfter != null">
 				score_after,
 			</if>
+			<if test="linkDetailId != null">
+				link_detail_id,
+			</if>
 			<if test="remarks != null">
 				remarks,
 			</if>
@@ -118,6 +142,9 @@
 			</if>
 			<if test="scoreAfter != null">
 				#{scoreAfter,jdbcType=INTEGER},
+			</if>
+			<if test="linkDetailId != null">
+				#{linkDetailId,jdbcType=NUMERIC},
 			</if>
 			<if test="remarks != null">
 				#{remarks,jdbcType=VARCHAR},
@@ -148,6 +175,9 @@
 			<if test="scoreAfter != null">
 				score_after = #{scoreAfter,jdbcType=INTEGER},
 			</if>
+			<if test="linkDetailId != null">
+				link_detail_id = #{linkDetailId,jdbcType=NUMERIC},
+			</if>
 			<if test="remarks != null">
 				remarks = #{remarks,jdbcType=VARCHAR},
 			</if>
@@ -165,6 +195,7 @@
 		score_type = #{scoreType,jdbcType=NUMERIC},
 		score_pre = #{scorePre,jdbcType=INTEGER},
 		score_after = #{scoreAfter,jdbcType=INTEGER},
+		link_detail_id = #{linkDetailId,jdbcType=NUMERIC},
 		remarks = #{remarks,jdbcType=VARCHAR},
 		add_time = #{addTime,jdbcType=NUMERIC}
 		where id = #{id,jdbcType=NUMERIC}

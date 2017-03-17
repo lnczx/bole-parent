@@ -14,6 +14,8 @@ public class UserScoreDetail {
     private Integer scorePre;
 
     private Integer scoreAfter;
+    
+    private Long linkDetailId;
 
     private String remarks;
 
@@ -89,5 +91,13 @@ public class UserScoreDetail {
 
 	public void setScoreType(Short scoreType) {
 		this.scoreType = scoreType;
+	}
+
+	public Long getLinkDetailId() {
+		return linkDetailId;
+	}
+
+	public void setLinkDetailId(Long linkDetailId) {
+		this.linkDetailId = linkDetailId;
 	}
 }

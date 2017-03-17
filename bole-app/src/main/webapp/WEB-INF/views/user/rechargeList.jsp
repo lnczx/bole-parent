@@ -2,7 +2,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ include file="../shared/taglib.jsp"%>
 <!-- taglib for this page -->
-<%@ taglib prefix="timestampTag" uri="/WEB-INF/tags/timestamp.tld"%>
 <html>
 <head>
 <!--common css for all pages-->
@@ -12,41 +11,49 @@
 <body>
 <body ontouchstart>
 	<header class='demos-header'>
-	<h1 class="demos-title">客服列表</h1>
+	<h1 class="demos-title">充值记录</h1>
 	</header>
-	<div class="button_sp_area">
-		<a href="#" onclick="btn_link('/admin/kefuForm?userId=0')" class="weui-btn weui-btn_mini weui-btn_primary">添加客服</a>
+	<div class="weui-search-bar" id="searchBar">
+		<form:form modelAttribute="searchModel" id="search-form" class="weui-search-bar__form" method="GET">
+			<div class="weui-search-bar__box">
+				<i class="weui-icon-search"></i>
+				<input type="text" class="weui-search-bar__input" id="searchInput" name="gameIdTo" placeholder="搜索" required="">
+				<a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
+			</div>
+			<label class="weui-search-bar__label" id="searchText"
+				style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+				<i class="weui-icon-search"></i>
+				<span>搜索</span>
+			</label>
+			
+		</form:form>
+		<a href="javascript:" class="weui-search-bar__cancel-btn" id="btn-search">搜索</a>
+		<a href="javascript:" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
 	</div>
-	<br>
 	<div id="DataTables_Table_0_wrapper " class="dataTables_wrapper no-footer">
 		<table id="DataTables_Table_0" class="table table-border table-bordered table-hover table-bg table-sort">
 			<thead>
 				<tr class="text-c">
-					<th width="40">游戏ID</th>
-					<th width="40">钻石数</th>
-					<th width="50">最后充值时间</th>
-					<th width="40">操作</th>
+					<th width="50">时间</th>
+					<th width="35">充值人ID</th>
+					<th width="35">钻石数</th>
+					<th width="35">类型</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${contentModel.list}" var="item">
-					
 					<tr class="text-c">
-						<td><a href="#" onclick="btn_link('/user/rechargeList?userIdTo=${item.userId}')">${ item.gameId }</a></td>
+						<td>${ item.addTimeStr }</td>
+						<td>${ item.gameIdFrom }</td>
 						<td>${ item.score }</td>
-						<td><c:if test="${item.scoreLastTime > 0 }">
-								<timestampTag:timestamp patten="yyyy-MM-dd" t="${item.scoreLastTime * 1000}" />
-							</c:if></td>
-						<td><a href="#" onclick="btn_link('/kefu/rechargeForm?userIdTo=${item.userId}')"
-								class="weui-btn weui-btn_mini weui-btn_primary">充值</a></td>
+						<td>${ item.scoreTypeName }</td>
 					</tr>
-					
 				</c:forEach>
 			</tbody>
 		</table>
 		<c:import url="../shared/paging.jsp">
 			<c:param name="pageModelName" value="contentModel" />
-			<c:param name="urlAddress" value="/project/list" />
+			<c:param name="urlAddress" value="/user/rechargeList" />
 		</c:import>
 	</div>
 	<%@ include file="../shared/pageFooter.jsp"%>
@@ -56,5 +63,6 @@
 	<!--script for this page-->
 	<script type="text/javascript" src="<c:url value='/static/js/lib/datatables/1.10.0/jquery.dataTables.min.js'/>"></script>
 	<script src="<c:url value='/static/js/bole/table.js'/>"></script>
+	<script src="<c:url value='/static/js/bole/user/rechargeList.js'/>"></script>
 </body>
 </html>

@@ -117,6 +117,12 @@ public class ReChargeController extends BaseController {
 		
 		userScoreDetailService.insertSelective(record);
 		
+		//更新user表余额
+		userTo.setScore(userTo.getScore() + score);
+		userTo.setScoreLastTime(TimeStampUtil.getNowSecond());
+		userTo.setUpdateTime(TimeStampUtil.getNowSecond());
+		userService.updateByPrimaryKeySelective(userTo);
+		
 		//如果是给代理充值，则需要异步处理返利的情况
 		if (userTo.getUserType().equals((short)0)) {
 			//todo async user payback

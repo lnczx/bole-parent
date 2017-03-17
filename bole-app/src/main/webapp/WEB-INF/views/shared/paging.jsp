@@ -4,7 +4,7 @@
 <%
 	String urlAddress = request.getParameter("urlAddress");
 	String pageModelName = request.getParameter("pageModelName");
-	Integer pageCount = Constants.PAGE_MAX_NUMBER;
+	Integer pageCount = Constants.DEFAULT_PAGE_SIZE;
 	if (request.getParameter("pageCount") != null && !request.getParameter("pageCount").isEmpty()) {
 		pageCount = Integer.valueOf(request.getParameter("pageCount"));
 	}
