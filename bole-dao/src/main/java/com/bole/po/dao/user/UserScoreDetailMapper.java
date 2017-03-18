@@ -1,5 +1,6 @@
 package com.bole.po.dao.user;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.bole.po.model.user.UserScoreDetail;
@@ -22,5 +23,5 @@ public interface UserScoreDetailMapper {
     
     List<UserScoreDetail> selectBySearchVo(UserSearchVo searchVo);  
     
-    Integer totalPayBack(UserSearchVo searchVo);
+    BigDecimal totalPayBack(UserSearchVo searchVo);
 }

@@ -1,5 +1,7 @@
 package com.bole.vo.user;
 
+import java.math.BigDecimal;
+
 import com.bole.po.model.user.UserScoreDetail;
 
 public class UserScoreDetailVo extends UserScoreDetail {
@@ -8,11 +10,13 @@ public class UserScoreDetailVo extends UserScoreDetail {
 	
 	private String gameIdTo;
 	
+	private Short levelTo;
+	
 	private String scoreTypeName;
 	
 	private String addTimeStr;
 	
-	private Integer totalPayBack;
+	private BigDecimal totalPayBack;
 
 	public String getGameIdTo() {
 		return gameIdTo;
@@ -46,11 +50,19 @@ public class UserScoreDetailVo extends UserScoreDetail {
 		this.addTimeStr = addTimeStr;
 	}
 
-	public int getTotalPayBack() {
+	public BigDecimal getTotalPayBack() {
 		return totalPayBack;
 	}
 
-	public void setTotalPayBack(int totalPayBack) {
+	public void setTotalPayBack(BigDecimal totalPayBack) {
 		this.totalPayBack = totalPayBack;
+	}
+
+	public Short getLevelTo() {
+		return levelTo;
+	}
+
+	public void setLevelTo(Short levelTo) {
+		this.levelTo = levelTo;
 	}
 }

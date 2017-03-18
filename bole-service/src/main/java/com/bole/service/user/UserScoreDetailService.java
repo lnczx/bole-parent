@@ -1,7 +1,9 @@
 package com.bole.service.user;
 
+import java.math.BigDecimal;
 import java.util.List;
 
+import com.bole.po.model.user.User;
 import com.bole.po.model.user.UserScoreDetail;
 import com.bole.vo.UserSearchVo;
 import com.bole.vo.user.UserScoreDetailVo;
@@ -25,6 +27,8 @@ public interface UserScoreDetailService {
 
 	UserScoreDetailVo getVo(UserScoreDetail item);
 
-	Integer totalPayBack(Long linkDetailId);
+	BigDecimal totalPayBack(Long linkDetailId);
+
+	List<UserScoreDetailVo> getAgentTreePayBack(User userIdTo, UserScoreDetail item);
 
 }

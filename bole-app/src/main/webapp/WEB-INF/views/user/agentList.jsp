@@ -2,6 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ include file="../shared/taglib.jsp"%>
 <!-- taglib for this page -->
+<%@ taglib prefix="timestampTag" uri="/WEB-INF/tags/timestamp.tld"%>
 <html>
 <head>
 <!--common css for all pages-->
@@ -40,9 +41,9 @@
 			<thead>
 				<tr class="text-c">
 					<th width="50">游戏ID</th>
-					<th width="35">级别</th>
-					<th width="35">累计充值</th>
-					<th width="50">最后充值时间</th>
+					<th width="20">级别</th>
+					<th width="35">共充值</th>
+					<th width="50">充值时间</th>
 					<c:if test="${ userType != 0 }">
 						<th width="35">操作</th>
 					</c:if>
@@ -52,9 +53,11 @@
 				<c:forEach items="${contentModel.list}" var="item">
 					<tr class="text-c">
 						<td><a href="#" onclick="btn_link('/user/agentView?userId=${item.userId}')">${ item.gameId }</a></td>
-						<td>${ item.level }</td>
+						<td>${ item.level }级</td>
 						<td>${ item.score }</td>
-						<td>${ item.scoreLastTime }</td>
+						<td><c:if test="${item.scoreLastTime > 0 }">
+								<timestampTag:timestamp patten="MM-dd" t="${item.scoreLastTime * 1000}" />
+							</c:if></td>
 						<c:if test="${ userType != 0 }">
 							<td>
 							<a href="#" onclick="btn_link('/kefu/rechargeForm?userIdTo=${item.userId}')"

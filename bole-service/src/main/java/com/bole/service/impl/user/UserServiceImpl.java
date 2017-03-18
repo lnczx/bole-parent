@@ -1,5 +1,6 @@
 package com.bole.service.impl.user;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +65,7 @@ public class UserServiceImpl implements UserService {
 		record.setpId(0L);
 		record.setpGameId("");
 		record.setpCode("");
-		record.setScore(0);
+		record.setScore(new BigDecimal(0));
 		record.setScoreLastTime(0L);
 		record.setEnable((short) 1);
 		record.setActive(Constants.USER_ACTIVE_0);

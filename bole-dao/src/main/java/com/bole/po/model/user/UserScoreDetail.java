@@ -1,5 +1,7 @@
 package com.bole.po.model.user;
 
+import java.math.BigDecimal;
+
 public class UserScoreDetail {
     private Long id;
 
@@ -7,13 +9,13 @@ public class UserScoreDetail {
 
     private Long userIdTo;
 
-    private Integer score;
+    private BigDecimal score;
 
     private Short scoreType;
 
-    private Integer scorePre;
+    private BigDecimal scorePre;
 
-    private Integer scoreAfter;
+    private BigDecimal scoreAfter;
     
     private Long linkDetailId;
 
@@ -45,27 +47,27 @@ public class UserScoreDetail {
         this.userIdTo = userIdTo;
     }
 
-    public Integer getScore() {
+    public BigDecimal getScore() {
         return score;
     }
 
-    public void setScore(Integer score) {
+    public void setScore(BigDecimal score) {
         this.score = score;
     }
 
-    public Integer getScorePre() {
+    public BigDecimal getScorePre() {
         return scorePre;
     }
 
-    public void setScorePre(Integer scorePre) {
+    public void setScorePre(BigDecimal scorePre) {
         this.scorePre = scorePre;
     }
 
-    public Integer getScoreAfter() {
+    public BigDecimal getScoreAfter() {
         return scoreAfter;
     }
 
-    public void setScoreAfter(Integer scoreAfter) {
+    public void setScoreAfter(BigDecimal scoreAfter) {
         this.scoreAfter = scoreAfter;
     }
 

@@ -1,11 +1,13 @@
 package com.bole.po.model.user;
 
+import java.math.BigDecimal;
+
 public class UserScoreCash {
     private Long id;
 
     private Long userId;
 
-    private Integer scoreCash;
+    private BigDecimal scoreCash;
 
     private Short status;
 
@@ -29,11 +31,11 @@ public class UserScoreCash {
         this.userId = userId;
     }
 
-    public Integer getScoreCash() {
+    public BigDecimal getScoreCash() {
         return scoreCash;
     }
 
-    public void setScoreCash(Integer scoreCash) {
+    public void setScoreCash(BigDecimal scoreCash) {
         this.scoreCash = scoreCash;
     }
 

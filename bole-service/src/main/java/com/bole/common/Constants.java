@@ -45,5 +45,10 @@ public class Constants {
 	public static Short USER_ACTIVE_0 = 0;   //未激活;
 	public static Short USER_ACTIVE_1 = 1;   //已激活;
 	
+	//充值
+	public static Short SCORE_TYPE_0 = 0;    //赠送
+	public static Short SCORE_TYPE_1 = 1;    //付款
+	public static Short SCORE_TYPE_2 = 2;    //返利
+	
 
 }

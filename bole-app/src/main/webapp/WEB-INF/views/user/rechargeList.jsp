@@ -35,7 +35,7 @@
 			<thead>
 				<tr class="text-c">
 					<th width="50">时间</th>
-					<th width="35">充值人ID</th>
+					<th width="35">充值ID</th>
 					<th width="35">钻石数</th>
 					<th width="35">类型</th>
 				</tr>
@@ -44,7 +44,7 @@
 				<c:forEach items="${contentModel.list}" var="item">
 					<tr class="text-c">
 						<td>${ item.addTimeStr }</td>
-						<td>${ item.gameIdFrom }</td>
+						<td>${ item.gameIdTo }</td>
 						<td>${ item.score }</td>
 						<td>${ item.scoreTypeName }</td>
 					</tr>

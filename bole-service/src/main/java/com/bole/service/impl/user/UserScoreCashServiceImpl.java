@@ -1,5 +1,6 @@
 package com.bole.service.impl.user;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class UserScoreCashServiceImpl implements UserScoreCashService {
 		
 		record.setId(0L);
 		record.setUserId(0L);
-		record.setScoreCash(0);
+		record.setScoreCash(new BigDecimal(0));
 		record.setStatus((short) 0);
 		
 		record.setAddTime(TimeStampUtil.getNowSecond());

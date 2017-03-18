@@ -12,31 +12,31 @@
 	<h1 class="demos-title">代理信息</h1>
 	</header>
 	<div class="weui-form-preview">
-		<div class="weui-form-preview__hd">
+		<div class="weui-form-preview__bd">
 			<div class="weui-form-preview__item">
 				<label class="weui-form-preview__label">游戏ID</label>
 				<em class="weui-form-preview__value">${contentModel.gameId }</em>
 			</div>
 		</div>
-		<div class="weui-form-preview__hd">
+		<div class="weui-form-preview__bd">
 			<div class="weui-form-preview__item">
 				<label class="weui-form-preview__label">代理等级</label>
 				<em class="weui-form-preview__value">${contentModel.level }</em>
 			</div>
 		</div>
-		<div class="weui-form-preview__hd">
+		<div class="weui-form-preview__bd">
 			<div class="weui-form-preview__item">
 				<label class="weui-form-preview__label">上级ID</label>
 				<em class="weui-form-preview__value">${contentModel.pGameId }</em>
 			</div>
 		</div>
-		<div class="weui-form-preview__hd">
+		<div class="weui-form-preview__bd">
 			<div class="weui-form-preview__item">
 				<label class="weui-form-preview__label">邀请码</label>
 				<em class="weui-form-preview__value">${contentModel.inviteCode }</em>
 			</div>
 		</div>
-		<div class="weui-form-preview__hd">
+		<div class="weui-form-preview__bd">
 			<div class="weui-form-preview__item">
 				<label class="weui-form-preview__label">状态</label>
 				<em class="weui-form-preview__value"> <c:if test="${contentModel.active == 0 }">
@@ -50,14 +50,14 @@
 		<div class="weui-form-preview__ft">
 			<a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">团队成员分布</a>
 		</div>
-		<div class="weui-form-preview__hd">
+		<div class="weui-form-preview__bd">
 			<div class="weui-form-preview__item">
 				<label class="weui-form-preview__label">总成员</label>
 				<em class="weui-form-preview__value">${contentModel.totalSubAgent }人</em>
 			</div>
 		</div>
 		<c:forEach items="${contentModel.userLevelStats}" var="userLevelStat">
-			<div class="weui-form-preview__hd">
+			<div class="weui-form-preview__bd">
 				<div class="weui-form-preview__item">
 					<label class="weui-form-preview__label">${userLevelStat.level }级代理</label>
 					<em class="weui-form-preview__value">${userLevelStat.total }人</em>

@@ -14,7 +14,7 @@
 		<result column="p_id" property="pId" jdbcType="NUMERIC" />
 		<result column="p_game_id" property="pGameId" jdbcType="VARCHAR" />
 		<result column="p_code" property="pCode" jdbcType="VARCHAR" />
-		<result column="score" property="score" jdbcType="NUMERIC" />
+		<result column="score" property="score" jdbcType="DECIMAL" />
 		<result column="score_last_time" property="scoreLastTime" jdbcType="NUMERIC" />
 		<result column="enable" property="enable" jdbcType="NUMERIC" />
 		<result column="active" property="active" jdbcType="NUMERIC" />
@@ -127,7 +127,7 @@
 		#{password,jdbcType=VARCHAR}, #{inviteCode,jdbcType=VARCHAR},
 		#{level,jdbcType=NUMERIC}, #{pId,jdbcType=NUMERIC}, 
 		#{pGameId,jdbcType=VARCHAR}, #{pCode,jdbcType=VARCHAR}, 
-		#{score,jdbcType=NUMERIC}, #{scoreLastTime,jdbcType=NUMERIC}, 
+		#{score,jdbcType=DECIMAL}, #{scoreLastTime,jdbcType=NUMERIC}, 
 		#{enable,jdbcType=NUMERIC}, #{active,jdbcType=NUMERIC},
 		#{addTime,jdbcType=NUMERIC},#{updateTime,jdbcType=NUMERIC})
 	</insert>
@@ -224,7 +224,7 @@
 				#{pCode,jdbcType=VARCHAR},
 			</if>
 			<if test="score != null">
-				#{score,jdbcType=NUMERIC},
+				#{score,jdbcType=DECIMAL},
 			</if>
 			<if test="scoreLastTime != null">
 				#{scoreLastTime,jdbcType=NUMERIC},
@@ -280,7 +280,7 @@
 				p_code = #{pCode,jdbcType=VARCHAR},
 			</if>
 			<if test="score != null">
-				score = #{score,jdbcType=NUMERIC},
+				score = #{score,jdbcType=DECIMAL},
 			</if>
 			<if test="scoreLastTime != null">
 				score_last_time = #{scoreLastTime,jdbcType=NUMERIC},
@@ -313,7 +313,7 @@
 		p_id = #{pId,jdbcType=NUMERIC},
 		p_game_id = #{pGameId,jdbcType=VARCHAR},
 		p_code = #{pCode,jdbcType=VARCHAR},
-		score = #{score,jdbcType=NUMERIC},
+		score = #{score,jdbcType=DECIMAL},
 		score_last_time = #{scoreLastTime,jdbcType=NUMERIC},
 		enable = #{enable,jdbcType=NUMERIC},
 		active = #{active,jdbcType=NUMERIC},

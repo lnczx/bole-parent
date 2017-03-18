@@ -5,10 +5,10 @@
 		<id column="id" property="id" jdbcType="NUMERIC" />
 		<result column="user_id_from" property="userIdFrom" jdbcType="NUMERIC" />
 		<result column="user_id_to" property="userIdTo" jdbcType="NUMERIC" />
-		<result column="score" property="score" jdbcType="INTEGER" />
+		<result column="score" property="score" jdbcType="DECIMAL" />
 		<result column="score_type" property="scoreType" jdbcType="NUMERIC" />
-		<result column="score_pre" property="scorePre" jdbcType="INTEGER" />
-		<result column="score_after" property="scoreAfter" jdbcType="INTEGER" />
+		<result column="score_pre" property="scorePre" jdbcType="DECIMAL" />
+		<result column="score_after" property="scoreAfter" jdbcType="DECIMAL" />
 		<result column="link_detail_id" property="linkDetailId" jdbcType="NUMERIC" />
 		<result column="remarks" property="remarks" jdbcType="VARCHAR" />
 		<result column="add_time" property="addTime" jdbcType="NUMERIC" />
@@ -40,7 +40,7 @@
 		order by id desc
 	</select>
 	
-	<select id="totalPayBack" resultType="java.lang.Integer" parameterType="com.bole.vo.UserSearchVo">
+	<select id="totalPayBack" resultType="java.math.BigDecimal" parameterType="com.bole.vo.UserSearchVo">
 		select
 		sum(score) as total
 		from user_score_detail
@@ -85,9 +85,9 @@
 		insert into user_score_detail (user_id_from, user_id_to, score,
 		score_type, score_pre, score_after, link_detail_id,
 		remarks, add_time)
-		values (#{userIdFrom,jdbcType=NUMERIC}, #{userIdTo,jdbcType=NUMERIC}, #{score,jdbcType=INTEGER},
-		#{scoreType,jdbcType=NUMERIC}, #{scorePre,jdbcType=INTEGER}, 
-		#{scoreAfter,jdbcType=INTEGER}, #{linkDetailId,jdbcType=NUMERIC},
+		values (#{userIdFrom,jdbcType=NUMERIC}, #{userIdTo,jdbcType=NUMERIC}, #{score,jdbcType=DECIMAL},
+		#{scoreType,jdbcType=NUMERIC}, #{scorePre,jdbcType=DECIMAL}, 
+		#{scoreAfter,jdbcType=DECIMAL}, #{linkDetailId,jdbcType=NUMERIC},
 		#{remarks,jdbcType=VARCHAR}, #{addTime,jdbcType=NUMERIC})
 	</insert>
 	<insert id="insertSelective" parameterType="com.bole.po.model.user.UserScoreDetail">
@@ -132,16 +132,16 @@
 				#{userIdTo,jdbcType=NUMERIC},
 			</if>
 			<if test="score != null">
-				#{score,jdbcType=INTEGER},
+				#{score,jdbcType=DECIMAL},
 			</if>
 			<if test="scoreType != null">
 				#{scoreType,jdbcType=NUMERIC},
 			</if>
 			<if test="scorePre != null">
-				#{scorePre,jdbcType=INTEGER},
+				#{scorePre,jdbcType=DECIMAL},
 			</if>
 			<if test="scoreAfter != null">
-				#{scoreAfter,jdbcType=INTEGER},
+				#{scoreAfter,jdbcType=DECIMAL},
 			</if>
 			<if test="linkDetailId != null">
 				#{linkDetailId,jdbcType=NUMERIC},
@@ -164,16 +164,16 @@
 				user_id_to = #{userIdTo,jdbcType=NUMERIC},
 			</if>
 			<if test="score != null">
-				score = #{score,jdbcType=INTEGER},
+				score = #{score,jdbcType=DECIMAL},
 			</if>
 			<if test="scoreType != null">
 				score_type = #{scoreType,jdbcType=NUMERIC},
 			</if>
 			<if test="scorePre != null">
-				score_pre = #{scorePre,jdbcType=INTEGER},
+				score_pre = #{scorePre,jdbcType=DECIMAL},
 			</if>
 			<if test="scoreAfter != null">
-				score_after = #{scoreAfter,jdbcType=INTEGER},
+				score_after = #{scoreAfter,jdbcType=DECIMAL},
 			</if>
 			<if test="linkDetailId != null">
 				link_detail_id = #{linkDetailId,jdbcType=NUMERIC},
@@ -188,16 +188,16 @@
 		where id = #{id,jdbcType=NUMERIC}
 	</update>
 	<update id="updateByPrimaryKey" parameterType="com.bole.po.model.user.UserScoreDetail">
-		update user_score_detail
-		set user_id_from = #{userIdFrom,jdbcType=NUMERIC},
-		user_id_to = #{userIdTo,jdbcType=NUMERIC},
-		score = #{score,jdbcType=INTEGER},
-		score_type = #{scoreType,jdbcType=NUMERIC},
-		score_pre = #{scorePre,jdbcType=INTEGER},
-		score_after = #{scoreAfter,jdbcType=INTEGER},
-		link_detail_id = #{linkDetailId,jdbcType=NUMERIC},
-		remarks = #{remarks,jdbcType=VARCHAR},
-		add_time = #{addTime,jdbcType=NUMERIC}
-		where id = #{id,jdbcType=NUMERIC}
+	update user_score_detail
+	set user_id_from = #{userIdFrom,jdbcType=NUMERIC},
+	user_id_to = #{userIdTo,jdbcType=NUMERIC},
+	score = #{score,jdbcType=DECIMAL},
+	score_type = #{scoreType,jdbcType=NUMERIC},
+	score_pre = #{scorePre,jdbcType=DECIMAL},
+	score_after = #{scoreAfter,jdbcType=DECIMAL},
+	link_detail_id = #{linkDetailId,jdbcType=NUMERIC},
+	remarks = #{remarks,jdbcType=VARCHAR},
+	add_time = #{addTime,jdbcType=NUMERIC}
+	where id = #{id,jdbcType=NUMERIC}
 	</update>
 </mapper>
