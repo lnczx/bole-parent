@@ -18,10 +18,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.bole.common.Constants;
 import com.bole.po.model.user.User;
+import com.bole.service.async.UserAsyncService;
 import com.bole.service.user.UserService;
 import com.bole.vo.UserSearchVo;
 import com.meijia.utils.StringUtil;
+import com.meijia.utils.TimeStampUtil;
 import com.simi.oa.auth.AccountAuth;
 import com.simi.oa.auth.AccountRole;
 import com.simi.oa.auth.AuthHelper;
@@ -35,6 +38,9 @@ public class RegisterController extends BaseController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private UserAsyncService userAsyncService;
 
 	@RequestMapping(value = "/reg", method = { RequestMethod.GET })
 	public String reg(Model model) {
@@ -51,55 +57,42 @@ public class RegisterController extends BaseController {
 		// 如果有验证错误 返回到form页面
 		if (result.hasErrors())
 			return reg(model);
-
+		
+		String inviteCode = u.getInviteCode();
 		String gameId = u.getGameId();
-		String pGameId = u.getpGameId();
 
-		if (gameId.equals(pGameId)) {
-			result.addError(new FieldError("contentModel", "gameId", "上级代理ID不正确."));
+		if (StringUtil.isEmpty(inviteCode) || StringUtil.isEmpty(gameId)) {
+			result.addError(new FieldError("contentModel", "gameId", "请输入邀请码和游戏ID."));
 			return reg(model);
 		}
 
+		User agent = null;
 		UserSearchVo searchVo = new UserSearchVo();
 		searchVo.setGameId(gameId);
 		List<User> users = userService.selectBySearchVo(searchVo);
-
-		if (!users.isEmpty()) {
-			result.addError(new FieldError("contentModel", "gameId", "游戏ID已经注册过，请直接登录."));
+		
+		if (users.isEmpty()) {
+			result.addError(new FieldError("contentModel", "gameId", "邀请码不正确."));
 			return reg(model);
 		}
-
-		// 找出对于的上级代理
-		searchVo = new UserSearchVo();
-		searchVo.setGameId(pGameId);
-		List<User> pUsers = userService.selectBySearchVo(searchVo);
-		User pUser = null;
-		Long pId = 0L;
-		if (!pUsers.isEmpty()) {
-			pUser = pUsers.get(0);
-			pId = pUser.getUserId();
-		}
-
-		// 设定不能互为上级
-		if (pUser != null) {
-			if (pUser.getpGameId().equals(gameId)) {
-				result.addError(new FieldError("contentModel", "gameId", "上级代理ID不正确."));
+		
+		if (!users.isEmpty()) {
+			agent = users.get(0);
+			if (!agent.getInviteCode().equals(inviteCode)) {
+				result.addError(new FieldError("contentModel", "gameId", "邀请码不正确."));
 				return reg(model);
 			}
 		}
 
-		User newUser = userService.initPo();
-		newUser.setGameId(u.getGameId());
-		newUser.setPassword(StringUtil.md5(u.getPassword()));
-		newUser.setpGameId(pGameId);
-		newUser.setLevel((short) 1);
-		newUser.setpId(pId);
-
-		userService.insertSelective(newUser);
-
+		agent.setPassword(StringUtil.md5(u.getPassword()));
+        agent.setActive(Constants.USER_ACTIVE_1);
+        agent.setUpdateTime(TimeStampUtil.getNowSecond());
+        userService.updateByPrimaryKeySelective(agent);
+        
+        Long pId  = agent.getpId();
 		// todo,异步处理上级搭理ID的等级.
 		if (pId > 0L) {
-
+			userAsyncService.userLevelupTree(agent.getUserId());
 		}
 
 		String returnUrl = "/home/login";

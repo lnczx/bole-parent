@@ -63,7 +63,7 @@
 	
 	<%@ include file="../shared/importJs.jsp"%>
 	<script src="<c:url value='/static/js/lib/jquery.validation/1.14.0/jquery.validate.min.js'/>" type="text/javascript"></script>
-	<script type="text/javascript" src="<c:url value='/static/js/bole/admin/kefu.js'/>"></script>
+	<script type="text/javascript" src="<c:url value='/static/js/bole/admin/kefuForm.js'/>"></script>
 	<!--script for this page-->
 </body>
 </html>

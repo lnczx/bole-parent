@@ -36,8 +36,10 @@ public class RequestParamFilter implements HandlerInterceptor {
 
 		String requestUrl = request.getRequestURL().toString();
 
-		// 一些定时任务的日志不需要打印
-		if (requestUrl.indexOf("app/job") < 0) {
+		// 一些静态的日志不需要打印
+		if (requestUrl.indexOf(".js") < 0 &&
+			requestUrl.indexOf(".css") < 0 &&
+			requestUrl.indexOf(".png") < 0) {
 
 			logger.info("============== 1. preHandle ===================");
 
@@ -71,7 +73,9 @@ public class RequestParamFilter implements HandlerInterceptor {
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 
 		String requestUrl = request.getRequestURL().toString();
-		if (requestUrl.indexOf("app/job") < 0) {
+		if (requestUrl.indexOf(".js") < 0 &&
+				requestUrl.indexOf(".css") < 0 &&
+				requestUrl.indexOf(".png") < 0) {
 			logger.info("============== 2. postHandle ==================");
 
 			logger.info(handler.toString());
@@ -85,7 +89,9 @@ public class RequestParamFilter implements HandlerInterceptor {
 				ObjectMapper objectMapper = new ObjectMapper();
 				String str = objectMapper.writeValueAsString(result);
 
-				if (requestUrl.indexOf("app/job") < 0) {
+				if (requestUrl.indexOf(".js") < 0 &&
+						requestUrl.indexOf(".css") < 0 &&
+						requestUrl.indexOf(".png") < 0) {
 					logger.info(str);
 				}
 			}
@@ -107,7 +113,9 @@ public class RequestParamFilter implements HandlerInterceptor {
 		long consumeTime = endTime - beginTime;
 
 		String requestUrl = request.getRequestURL().toString();
-		if (requestUrl.indexOf("app/job") < 0) {
+		if (requestUrl.indexOf(".js") < 0 &&
+				requestUrl.indexOf(".css") < 0 &&
+				requestUrl.indexOf(".png") < 0) {
 			logger.info("execute consume_time: " + consumeTime + "ms");
 		}
 		// 此处认为处理时间超过500毫秒的请求为慢请求
@@ -119,7 +127,9 @@ public class RequestParamFilter implements HandlerInterceptor {
 		if (ex != null) {
 			logger.info(ex.getMessage());
 		}
-		if (requestUrl.indexOf("app/job") < 0) {
+		if (requestUrl.indexOf(".js") < 0 &&
+				requestUrl.indexOf(".css") < 0 &&
+				requestUrl.indexOf(".png") < 0) {
 			logger.info("============== 3. afterCompletion ===============");
 		}
 	}

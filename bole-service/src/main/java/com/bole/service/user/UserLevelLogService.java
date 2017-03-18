@@ -22,4 +22,6 @@ public interface UserLevelLogService {
 
 	PageInfo selectByListPage(UserSearchVo searchVo, int pageNum, int pageSize);
 
+	Boolean setUserLevelLog(Long userId, Short logType, Short levelPre, Short levelAfter, Long adminId);
+
 }

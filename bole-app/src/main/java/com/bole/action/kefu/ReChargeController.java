@@ -124,7 +124,7 @@ public class ReChargeController extends BaseController {
 		userService.updateByPrimaryKeySelective(userTo);
 		
 		//如果是给代理充值，则需要异步处理返利的情况
-		if (userTo.getUserType().equals((short)0)) {
+		if (userTo.getUserType().equals(Constants.USER_TYPE_0)) {
 			//todo async user payback
 		}
 		

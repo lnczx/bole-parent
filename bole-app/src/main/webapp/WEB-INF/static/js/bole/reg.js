@@ -2,9 +2,14 @@
 $(function() {
 	$("#reg-form").validate({
 		rules : {
-			pGameId : {
+//			pGameId : {
+//				required : true,
+//				digits:true ,
+//				minlength:6 
+//			},
+			
+			inviteCode : {
 				required : true,
-				digits:true ,
 				minlength:6 
 			},
 			
@@ -27,10 +32,15 @@ $(function() {
 		},
 		
 		messages : {
-			pGameId : {
-				required : "请输入上级代理游戏ID",
-				digits:"请输入正确的游戏ID" ,
-				minlength:"请输入正确的游戏ID" 	
+//			pGameId : {
+//				required : "请输入上级代理游戏ID",
+//				digits:"请输入正确的游戏ID" ,
+//				minlength:"请输入正确的游戏ID" 	
+//			},
+			
+			inviteCode : {
+				required : "请输入邀请码",
+				minlength:"请输入正确的邀请码"
 			},
 			
 			gameId : {
@@ -58,29 +68,15 @@ $(function() {
 			$.toptip($(label).text());
 			$(element).parent().parent().addClass("weui-cell_warn");
         },
-//        highlight: function(element, errorClass) {
-////        	console.log("highlight");
-////        	console.log($(element).parent().parent());
-////            $(element).parent().parent().next().removeClass("weui-cell_warn");
-//        	
-//        	$(element).parent().parent().next().addClass("weui-cell_warn");
-//        },
-//        unhighlight: function(element, errorClass) {  
-//        	console.log("unhighlight");
-//        	console.log($(element));
-//        	$(element).parent().parent().next().removeClass("weui-cell_warn");
-//        },
-//        success: function(label) {
-//			label.parent().parent("div").parent("div").removeClass("weui-cell_warn");
-//		},
+
 		submitHandler : function(form) {
-			var pGameId = $("#pGameId").val().trim();
-			var gameId = $("#gameId").val().trim();
+			var pGameId = $("#pGameId").val();
+			var gameId = $("#gameId").val();
 			if (pGameId == gameId) {
 				$.toptip("上级代理ID和游戏ID不能相同.");
 				return false;
 			}
-//			form.submit();
+			form.submit();
 		}
 	});
 	

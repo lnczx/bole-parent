@@ -1,6 +1,7 @@
 package com.bole.action.admin;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,7 +63,10 @@ public class KefuController extends BaseController {
 			record = userService.selectByPrimaryKey(userId);
 		}
 		record.setUserType((short) 1);
-		model.addAttribute("contentModel", record);
+		
+		if (!model.containsAttribute("contentModel")) {
+			model.addAttribute("contentModel", record);
+		}
 		
 		return "admin/kefuForm";
 	}
@@ -73,6 +78,13 @@ public class KefuController extends BaseController {
 		Long userId = formData.getUserId();
 		if (result.hasErrors())
 			return kefuForm(request, model, userId);
+		
+		String gameId = formData.getGameId();
+		if (StringUtil.isEmpty(gameId)) {
+			result.addError(new FieldError("contentModel", "gameId", "游戏ID不能为空."));
+			return kefuForm(request, model, userId);
+		}
+				
 		String password = formData.getPassword();
 		password = StringUtil.md5(password);
 		
@@ -80,10 +92,10 @@ public class KefuController extends BaseController {
 		if (userId > 0L) {
 			record = userService.selectByPrimaryKey(userId);
 		}
-		record.setGameId(formData.getGameId());
+		record.setGameId(gameId);
 		record.setPassword(password);
 		record.setUserType((short) 1);
-		
+		record.setActive(Constants.USER_ACTIVE_1);
 		if (userId.equals(0L)) {
 			record.setAddTime(TimeStampUtil.getNowSecond());
 			userService.insertSelective(record);

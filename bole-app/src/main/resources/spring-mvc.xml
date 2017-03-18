@@ -28,6 +28,13 @@
     	<!-- 如果不定义 mvc:mapping path 将拦截所有的URL请求 -->
 	        <bean class="com.simi.oa.auth.AuthInterceptor"></bean>
     </mvc:interceptors>
+    
+        <!-- 配置自定义过滤 -->
+    <mvc:interceptors>
+    	<!-- 如果不定义 mvc:mapping path 将拦截所有的URL请求 --> 
+	        <bean class="com.bole.filters.RequestParamFilter"></bean>
+    </mvc:interceptors>
+    
     <!-- 如果当前请求为"/”时，则转发到"/home/hello” -->
     <mvc:view-controller path="/" view-name="forward:/home/index"/>
     <!-- 静态资源映射 -->

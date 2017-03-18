@@ -51,7 +51,7 @@ public class HomeController extends BaseController {
     		//代理管理
     		MenuVo menu2 = new MenuVo();
     		menu2.setIconUrl("/static/images/icon_nav_search_bar.png");
-    		menu2.setLinkUrl("/kefu/agentList");
+    		menu2.setLinkUrl("/user/agentList");
     		menu2.setName("代理管理");
     		menus.add(menu2);
     		
@@ -75,7 +75,7 @@ public class HomeController extends BaseController {
     		//代理管理
     		MenuVo menu2 = new MenuVo();
     		menu2.setIconUrl("/static/images/icon_nav_search_bar.png");
-    		menu2.setLinkUrl("/kefu/agentList");
+    		menu2.setLinkUrl("/user/agentList");
     		menu2.setName("代理管理");
     		menus.add(menu2);
     		
@@ -92,13 +92,13 @@ public class HomeController extends BaseController {
     		//我的信息
     		MenuVo menu1 = new MenuVo();
     		menu1.setIconUrl("/static/images/icon_nav_actionSheet.png");
-    		menu1.setLinkUrl("/admin/kefuList");
+    		menu1.setLinkUrl("/user/agentView?userId="+u.getUserId());
     		menu1.setName("我的信息");
     		menus.add(menu1);
     		//我的团队
     		MenuVo menu2 = new MenuVo();
     		menu2.setIconUrl("/static/images/icon_nav_search_bar.png");
-    		menu2.setLinkUrl("/kefu/agentList");
+    		menu2.setLinkUrl("/user/agentList?pId="+u.getUserId());
     		menu2.setName("我的团队");
     		menus.add(menu2);
     		//返利记录
@@ -110,7 +110,7 @@ public class HomeController extends BaseController {
     		//申请提现
     		MenuVo menu4 = new MenuVo();
     		menu4.setIconUrl("/static/images/icon_nav_ptr.png");
-    		menu4.setLinkUrl("/kefu/agentList");
+    		menu4.setLinkUrl("/user/agentCashList?userId=+"+u.getUserId());
     		menu4.setName("申请提现");
     		menus.add(menu4);
     	}

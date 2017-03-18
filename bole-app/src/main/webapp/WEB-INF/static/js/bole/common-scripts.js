@@ -17,3 +17,8 @@ function btn_del(path) {
     }
     location.href = appRootUrl + path;
 }
+
+//统一返回
+function btn_back() {
+	history.back(-1);
+}

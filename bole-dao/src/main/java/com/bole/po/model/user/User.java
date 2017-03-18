@@ -23,6 +23,8 @@ public class User {
     
     private String pGameId;
     
+    private String pCode;
+    
     private int score;
     
     private Long scoreLastTime;
@@ -169,5 +171,13 @@ public class User {
 
 	public void setScoreLastTime(Long scoreLastTime) {
 		this.scoreLastTime = scoreLastTime;
+	}
+
+	public String getpCode() {
+		return pCode;
+	}
+
+	public void setpCode(String pCode) {
+		this.pCode = pCode;
 	}
 }

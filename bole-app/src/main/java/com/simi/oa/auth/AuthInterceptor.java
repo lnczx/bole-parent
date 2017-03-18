@@ -40,7 +40,12 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 						hasPermission = true;
 					}
 
-					if (userType.equals(Constants.USER_TYPE_0) && requestServletPath.indexOf("user") >= 0) {
+					if (userType.equals(Constants.USER_TYPE_0) && 
+							(
+								requestServletPath.indexOf("home") >= 0 ||
+								requestServletPath.indexOf("user") >= 0
+							)
+						) {
 						hasPermission = true;
 					}
 

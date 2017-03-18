@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.bole.po.model.user.User;
 import com.bole.vo.UserSearchVo;
+import com.bole.vo.user.UserVo;
 import com.github.pagehelper.PageInfo;
 
 public interface UserService {
@@ -25,5 +26,15 @@ public interface UserService {
 	User genUser(String openId, String nickName, String headImg, String gameId);
 
 	boolean isSubUser(Long pId, Long userId);
+
+	String genShareCode(String gameId);
+
+	UserVo getVo(User item);
+
+	String getPcode(Long userId);
+
+	Boolean userLevelupTree(Long userId);
+
+	Integer totalUser(UserSearchVo searchVo);
 
 }

@@ -21,4 +21,6 @@ public interface UserMapper {
     List<User> selectByListPage(UserSearchVo searchVo);
     
     List<User> selectBySearchVo(UserSearchVo searchVo);
+
+	Integer totalSubUser(UserSearchVo searchVo);
 }

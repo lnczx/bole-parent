@@ -25,16 +25,16 @@
 			
 			<div class="weui-cell">
 				<div class="weui-cell__hd">
-					<label class="weui-label">上级代理ID</label>
+					<label class="weui-label">邀请码<font colore="red">*</font>    </label>
 				</div>
 				<div class="weui-cell__bd">
-					<form:input path="pGameId" class="weui-input"  maxLength="20" placeholder="请输入上级代理游戏ID"/>
+					<form:input path="inviteCode" class="weui-input"  maxLength="6" placeholder="请输入邀请码"/>
 				</div>
 			</div>
 			
 			<div class="weui-cell">
 				<div class="weui-cell__hd">
-					<label class="weui-label">游戏ID    </label>
+					<label class="weui-label">游戏ID<font colore="red">*</font>    </label>
 				</div>
 				<div class="weui-cell__bd">
 					<form:input path="gameId" class="weui-input"  maxLength="20" placeholder="请输入游戏ID"/>
@@ -42,7 +42,7 @@
 			</div>
 			<div class="weui-cell">
 				<div class="weui-cell__hd">
-					<label class="weui-label">密码 </label>
+					<label class="weui-label">密码<font colore="red">*</font> </label>
 				</div>
 				<div class="weui-cell__bd">
 					<form:password path="password" class="weui-input"  placeholder="请输入密码" maxLength="20"/>
@@ -51,12 +51,21 @@
 			
 			<div class="weui-cell">
 				<div class="weui-cell__hd">
-					<label class="weui-label ft">确认密码</label>
+					<label class="weui-label ft">确认密码<font colore="red">*</font></label>
 				</div>
 				<div class="weui-cell__bd">
 					<input type="password" id="password2" name="password2" class="weui-input"  placeholder="请再次输入密码" maxLength="20"/>
 				</div>
 			</div>
+			
+			<%-- <div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label class="weui-label">上级代理ID</label>
+				</div>
+				<div class="weui-cell__bd">
+					<form:input path="pGameId" class="weui-input"  maxLength="20" placeholder="请输入上级代理游戏ID"/>
+				</div>
+			</div> --%>
 			
 			<div class="weui-btn-area">
 				<input type="submit" class="weui-btn weui-btn_primary" value="保存">

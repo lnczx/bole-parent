@@ -38,7 +38,7 @@
 	<sql id="bySearchVo">
 	    where 1 = 1
 	    <if test="userId != null">
-			and userId = #{userId,jdbcType=NUMERIC}
+			and user_id = #{userId,jdbcType=NUMERIC}
 		</if>
 		
 	    <if test="status != null">

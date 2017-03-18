@@ -14,7 +14,7 @@
 	<header class='demos-header'>
 	<h1 class="demos-title">客服列表</h1>
 	</header>
-	<div class="button_sp_area">
+	<div class="weui-cell__ft">
 		<a href="#" onclick="btn_link('/admin/kefuForm?userId=0')" class="weui-btn weui-btn_mini weui-btn_primary">添加客服</a>
 	</div>
 	<br>

@@ -1,7 +1,13 @@
 
 $(function() {
-	$("#kefu-form").validate({
+	$("#agent-form").validate({
 		rules : {
+			
+			pGameId : {
+				required : true,
+				digits:true ,
+				minlength:1 
+			},
 			
 			gameId : {
 				required : true,
@@ -9,19 +15,16 @@ $(function() {
 				minlength:6 
 			},
 			
-			password : {
-				required : true,
-				minlength:6 
-			},
-			
-			password2 : {
-				required : true,
-				equalTo:"#password",
-				minlength:6 
-			},
+
 		},
 		
 		messages : {
+			
+			pGameId : {
+				required : "请输入上级代理ID,没有请输入0",
+				digits:"请输入正确的游戏ID" ,
+				minlength:"请输入正确的游戏ID" 	
+			},
 			
 			gameId : {
 				required : "请输入游戏ID",
@@ -29,16 +32,6 @@ $(function() {
 				minlength:"请输入正确的游戏ID"
 			},
 			
-			password : {
-				required : "请输入密码",
-				minlength: "密码为六位以上"
-			},
-			
-			password2 : {
-				required : "请再次输入密码",
-				equalTo: "两次密码不相同",
-				minlength: "密码为六位以上"
-			},
 		},
 				
 		onkeyup : false,

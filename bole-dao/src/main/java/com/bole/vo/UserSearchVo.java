@@ -18,6 +18,8 @@ public class UserSearchVo  {
 	
 	private String inviteCode;
 	
+	private String pCode;
+	
 	private Long pId;
 	
 	private List<Long> pIds;
@@ -41,6 +43,8 @@ public class UserSearchVo  {
 	private Short scoreType;
 	
 	private Long linkDetailId;
+	
+	private Short active;
 
 	public Long getUserId() {
 		return userId;
@@ -192,5 +196,21 @@ public class UserSearchVo  {
 
 	public void setGameIdTo(String gameIdTo) {
 		this.gameIdTo = gameIdTo;
+	}
+
+	public String getpCode() {
+		return pCode;
+	}
+
+	public void setpCode(String pCode) {
+		this.pCode = pCode;
+	}
+
+	public Short getActive() {
+		return active;
+	}
+
+	public void setActive(Short active) {
+		this.active = active;
 	}
 }

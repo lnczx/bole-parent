@@ -2,6 +2,7 @@ package com.bole.service.user;
 
 import java.util.List;
 
+import com.bole.po.model.user.User;
 import com.bole.po.model.user.UserLevelStat;
 import com.bole.vo.UserSearchVo;
 import com.github.pagehelper.PageInfo;
@@ -21,5 +22,7 @@ public interface UserLevelStatService {
 	List<UserLevelStat> selectBySearchVo(UserSearchVo searchVo);
 
 	PageInfo selectByListPage(UserSearchVo searchVo, int pageNum, int pageSize);
+
+	void totalLevel(User u, Short level);
 
 }

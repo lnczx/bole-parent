@@ -31,5 +31,19 @@ public class Constants {
 	public static Short USER_TYPE_0 = 0;	//代理
 	public static Short USER_TYPE_1 = 1;   //客服
 	public static Short USER_TYPE_2 = 2;   //管理员
+	
+	//用户级别
+	public static final Short USER_LEVEL_0 = 0;  	//0级, 数值默认
+	public static final Short USER_LEVEL_1 = 1;  	//1级
+	public static final Short USER_LEVEL_2 = 2;  	//2级
+	public static final Short USER_LEVEL_3 = 3;  	//3级
+	public static final Short USER_LEVEL_4 = 4;  	//4级
+	public static final Short USER_LEVEL_5 = 5;  	//5级
+	public static final Short USER_LEVEL_6 = 6;  	//6级
+	
+	//用户激活状态
+	public static Short USER_ACTIVE_0 = 0;   //未激活;
+	public static Short USER_ACTIVE_1 = 1;   //已激活;
+	
 
 }

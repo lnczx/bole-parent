@@ -19,9 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bole.po.model.user.User;
+import com.bole.po.model.user.UserLogined;
+import com.bole.service.user.UserLoginedService;
 import com.bole.service.user.UserService;
 import com.bole.vo.UserSearchVo;
+import com.meijia.utils.IPUtil;
 import com.meijia.utils.StringUtil;
+import com.meijia.utils.TimeStampUtil;
 import com.simi.oa.auth.AccountAuth;
 import com.simi.oa.auth.AccountRole;
 import com.simi.oa.auth.AuthHelper;
@@ -35,6 +39,9 @@ public class LoginController extends BaseController {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private UserLoginedService userLoginedService;
 
 	@RequestMapping(value = "/login", method = { RequestMethod.GET })
 	public String login(Model model) {
@@ -52,6 +59,11 @@ public class LoginController extends BaseController {
 
 		String username = accountLoginVo.getUsername().trim();
 		String password = accountLoginVo.getPassword().trim();
+		
+		if (StringUtil.isEmpty(username) || StringUtil.isEmpty(password)) {
+			result.addError(new FieldError("contentModel", "username", "用户名或密码错误。"));
+			return login(model);
+		}
 
 		UserSearchVo searchVo = new UserSearchVo();
 		searchVo.setGameId(username);
@@ -67,20 +79,27 @@ public class LoginController extends BaseController {
 			result.addError(new FieldError("contentModel", "username", "此用户被禁用，不能登录。"));
 			return login(model);
 		}
-		
+
 		if (!StringUtil.md5(password.trim()).equals(u.getPassword())) {
 			result.addError(new FieldError("contentModel", "username", "用户名或密码错误。"));
 			return login(model);
 		}
-		
-		
+
 		AccountAuth accountAuth = new AccountAuth();
 		accountAuth.setU(u);
 		AuthHelper.setSessionAccountAuth(request, accountAuth);
 
+		// 登陆日志
+		long ip = IPUtil.getIpAddr(request);
+		UserLogined record = userLoginedService.initPo();
+		record.setLoginFrom((short) 1);// 0 = APP 1 = 微网站 2 = 管理后台
+		record.setUserId(u.getUserId());
+		record.setLoginIp(ip);
+		userLoginedService.insert(record);
+
 		String returnUrl = ServletRequestUtils.getStringParameter(request, "returnUrl", null);
-	    if(returnUrl==null)
-	      	returnUrl="/home/index";
+		if (returnUrl == null)
+			returnUrl = "/home/index";
 		return "redirect:" + returnUrl;
 
 	}
@@ -88,7 +107,7 @@ public class LoginController extends BaseController {
 	@RequestMapping(value = "/logout", method = { RequestMethod.GET })
 	public String logout(HttpServletRequest request) {
 		AuthHelper.removeSessionAccountAuth(request, "accountAuth");
-		return "redirect:/account/login";
+		return "redirect:/home/login";
 	}
 
 }
