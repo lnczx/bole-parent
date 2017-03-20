@@ -47,8 +47,8 @@ public class HomeController extends BaseController {
     		menu1.setLinkUrl("/admin/kefuList");
     		menu1.setName("客服管理");
     		
-    		menus.add(menu1);
     		//代理管理
+    		menus.add(menu1);
     		MenuVo menu2 = new MenuVo();
     		menu2.setIconUrl("/static/images/icon_nav_search_bar.png");
     		menu2.setLinkUrl("/user/agentList");
@@ -57,21 +57,44 @@ public class HomeController extends BaseController {
     		
     		//充值记录
     		MenuVo menu3 = new MenuVo();
-    		menu3.setIconUrl("/static/images/icon_nav_cell.png");
+    		menu3.setIconUrl("/static/images/icon_nav_ptr.png");
     		menu3.setLinkUrl("/user/rechargeList");
     		menu3.setName("充值记录");
     		menus.add(menu3);
+    		
+    		//返利记录
+    		MenuVo menu4 = new MenuVo();
+    		menu4.setIconUrl("/static/images/icon_nav_up.png");
+    		menu4.setLinkUrl("/user/rechargeList");
+    		menu4.setName("返利记录");
+    		menus.add(menu4);
+    		
+    		//返利审核
+    		MenuVo menu5 = new MenuVo();
+    		menu5.setIconUrl("/static/images/icon_nav_panel.png");
+    		menu5.setLinkUrl("/user/rechargeList");
+    		menu5.setName("返利审核");
+    		menus.add(menu5);
+    		
+    		//代理统计
+    		MenuVo menu6 = new MenuVo();
+    		menu6.setIconUrl("/static/images/icon_nav_photo.png");
+    		menu6.setLinkUrl("/user/rechargeList");
+    		menu6.setName("代理统计");
+    		menus.add(menu6);
+    		
+    		//充值统计
+    		MenuVo menu7 = new MenuVo();
+    		menu7.setIconUrl("/static/images/icon_nav_new.png");
+    		menu7.setLinkUrl("/user/rechargeList");
+    		menu7.setName("充值统计");
+    		menus.add(menu7);
     		
     	}
     	
     	//客服
     	if (userType.equals(Constants.USER_TYPE_1)) {
-    		//我的信息
-    		MenuVo menu1 = new MenuVo();
-    		menu1.setIconUrl("/static/images/icon_nav_actionSheet.png");
-    		menu1.setLinkUrl("/admin/kefuList");
-    		menu1.setName("我的信息");
-    		menus.add(menu1);
+
     		//代理管理
     		MenuVo menu2 = new MenuVo();
     		menu2.setIconUrl("/static/images/icon_nav_search_bar.png");
@@ -81,10 +104,24 @@ public class HomeController extends BaseController {
     		
     		//充值记录
     		MenuVo menu3 = new MenuVo();
-    		menu3.setIconUrl("/static/images/icon_nav_cell.png");
+    		menu3.setIconUrl("/static/images/icon_nav_ptr.png");
     		menu3.setLinkUrl("/user/rechargeList");
     		menu3.setName("充值记录");
     		menus.add(menu3);
+    		
+    		//返利记录
+    		MenuVo menu4 = new MenuVo();
+    		menu4.setIconUrl("/static/images/icon_nav_cell.png");
+    		menu4.setLinkUrl("/user/rechargeList");
+    		menu4.setName("返利记录");
+    		menus.add(menu4);
+    		
+    		//返利记录
+    		MenuVo menu5 = new MenuVo();
+    		menu5.setIconUrl("/static/images/icon_nav_cell.png");
+    		menu5.setLinkUrl("/user/rechargeList");
+    		menu5.setName("返利审核");
+    		menus.add(menu5);
     	}
     	
     	//代理
@@ -101,18 +138,24 @@ public class HomeController extends BaseController {
     		menu2.setLinkUrl("/user/agentList?pId="+u.getUserId());
     		menu2.setName("我的团队");
     		menus.add(menu2);
-    		//返利记录
+    		//充值记
     		MenuVo menu3 = new MenuVo();
-    		menu3.setIconUrl("/static/images/icon_nav_up.png");
+    		menu3.setIconUrl("/static/images/icon_nav_ptr.png");
     		menu3.setLinkUrl("/user/rechargeList");
     		menu3.setName("充值记录");
     		menus.add(menu3);
-    		//申请提现
+    		//返利详情
     		MenuVo menu4 = new MenuVo();
-    		menu4.setIconUrl("/static/images/icon_nav_ptr.png");
-    		menu4.setLinkUrl("/user/agentCashList?userId=+"+u.getUserId());
-    		menu4.setName("申请提现");
+    		menu4.setIconUrl("/static/images/icon_nav_up.png");
+    		menu4.setLinkUrl("/user/rechargeList");
+    		menu4.setName("返利详情");
     		menus.add(menu4);
+    		//申请提现
+    		MenuVo menu5 = new MenuVo();
+    		menu5.setIconUrl("/static/images/icon_nav_progress.png");
+    		menu5.setLinkUrl("/user/agentCashList?userId=+"+u.getUserId());
+    		menu5.setName("返利提现");
+    		menus.add(menu5);
     	}
     	
     	MenuVo menuHelper = new MenuVo();

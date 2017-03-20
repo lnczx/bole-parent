@@ -13,7 +13,8 @@
 		<result column="level" property="level" jdbcType="NUMERIC" />
 		<result column="p_id" property="pId" jdbcType="NUMERIC" />
 		<result column="p_game_id" property="pGameId" jdbcType="VARCHAR" />
-		<result column="p_code" property="pCode" jdbcType="VARCHAR" />
+		<result column="lft" property="lft" jdbcType="NUMERIC" />
+		<result column="rgt" property="rgt" jdbcType="NUMERIC" />
 		<result column="score" property="score" jdbcType="DECIMAL" />
 		<result column="score_last_time" property="scoreLastTime" jdbcType="NUMERIC" />
 		<result column="enable" property="enable" jdbcType="NUMERIC" />
@@ -23,7 +24,7 @@
 	</resultMap>
 	<sql id="Base_Column_List">
 	user_id, user_type, open_id, nick_name, head_img, game_id, password, invite_code, level, 
-	p_id, p_game_id, p_code, score, score_last_time,
+	p_id, p_game_id, lft, rgt, score, score_last_time,
 	enable, active, add_time, update_time
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
@@ -38,7 +39,12 @@
 		<include refid="Base_Column_List" />
 		from user
 		<include refid="bySearchVo"/>
-		order by user_id desc
+		<if test="orderByProperty!=null">
+			${orderByProperty}
+		</if>
+		<if test="orderByProperty==null or orderByProperty==''">
+			order by user_id desc
+		</if>
 	</select>
 	
 	<select id="selectByListPage" resultMap="BaseResultMap" parameterType="com.bole.vo.UserSearchVo">
@@ -46,14 +52,35 @@
 		<include refid="Base_Column_List" />
 		from user
 		<include refid="bySearchVo"/>
-		order by user_id desc
+		<if test="orderByProperty!=null">
+			${orderByProperty}
+		</if>
+		<if test="orderByProperty==null or orderByProperty==''">
+			order by user_id desc
+		</if>
 	</select>
 	
-	<select id="totalSubUser" resultType="java.lang.Integer" parameterType="com.bole.vo.UserSearchVo">
+	<select id="totalUser" resultType="java.lang.Integer" parameterType="com.bole.vo.UserSearchVo">
 		select count(*) as total
 		from user
 		<include refid="bySearchVo"/>
 	</select>
+	
+	<!-- 更新所有的右级 -->
+	<update id="updateAllLeft" parameterType="com.bole.po.model.user.User">
+		update user
+		set lft = lft + 2
+		where 
+		<![CDATA[lft > #{rgt,jdbcType=NUMERIC}]]>
+	</update>
+	
+	<!-- 更新所有的右级 -->
+	<update id="updateAllRight" parameterType="com.bole.po.model.user.User">
+		update user
+		set rgt = rgt + 2
+		where 
+		<![CDATA[rgt >= #{rgt,jdbcType=NUMERIC}]]>
+	</update>
 	
 	<sql id="bySearchVo">
 	    where 1 = 1
@@ -100,10 +127,14 @@
 			</foreach>
 		</if>
 		
-		<if test="pCode !=null and pCode !='' ">
-			and p_code like  CONCAT(#{pCode},'%')
+		<if test="getParents != null and lft != null and rgt != null">
+			<![CDATA[ and lft < #{lft,jdbcType=NUMERIC} and rgt > #{rgt,jdbcType=NUMERIC} ]]>
 		</if>
 		
+		<if test="getSubs != null and lft != null and rgt != null">
+			<![CDATA[ and lft > #{lft,jdbcType=NUMERIC} and rgt < #{rgt,jdbcType=NUMERIC} ]]>
+		</if>
+
 		<if test="active != null">
 			and active = #{active,jdbcType=NUMERIC}
 		</if>
@@ -120,13 +151,13 @@
 		</selectKey>
 		insert into user (user_type, open_id, nick_name,
 		head_img, game_id, password, invite_code,
-		level, p_id, p_game_id, p_code, score, score_last_time, enable, active, add_time,
+		level, p_id, p_game_id, lft, rgt, score, score_last_time, enable, active, add_time,
 		update_time)
 		values (#{userType,jdbcType=NUMERIC}, #{openId,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR},
 		#{headImg,jdbcType=VARCHAR}, #{gameId,jdbcType=VARCHAR}, 
 		#{password,jdbcType=VARCHAR}, #{inviteCode,jdbcType=VARCHAR},
 		#{level,jdbcType=NUMERIC}, #{pId,jdbcType=NUMERIC}, 
-		#{pGameId,jdbcType=VARCHAR}, #{pCode,jdbcType=VARCHAR}, 
+		#{pGameId,jdbcType=VARCHAR}, #{lft,jdbcType=NUMERIC},  #{rgt,jdbcType=NUMERIC}, 
 		#{score,jdbcType=DECIMAL}, #{scoreLastTime,jdbcType=NUMERIC}, 
 		#{enable,jdbcType=NUMERIC}, #{active,jdbcType=NUMERIC},
 		#{addTime,jdbcType=NUMERIC},#{updateTime,jdbcType=NUMERIC})
@@ -167,8 +198,11 @@
 			<if test="pGameId != null">
 				p_game_id,
 			</if>
-			<if test="pCode != null">
-				p_code,
+			<if test="lft != null">
+				lft,
+			</if>
+			<if test="rgt != null">
+				rgt,
 			</if>
 			<if test="score != null">
 				score,
@@ -220,8 +254,11 @@
 			<if test="pGameId != null">
 				#{pGameId,jdbcType=VARCHAR},
 			</if>
-			<if test="pCode != null">
-				#{pCode,jdbcType=VARCHAR},
+			<if test="lft != null">
+				#{lft,jdbcType=NUMERIC},
+			</if>
+			<if test="rgt != null">
+				#{rgt,jdbcType=NUMERIC},
 			</if>
 			<if test="score != null">
 				#{score,jdbcType=DECIMAL},
@@ -276,8 +313,11 @@
 			<if test="pGameId != null">
 				p_game_id = #{pGameId,jdbcType=VARCHAR},
 			</if>
-			<if test="pCode != null">
-				p_code = #{pCode,jdbcType=VARCHAR},
+			<if test="lft != null">
+				lft = #{lft,jdbcType=NUMERIC},
+			</if>
+			<if test="rgt != null">
+				rgt = #{rgt,jdbcType=NUMERIC},
 			</if>
 			<if test="score != null">
 				score = #{score,jdbcType=DECIMAL},
@@ -312,7 +352,8 @@
 		level = #{level,jdbcType=NUMERIC},
 		p_id = #{pId,jdbcType=NUMERIC},
 		p_game_id = #{pGameId,jdbcType=VARCHAR},
-		p_code = #{pCode,jdbcType=VARCHAR},
+		lft = #{lft,jdbcType=NUMERIC},
+		rgt = #{rgt,jdbcType=NUMERIC},
 		score = #{score,jdbcType=DECIMAL},
 		score_last_time = #{scoreLastTime,jdbcType=NUMERIC},
 		enable = #{enable,jdbcType=NUMERIC},

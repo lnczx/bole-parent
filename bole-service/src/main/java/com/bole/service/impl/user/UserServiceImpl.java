@@ -64,7 +64,8 @@ public class UserServiceImpl implements UserService {
 		record.setLevel(Constants.USER_LEVEL_1);
 		record.setpId(0L);
 		record.setpGameId("");
-		record.setpCode("");
+		record.setLft(0);
+		record.setRgt(0);
 		record.setScore(new BigDecimal(0));
 		record.setScoreLastTime(0L);
 		record.setEnable((short) 1);
@@ -93,42 +94,65 @@ public class UserServiceImpl implements UserService {
 		PageInfo info = new PageInfo(list);
 		return info;
 	}
-
+	
+	/**
+	 * 添加用户，设计到左右分支的树形结构. 只应用于代理的生存
+	 * @param openId
+	 * @param nickName
+	 * @param headImg
+	 * @param gameId
+	 * @return
+	 */
 	@Override
-	public User genUser(String openId, String nickName, String headImg, String gameId) {
-		UserSearchVo searchVo = new UserSearchVo();
-		searchVo.setOpenId(openId);
-		List<User> users = this.selectBySearchVo(searchVo);
-		User u = this.initPo();
-		if (users.isEmpty()) {
-			// 验证手机号是否已经注册，如果未注册，则自动注册用户，
+	public User genAgenUser(User pUser, User newUser) {
+			
+		String gameId = newUser.getGameId();
 
-			u.setOpenId(openId);
-			u.setNickName(nickName);
-			u.setHeadImg(headImg);
-			u.setGameId(gameId);
-			this.insertSelective(u);
-		} else {
-			u = users.get(0);
-		}
+		//生成注册码
+		String shareCode = this.genShareCode(gameId);
+		newUser.setInviteCode(shareCode);
+		
+		Integer pUserRgt = pUser.getRgt();
+		newUser.setLft(pUserRgt);
+		newUser.setRgt(pUserRgt + 1);
+		
+		//先更新左右值之后，再进行插入
+		mapper.updateAllLeft(pUser);
+		mapper.updateAllRight(pUser);
+		
+		this.insertSelective(newUser);
 
-		return u;
+		return newUser;
 	}
 
 	@Override
 	public boolean isSubUser(Long pId, Long userId) {
 		
-		User pUser = this.selectByPrimaryKey(pId);
-		String gameId = pUser.getGameId();
+		boolean isExist = false;
+		int i = 0;
+		List<Long> pIds = new ArrayList<Long>();
+		pIds.add(pId);
+		while (true) {
+			UserSearchVo searchVo = new UserSearchVo();
+			searchVo.setpIds(pIds);
+			List<User> list = this.selectBySearchVo(searchVo);
+			
+			if (list.isEmpty()) {
+				isExist = false;
+				break;
+			} 
+			pIds = new ArrayList<Long>();
+			for(User item : list) {
+				pIds.add(item.getUserId());
+				if (item.getUserId().equals(userId)) {
+					isExist = true;
+					break;
+				}
+			}
+		}
 		
-		UserSearchVo searchVo = new UserSearchVo();
-		searchVo.setpCode(gameId);
-		searchVo.setUserId(userId);
-		List<User> list = this.selectBySearchVo(searchVo);
 		
-		if (list.isEmpty()) return false;
-		
-		return true;
+		return isExist;
 	}
 
 	@Override
@@ -215,20 +239,25 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Boolean userLevelupTree(Long userId) {
 		User u = this.selectByPrimaryKey(userId);
-
 		Long pId = u.getpId();
 		if (pId.equals(0L))
 			return true;
-
-		int i = 0;
-		while (i < 6) {
-			User pUser = this.selectByPrimaryKey(pId);
-			UserSearchVo searchVo = new UserSearchVo();
-			searchVo.setpId(pUser.getUserId());
-			searchVo.setActive(Constants.USER_ACTIVE_1);
-			
+		//找出所有的上级
+		UserSearchVo searchVo = new UserSearchVo();
+		searchVo.setGetParents(1);
+		searchVo.setLft(u.getLft());
+		searchVo.setRgt(u.getRgt());
+		searchVo.setOrderByProperty(" order by lft desc");
+		
+		List<User> list = this.selectBySearchVo(searchVo);
+		for (int i = 0 ; i < list.size(); i++) {
+			User pUser = list.get(i);
+			UserSearchVo searchVo1 = new UserSearchVo();
+			searchVo1.setpId(pUser.getUserId());
+			searchVo1.setLevel(pUser.getLevel());
+			searchVo1.setActive(Constants.USER_ACTIVE_1);
 			Integer totalUser = this.totalUser(searchVo);
-			
+
 			if (totalUser >= 3) {
 				//1. 升级用户，
 				Short levelPre = pUser.getLevel();
@@ -246,21 +275,17 @@ public class UserServiceImpl implements UserService {
 			for (int l = 0 ; l <=6; l++) {
 				userLevelStatService.totalLevel(pUser, (short) l);
 			}
-			if (totalUser < 3) break;
-			if (pUser.getpId().equals(0L)) break;
-			pId = pUser.getpId();
-			i++;
 		}
 
 		return true;
 	}
 
 	/**
-	 * 统计用户的下级人数
+	 * 统计用户的人数
 	 */
 	@Override
 	public Integer totalUser(UserSearchVo searchVo) {
-		Integer total = mapper.totalSubUser(searchVo);
+		Integer total = mapper.totalUser(searchVo);
 		if (total == null) total = 0;
 		
 		return total;

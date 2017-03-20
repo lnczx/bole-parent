@@ -68,7 +68,11 @@ $("#scoreTypeSelect").select({
 	}, {
 		title : "付款",
 		value : "1",
-	} ],
+	},
+	{
+		title : "返利",
+		value : "2",
+	}],
 
 	beforeClose : function(values, titles) {
 

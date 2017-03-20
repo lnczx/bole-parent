@@ -22,5 +22,11 @@ public interface UserMapper {
     
     List<User> selectBySearchVo(UserSearchVo searchVo);
 
-	Integer totalSubUser(UserSearchVo searchVo);
+	Integer totalUser(UserSearchVo searchVo);
+	
+	//更新所有的右级 基于左右值的无限分类算法
+	int updateAllLeft(User record);
+	
+	//更新所有的右级 基于左右值的无限分类算法
+	int updateAllRight(User record);
 }

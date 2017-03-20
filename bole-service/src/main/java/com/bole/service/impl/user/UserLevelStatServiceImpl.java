@@ -79,11 +79,16 @@ public class UserLevelStatServiceImpl implements UserLevelStatService {
 	@Override
 	public void totalLevel(User u, Short level) {
 		Long userId = u.getUserId();
+		Long pId = u.getpId();
+		
+		
 		UserSearchVo searchVo = new UserSearchVo();
-		searchVo.setpCode(u.getGameId());
+		searchVo.setGetSubs(1);
+		searchVo.setLft(u.getLft());
+		searchVo.setRgt(u.getRgt());
 		if (level > 0)
 			searchVo.setLevel(level);
-		searchVo.setActive(Constants.USER_ACTIVE_1);
+//		searchVo.setActive(Constants.USER_ACTIVE_1);
 		Integer total = userService.totalUser(searchVo);
 		if (total == null) total = 0;
 		

@@ -25,8 +25,10 @@ public class User {
     
     private String pGameId;
     
-    private String pCode;
+    private Integer lft;
     
+    private Integer rgt;
+
     private BigDecimal score;
     
     private Long scoreLastTime;
@@ -38,7 +40,7 @@ public class User {
     private Long addTime;
 
     private Long updateTime;
-
+    
     public Long getUserId() {
         return userId;
     }
@@ -175,11 +177,19 @@ public class User {
 		this.scoreLastTime = scoreLastTime;
 	}
 
-	public String getpCode() {
-		return pCode;
+	public Integer getLft() {
+		return lft;
 	}
 
-	public void setpCode(String pCode) {
-		this.pCode = pCode;
+	public void setLft(Integer lft) {
+		this.lft = lft;
+	}
+
+	public Integer getRgt() {
+		return rgt;
+	}
+
+	public void setRgt(Integer rgt) {
+		this.rgt = rgt;
 	}
 }

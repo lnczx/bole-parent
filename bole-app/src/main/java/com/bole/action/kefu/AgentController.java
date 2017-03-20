@@ -72,7 +72,7 @@ public class AgentController extends BaseController {
 		searchVo.setGameId(pGameId);
 		List<User> pUsers = userService.selectBySearchVo(searchVo);
 		User pUser = null;
-		Long pId = 0L;
+		Long pId = 1L;
 		if (!pUsers.isEmpty()) {
 			pUser = pUsers.get(0);
 			pId = pUser.getUserId();
@@ -102,24 +102,11 @@ public class AgentController extends BaseController {
 		record.setLevel(Constants.USER_LEVEL_1);
 		record.setUserType(Constants.USER_TYPE_0);
 		record.setActive(Constants.USER_ACTIVE_0);
+
+		record = userService.genAgenUser(pUser, record);
 		
-		//生成注册码
-		String shareCode = userService.genShareCode(gameId);
-		record.setInviteCode(shareCode);
-		
-		if (userId.equals(0L)) {
-			record.setAddTime(TimeStampUtil.getNowSecond());
-			userService.insertSelective(record);
-		} else {
-			record.setUpdateTime(TimeStampUtil.getNowSecond());
-			userService.updateByPrimaryKeySelective(record);
-		}
-		
-		//异步生成PCode
-		userAsyncService.genPcode(record);
-		
-		//异步统计代理人数
-		userAsyncService.totalUser(record.getUserId());
+		//异步父级统计代理人数
+		userAsyncService.totalUser(pId);
 
 		String returnUrl = "/user/agentView?userId="+ record.getUserId();
 		return "redirect:" + returnUrl;

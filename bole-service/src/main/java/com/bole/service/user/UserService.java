@@ -23,7 +23,6 @@ public interface UserService {
 
 	PageInfo selectByListPage(UserSearchVo searchVo, int pageNum, int pageSize);
 
-	User genUser(String openId, String nickName, String headImg, String gameId);
 
 	boolean isSubUser(Long pId, Long userId);
 
@@ -36,5 +35,7 @@ public interface UserService {
 	Boolean userLevelupTree(Long userId);
 
 	Integer totalUser(UserSearchVo searchVo);
+
+	User genAgenUser(User pUser, User newUser);
 
 }

@@ -1,4 +1,4 @@
-package com.bole.service.impl.user;
+package com.bole.service.impl.async;
 
 import java.util.concurrent.Future;
 
@@ -21,19 +21,6 @@ public class UserAsyncServiceImpl implements UserAsyncService {
 	@Autowired
 	private UserLevelStatService userLevelStatService;
 
-	/**
-	 * 设置用户的pCode , 拼装成 001652001653
-	 */
-	@Async
-	@Override
-	public Future<Boolean> genPcode(User u) {
-
-		String pCode = userService.getPcode(u.getUserId());
-		u.setpCode(pCode);
-		userService.updateByPrimaryKeySelective(u);
-		return new AsyncResult<Boolean>(true);
-	}
-	
 	/**
 	 * 用户激活后，相应的上级需要进行检测是否需要升级
 	 */

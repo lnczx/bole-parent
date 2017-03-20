@@ -17,9 +17,7 @@ public class UserSearchVo  {
 	private String password;
 	
 	private String inviteCode;
-	
-	private String pCode;
-	
+
 	private Long pId;
 	
 	private List<Long> pIds;
@@ -45,7 +43,17 @@ public class UserSearchVo  {
 	private Long linkDetailId;
 	
 	private Short active;
-
+	
+	private Integer getParents;
+	
+	private Integer getSubs;
+	
+	private Integer lft;
+	
+	private Integer rgt;
+	
+	private String orderByProperty;
+	
 	public Long getUserId() {
 		return userId;
 	}
@@ -198,14 +206,6 @@ public class UserSearchVo  {
 		this.gameIdTo = gameIdTo;
 	}
 
-	public String getpCode() {
-		return pCode;
-	}
-
-	public void setpCode(String pCode) {
-		this.pCode = pCode;
-	}
-
 	public Short getActive() {
 		return active;
 	}
@@ -213,4 +213,46 @@ public class UserSearchVo  {
 	public void setActive(Short active) {
 		this.active = active;
 	}
+
+
+	public Integer getLft() {
+		return lft;
+	}
+
+	public void setLft(Integer lft) {
+		this.lft = lft;
+	}
+
+	public Integer getRgt() {
+		return rgt;
+	}
+
+	public void setRgt(Integer rgt) {
+		this.rgt = rgt;
+	}
+
+	public Integer getGetParents() {
+		return getParents;
+	}
+
+	public void setGetParents(Integer getParents) {
+		this.getParents = getParents;
+	}
+
+	public Integer getGetSubs() {
+		return getSubs;
+	}
+
+	public void setGetSubs(Integer getSubs) {
+		this.getSubs = getSubs;
+	}
+
+	public String getOrderByProperty() {
+		return orderByProperty;
+	}
+
+	public void setOrderByProperty(String orderByProperty) {
+		this.orderByProperty = orderByProperty;
+	}
+
 }
