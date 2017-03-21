@@ -176,26 +176,11 @@ public class UserServiceImpl implements UserService {
 
 		BeanUtilsExp.copyPropertiesIgnoreNull(item, vo);
 		Long userId = vo.getUserId();
-		//返利情况
-		UserSearchVo searchVo = new UserSearchVo();
-		searchVo.setUserIdTo(userId);
-		searchVo.setScoreType(Constants.SCORE_TYPE_1);
-		BigDecimal totalPayBack = userScoreDetailService.totalScore(searchVo);
-		vo.setTotalPayBack(totalPayBack);
-		
-		//提现情况
-		searchVo = new UserSearchVo();
-		searchVo.setUserId(userId);
-		searchVo.setStatus((short) 1);
-		BigDecimal totalCash = userScoreCashService.totalCash(searchVo);
-		vo.setTotalCash(totalCash);
-		
-		BigDecimal totalStore = totalPayBack.subtract(totalCash);
-		vo.setTotalStore(totalStore);
+
 		//团队成员分布情况
 		vo.setTotalSubAgent(0);
 		List<UserLevelStat> userLeveStats = new ArrayList<UserLevelStat>();
-		searchVo = new UserSearchVo();
+		UserSearchVo searchVo = new UserSearchVo();
 		searchVo.setUserId(vo.getUserId());
 		List<UserLevelStat> list = userLevelStatService.selectBySearchVo(searchVo);
 

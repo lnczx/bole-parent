@@ -1,5 +1,7 @@
 package com.bole.common;
 
+import java.math.BigDecimal;
+
 public class Constants {
 
 	public static String URL_ENCODE = "UTF-8";
@@ -49,6 +51,10 @@ public class Constants {
 	public static Short SCORE_TYPE_0 = 0;    //赠送
 	public static Short SCORE_TYPE_1 = 1;    //付款
 	public static Short SCORE_TYPE_2 = 2;    //返利
+	public static Short SCORE_TYPE_3 = 3;    //领取
+	//最低可领取数
+	public static BigDecimal MIN_SCORE_CASH = new BigDecimal(1); //最低可领取数
+	
 	
 
 }

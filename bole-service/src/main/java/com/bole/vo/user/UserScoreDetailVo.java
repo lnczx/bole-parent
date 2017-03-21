@@ -16,9 +16,7 @@ public class UserScoreDetailVo extends UserScoreDetail {
 	
 	private String addTimeStr;
 	
-	private BigDecimal totalPayBack;
-	
-	private UserScoreDetailVo linkUserScoreDetail;
+	private String payBackRemarks;
 	
 	public String getGameIdTo() {
 		return gameIdTo;
@@ -52,14 +50,6 @@ public class UserScoreDetailVo extends UserScoreDetail {
 		this.addTimeStr = addTimeStr;
 	}
 
-	public BigDecimal getTotalPayBack() {
-		return totalPayBack;
-	}
-
-	public void setTotalPayBack(BigDecimal totalPayBack) {
-		this.totalPayBack = totalPayBack;
-	}
-
 	public Short getLevelTo() {
 		return levelTo;
 	}
@@ -68,11 +58,11 @@ public class UserScoreDetailVo extends UserScoreDetail {
 		this.levelTo = levelTo;
 	}
 
-	public UserScoreDetailVo getLinkUserScoreDetail() {
-		return linkUserScoreDetail;
+	public String getPayBackRemarks() {
+		return payBackRemarks;
 	}
 
-	public void setLinkUserScoreDetail(UserScoreDetailVo linkUserScoreDetail) {
-		this.linkUserScoreDetail = linkUserScoreDetail;
+	public void setPayBackRemarks(String payBackRemarks) {
+		this.payBackRemarks = payBackRemarks;
 	}
 }

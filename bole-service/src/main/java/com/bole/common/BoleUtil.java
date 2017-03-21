@@ -52,4 +52,22 @@ public class BoleUtil {
 		return payBackRatio;
 	}
 
+	public static String getScoreCashStatusName(Short status) {
+		String cashStatusName = "";
+		switch (status) {
+		case 0:
+			cashStatusName = "审核中";
+			break;
+		case 1:
+			cashStatusName = "已通过";
+			break;
+		case 2:
+			cashStatusName = "已关闭";
+			break;
+		default:
+			cashStatusName = "";
+		}
+		return cashStatusName;
+	}
+
 }

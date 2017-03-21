@@ -6,12 +6,21 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bole.common.BoleUtil;
+import com.bole.common.Constants;
 import com.bole.po.dao.user.UserScoreCashMapper;
+import com.bole.po.model.user.User;
 import com.bole.po.model.user.UserScoreCash;
 import com.bole.service.user.UserScoreCashService;
+import com.bole.service.user.UserScoreDetailService;
+import com.bole.service.user.UserService;
 import com.bole.vo.UserSearchVo;
+import com.bole.vo.user.UserScoreCashTotalVo;
+import com.bole.vo.user.UserScoreCashVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.meijia.utils.BeanUtilsExp;
+import com.meijia.utils.StringUtil;
 import com.meijia.utils.TimeStampUtil;
 
 
@@ -22,7 +31,12 @@ public class UserScoreCashServiceImpl implements UserScoreCashService {
 	@Autowired
 	private UserScoreCashMapper mapper;
 
-
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private UserScoreDetailService userScoreDetailService;
+	
 	@Override
 	public int insertSelective(UserScoreCash record) {
 		return mapper.insert(record);
@@ -79,4 +93,61 @@ public class UserScoreCashServiceImpl implements UserScoreCashService {
 		return totalCash;
 	}
 	
+	@Override
+	public UserScoreCashVo getVo(UserScoreCash item) {
+		UserScoreCashVo vo = new UserScoreCashVo();
+		BeanUtilsExp.copyPropertiesIgnoreNull(item, vo);
+		
+		User u = userService.selectByPrimaryKey(vo.getUserId());
+		vo.setGameId(u.getGameId());
+		
+		String addTimeStr = TimeStampUtil.timeStampToDateStr(vo.getAddTime() * 1000, "MM-dd HH:MM");
+		vo.setAddTimeStr(addTimeStr);
+		
+		String cashStatusName = BoleUtil.getScoreCashStatusName(vo.getStatus());
+		vo.setStatusName(cashStatusName);
+		
+		return vo;
+	}
+	
+	@Override
+	public UserScoreCashTotalVo getTotalVo(Long userId) {
+		UserScoreCashTotalVo vo = new UserScoreCashTotalVo();
+		vo.setUserId(userId);
+		vo.setGameId("");
+		if (userId != null && userId > 0L) {
+			User u = userService.selectByPrimaryKey(vo.getUserId());
+			vo.setGameId(u.getGameId());
+		}
+		
+		
+		//总返利数据.
+		
+		UserSearchVo totalPayBackSearchVo = new UserSearchVo();
+		if (userId != null && userId > 0L)  totalPayBackSearchVo.setUserIdTo(userId);
+		totalPayBackSearchVo.setScoreType(Constants.SCORE_TYPE_2);
+		BigDecimal totalScore = userScoreDetailService.totalScore(totalPayBackSearchVo);
+		vo.setTotalScore(totalScore);
+		
+		//总领取数据
+		UserSearchVo totalCashSearchVo1 = new UserSearchVo();
+		if (userId != null && userId > 0L) totalCashSearchVo1.setUserId(userId);
+		totalCashSearchVo1.setStatus((short) 1);
+		BigDecimal totalCash = this.totalCash(totalCashSearchVo1);
+		vo.setTotalCash(totalCash);
+		
+		//领取中数据
+		UserSearchVo totalCashSearchVo2 = new UserSearchVo();
+		if (userId != null && userId > 0L) totalCashSearchVo2.setUserId(userId);
+		totalCashSearchVo2.setStatus((short) 0);
+		BigDecimal totalCashing = this.totalCash(totalCashSearchVo2);
+		vo.setTotalCashing(totalCashing);
+		
+		//可领取的数据
+		BigDecimal totalStore = totalScore.subtract(totalCash);
+		totalStore = totalStore.subtract(totalCashing);
+		vo.setTotalStore(totalStore);
+		
+		return vo;
+	}
 }

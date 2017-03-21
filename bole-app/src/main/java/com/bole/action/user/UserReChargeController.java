@@ -21,8 +21,10 @@ import com.bole.service.user.UserScoreCashService;
 import com.bole.service.user.UserScoreDetailService;
 import com.bole.service.user.UserService;
 import com.bole.vo.UserSearchVo;
+import com.bole.vo.user.UserScoreCashTotalVo;
 import com.bole.vo.user.UserScoreDetailVo;
 import com.github.pagehelper.PageInfo;
+import com.meijia.utils.MathBigDecimalUtil;
 import com.meijia.utils.StringUtil;
 import com.simi.oa.auth.AccountAuth;
 import com.simi.oa.auth.AuthHelper;
@@ -108,8 +110,11 @@ public class UserReChargeController extends BaseController {
 			searchVo = new UserSearchVo();
 		if (userIdTo != null && userIdTo > 0L)
 			searchVo.setUserIdTo(userIdTo);
-
-		searchVo.setScoreType(Constants.SCORE_TYPE_2);
+		
+		List<Short> scoreTypes = new ArrayList<Short>();
+		scoreTypes.add(Constants.SCORE_TYPE_2);
+		scoreTypes.add(Constants.SCORE_TYPE_3);
+		searchVo.setScoreTypes(scoreTypes);
 		
 		// 如果是代理，则只能看到给自己充值的记录.
 		AccountAuth accountAuth = AuthHelper.getSessionAccountAuth(request);
@@ -132,12 +137,28 @@ public class UserReChargeController extends BaseController {
 			
 			//关联充值ID
 			UserScoreDetail linkUserScoreDetail = null;
+			UserScoreDetailVo linkUserScoreDetailVo = new UserScoreDetailVo();
 			if (vo.getLinkDetailId() > 0L) {
 				linkUserScoreDetail = userScoreDetailService.selectByPrimaryKey(vo.getLinkDetailId());
-				UserScoreDetailVo linkUserScoreDetailVo = userScoreDetailService.getVo(linkUserScoreDetail);
-				vo.setLinkUserScoreDetail(linkUserScoreDetailVo);
+				linkUserScoreDetailVo = userScoreDetailService.getVo(linkUserScoreDetail);
+				
 			}
 			
+			String payBackRemarks = "";
+			
+			if (vo.getScoreType().equals(Constants.SCORE_TYPE_2)) {
+				payBackRemarks = vo.getLinkBackLevel() + "层代理" + linkUserScoreDetailVo.getGameIdTo() + "充值" + linkUserScoreDetailVo.getScore() ;
+				
+				BigDecimal levelRatio = vo.getLinkBackRatio().multiply(new BigDecimal(100));
+				levelRatio = MathBigDecimalUtil.round(levelRatio, 0);
+				String levelRatioStr = levelRatio.toString() + "%";
+				payBackRemarks+= ",返利" + levelRatioStr + "," + vo.getScore();
+			}
+			
+			if (vo.getScoreType().equals(Constants.SCORE_TYPE_3)) {
+				payBackRemarks = "代理领取返利"+ vo.getScore();
+			}
+			vo.setPayBackRemarks(payBackRemarks);
 			list.set(i, vo);
 		}
 
@@ -146,19 +167,10 @@ public class UserReChargeController extends BaseController {
 		model.addAttribute("contentModel", pageInfo);
 		model.addAttribute("userType", userType);
 		
-		//总返利数据.   
-		BigDecimal totalScore = userScoreDetailService.totalScore(searchVo);
-		model.addAttribute("totalScore", totalScore);
+		UserScoreCashTotalVo userScoreCashTotalVo = userScoreCashService.getTotalVo(userId);
 		
-		//总提现数据
-		UserSearchVo totalCashSearchVo = new UserSearchVo();
-		if (searchVo.getUserId() != null) totalCashSearchVo.setUserId(searchVo.getUserId());
-		if (!StringUtil.isEmpty(searchVo.getGameIdTo())) totalCashSearchVo.setGameId(searchVo.getGameIdTo());
-		totalCashSearchVo.setStatus((short) 1);
-		BigDecimal totalCash = userScoreCashService.totalCash(totalCashSearchVo);
+		model.addAttribute("userScoreCashTotalVo", userScoreCashTotalVo);
 		
-		BigDecimal totalStore = totalScore.subtract(totalCash);
-		model.addAttribute("totalStore", totalStore);
 		return "user/payBackList";
 	}
 

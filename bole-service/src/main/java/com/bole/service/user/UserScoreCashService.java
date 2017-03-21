@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.bole.po.model.user.UserScoreCash;
 import com.bole.vo.UserSearchVo;
+import com.bole.vo.user.UserScoreCashTotalVo;
+import com.bole.vo.user.UserScoreCashVo;
 import com.github.pagehelper.PageInfo;
 
 public interface UserScoreCashService {
@@ -24,5 +26,9 @@ public interface UserScoreCashService {
 	PageInfo selectByListPage(UserSearchVo searchVo, int pageNum, int pageSize);
 
 	BigDecimal totalCash(UserSearchVo searchVo);
+
+	UserScoreCashVo getVo(UserScoreCash item);
+
+	UserScoreCashTotalVo getTotalVo(Long userId);
 
 }

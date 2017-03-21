@@ -11,7 +11,7 @@
 <body>
 <body ontouchstart>
 	<header class='demos-header'>
-	<h1 class="demos-title">返利记录</h1>
+	<h1 class="demos-title">返利详情</h1>
 	<p class='demos-sub-title'>总返利：${userScoreCashTotalVo.totalScore }, 未领取返利${userScoreCashTotalVo.totalStore }</p>
 	</header>
 	<c:if test="${ userType != 0 }">
@@ -33,28 +33,48 @@
 		<a href="javascript:" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
 	</div>
 	</c:if>
+	<c:if test="${ userType == 0 }">
+		<div class="weui-cell__ft">
+			<a href="#" onclick="btn_link('/user/cashForm?id=0')" class="weui-btn weui-btn_mini weui-btn_primary">申请返利</a>
+		</div>
+		<br>
+	</c:if>
 	<div id="DataTables_Table_0_wrapper " class="dataTables_wrapper no-footer">
 		<table id="DataTables_Table_0" class="table table-border table-bordered table-hover table-bg table-sort">
 			<thead>
 				<tr class="text-c">
 					<th width="50">时间</th>
-					<th width="50">游戏ID</th>
-					<th>返利情况</th>
+					<th width="35">游戏ID</th>
+					<th width="35">数量</th>
+					<th width="30">状态</th>
+					<c:if test="${userType != 0 }">
+					<th width="35">操作</th>
+					</c:if>
+
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${contentModel.list}" var="item">
-					<tr class="text-l">
+					<tr class="text-c">
 						<td>${ item.addTimeStr }</td>
-						<td>${ item.gameIdTo }</td>
-						<td>${ item.payBackRemarks }</td>
+						<td>${ item.gameId }</td>
+						<td>${ item.scoreCash }</td>
+						<td>${ item.statusName }</td>
+						<c:if test="${ userType != 0 }">
+							<td>
+							<c:if test="${item.status == 0 }">
+							<a href="#" onclick="btn_link('/kefu/cashView?id=${item.id}')"
+								class="weui-btn weui-btn_mini weui-btn_primary">审核</a>
+							</c:if>
+							</td>
+						</c:if>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 		<c:import url="../shared/paging.jsp">
 			<c:param name="pageModelName" value="contentModel" />
-			<c:param name="urlAddress" value="/user/payBackList" />
+			<c:param name="urlAddress" value="/user/cashList" />
 		</c:import>
 	</div>
 	<%@ include file="../shared/pageFooter.jsp"%>

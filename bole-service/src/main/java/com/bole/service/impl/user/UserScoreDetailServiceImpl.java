@@ -117,13 +117,6 @@ public class UserScoreDetailServiceImpl implements UserScoreDetailService {
 		String addTimeStr = TimeStampUtil.timeStampToDateStr(vo.getAddTime() * 1000, "MM-dd HH:MM");
 		vo.setAddTimeStr(addTimeStr);
 		
-		//总返利
-		UserSearchVo searchVo = new UserSearchVo();
-		searchVo.setLinkDetailId(vo.getId());
-		BigDecimal totalPayBack = this.totalScore(searchVo);
-		if (totalPayBack == null )  totalPayBack = new BigDecimal(0);
-		vo.setTotalPayBack(totalPayBack);
-
 		return vo;
 	}
 	

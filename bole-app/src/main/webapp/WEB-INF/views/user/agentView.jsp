@@ -66,13 +66,13 @@
 			<div class="weui-form-preview__bd">
 				<div class="weui-form-preview__item">
 					<label class="weui-form-preview__label">总返利</label>
-					<em class="weui-form-preview__value">${contentModel.totalPayBack }</em>
+					<em class="weui-form-preview__value">${userScoreCashTotalVo.totalScore }</em>
 				</div>
 			</div>
 			<div class="weui-form-preview__bd">
 				<div class="weui-form-preview__item">
 					<label class="weui-form-preview__label">未领取的返利</label>
-					<em class="weui-form-preview__value">${contentModel.totalStore }</em>
+					<em class="weui-form-preview__value">${userScoreCashTotalVo.totalStore }</em>
 				</div>
 			</div>
 		</c:if>

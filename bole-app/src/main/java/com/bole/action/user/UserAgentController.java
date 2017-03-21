@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bole.common.Constants;
 import com.bole.po.model.user.User;
+import com.bole.service.user.UserScoreCashService;
 import com.bole.service.user.UserService;
 import com.bole.vo.UserSearchVo;
+import com.bole.vo.user.UserScoreCashTotalVo;
 import com.bole.vo.user.UserVo;
 import com.github.pagehelper.PageInfo;
 import com.simi.oa.auth.AccountAuth;
@@ -25,6 +27,9 @@ public class UserAgentController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private UserScoreCashService userScoreCashService;
 
 	@AuthPassport
 	@RequestMapping(value = "/agentList", method = { RequestMethod.GET })
@@ -83,6 +88,10 @@ public class UserAgentController {
     	
 		User record = userService.selectByPrimaryKey(userId);
 		UserVo vo = userService.getVo(record);
+		
+		UserScoreCashTotalVo userScoreCashTotalVo = userScoreCashService.getTotalVo(userId);
+		
+		model.addAttribute("userScoreCashTotalVo", userScoreCashTotalVo);
 		
 		model.addAttribute("contentModel", vo);
 		return "user/agentView";
