@@ -135,7 +135,7 @@ public class HomeController extends BaseController {
     		//我的团队
     		MenuVo menu2 = new MenuVo();
     		menu2.setIconUrl("/static/images/icon_nav_search_bar.png");
-    		menu2.setLinkUrl("/user/agentList");
+    		menu2.setLinkUrl("/user/teamTree");
     		menu2.setName("我的团队");
     		menus.add(menu2);
     		//充值记
