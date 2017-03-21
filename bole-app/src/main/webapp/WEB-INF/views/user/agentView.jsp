@@ -48,22 +48,22 @@
 			</div>
 		</div>
 		<div class="weui-form-preview__ft">
-			<a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">团队成员分布</a>
+			<a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">返利情况</a>
 		</div>
 		<div class="weui-form-preview__bd">
 			<div class="weui-form-preview__item">
-				<label class="weui-form-preview__label">总成员</label>
-				<em class="weui-form-preview__value">${contentModel.totalSubAgent }人</em>
+				<label class="weui-form-preview__label">总返利</label>
+				<em class="weui-form-preview__value">${contentModel.totalPayBack }人</em>
 			</div>
 		</div>
-		<c:forEach items="${contentModel.userLevelStats}" var="userLevelStat">
-			<div class="weui-form-preview__bd">
-				<div class="weui-form-preview__item">
-					<label class="weui-form-preview__label">${userLevelStat.level }级代理</label>
-					<em class="weui-form-preview__value">${userLevelStat.total }人</em>
-				</div>
+		
+		<div class="weui-form-preview__bd">
+			<div class="weui-form-preview__item">
+				<label class="weui-form-preview__label">未领取的返利</label>
+				<em class="weui-form-preview__value">${contentModel.totalStore }人</em>
 			</div>
-		</c:forEach>
+		</div>
+		
 		<div class="weui-msg__opr-area">
 			<p class="weui-btn-area">
 				<a href="#" onclick="btn_back()" class="weui-btn weui-btn_primary">返回</a>

@@ -72,4 +72,11 @@ public class UserScoreCashServiceImpl implements UserScoreCashService {
 		return info;
 	}
 	
+	@Override
+	public BigDecimal totalCash(UserSearchVo searchVo) {
+		BigDecimal totalCash = mapper.totalCash(searchVo);
+		if (totalCash == null) totalCash = new BigDecimal(0);
+		return totalCash;
+	}
+	
 }

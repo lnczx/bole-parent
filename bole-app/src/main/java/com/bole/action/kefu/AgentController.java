@@ -102,7 +102,9 @@ public class AgentController extends BaseController {
 		record.setLevel(Constants.USER_LEVEL_1);
 		record.setUserType(Constants.USER_TYPE_0);
 		record.setActive(Constants.USER_ACTIVE_0);
-
+		
+		if (pUser == null)
+			pUser = userService.selectByPrimaryKey(1L);
 		record = userService.genAgenUser(pUser, record);
 		
 		//异步父级统计代理人数

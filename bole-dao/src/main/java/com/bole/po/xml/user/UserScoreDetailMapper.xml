@@ -10,11 +10,14 @@
 		<result column="score_pre" property="scorePre" jdbcType="DECIMAL" />
 		<result column="score_after" property="scoreAfter" jdbcType="DECIMAL" />
 		<result column="link_detail_id" property="linkDetailId" jdbcType="NUMERIC" />
+		<result column="link_back_level" property="linkBackLevel" jdbcType="NUMERIC" />
+		<result column="link_back_ratio" property="linkBackRatio" jdbcType="DECIMAL" />
 		<result column="remarks" property="remarks" jdbcType="VARCHAR" />
 		<result column="add_time" property="addTime" jdbcType="NUMERIC" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, user_id_from, user_id_to, score, score_type, score_pre, score_after, link_detail_id, remarks,
+		id, user_id_from, user_id_to, score, score_type, score_pre, score_after, link_detail_id, 
+		link_back_level, link_back_ratio, remarks,
 		add_time
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
@@ -83,11 +86,12 @@
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		insert into user_score_detail (user_id_from, user_id_to, score,
-		score_type, score_pre, score_after, link_detail_id,
+		score_type, score_pre, score_after, link_detail_id, link_back_level, link_back_ratio, 
 		remarks, add_time)
 		values (#{userIdFrom,jdbcType=NUMERIC}, #{userIdTo,jdbcType=NUMERIC}, #{score,jdbcType=DECIMAL},
 		#{scoreType,jdbcType=NUMERIC}, #{scorePre,jdbcType=DECIMAL}, 
 		#{scoreAfter,jdbcType=DECIMAL}, #{linkDetailId,jdbcType=NUMERIC},
+		#{linkBackLevel,jdbcType=NUMERIC}, #{linkBackRatio,jdbcType=DECIMAL},
 		#{remarks,jdbcType=VARCHAR}, #{addTime,jdbcType=NUMERIC})
 	</insert>
 	<insert id="insertSelective" parameterType="com.bole.po.model.user.UserScoreDetail">
@@ -117,6 +121,12 @@
 			<if test="linkDetailId != null">
 				link_detail_id,
 			</if>
+			<if test="linkBackLevel != null">
+				link_back_level,
+			</if>
+			<if test="linkBackRatio != null">
+				link_back_ratio,
+			</if>
 			<if test="remarks != null">
 				remarks,
 			</if>
@@ -145,6 +155,12 @@
 			</if>
 			<if test="linkDetailId != null">
 				#{linkDetailId,jdbcType=NUMERIC},
+			</if>
+			<if test="linkBackLevel != null">
+				#{linkBackLevel,jdbcType=NUMERIC},
+			</if>
+			<if test="linkBackRatio != null">
+				#{linkBackRatio,jdbcType=DECIMAL},
 			</if>
 			<if test="remarks != null">
 				#{remarks,jdbcType=VARCHAR},
@@ -178,6 +194,12 @@
 			<if test="linkDetailId != null">
 				link_detail_id = #{linkDetailId,jdbcType=NUMERIC},
 			</if>
+			<if test="linkBackLevel != null">
+				link_back_level = #{linkBackLevel,jdbcType=NUMERIC},
+			</if>
+			<if test="linkBackRatio != null">
+				link_back_ratio = #{linkBackRatio,jdbcType=DECIMAL},
+			</if>
 			<if test="remarks != null">
 				remarks = #{remarks,jdbcType=VARCHAR},
 			</if>
@@ -196,6 +218,8 @@
 	score_pre = #{scorePre,jdbcType=DECIMAL},
 	score_after = #{scoreAfter,jdbcType=DECIMAL},
 	link_detail_id = #{linkDetailId,jdbcType=NUMERIC},
+	link_back_level = #{linkBackLevel,jdbcType=NUMERIC},
+	link_back_ratio = #{linkBackRatio,jdbcType=NUMERIC},
 	remarks = #{remarks,jdbcType=VARCHAR},
 	add_time = #{addTime,jdbcType=NUMERIC}
 	where id = #{id,jdbcType=NUMERIC}

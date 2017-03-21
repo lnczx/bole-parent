@@ -61,6 +61,8 @@ public class UserScoreDetailServiceImpl implements UserScoreDetailService {
 		record.setScorePre(new BigDecimal(0));
 		record.setScoreAfter(new BigDecimal(0));
 		record.setLinkDetailId(0L);
+		record.setLinkBackLevel(Constants.USER_LEVEL_0);
+		record.setLinkBackRatio(new BigDecimal(0));
 		record.setRemarks("");
 		record.setAddTime(TimeStampUtil.getNowSecond());
 
@@ -115,18 +117,19 @@ public class UserScoreDetailServiceImpl implements UserScoreDetailService {
 		String addTimeStr = TimeStampUtil.timeStampToDateStr(vo.getAddTime() * 1000, "MM-dd HH:MM");
 		vo.setAddTimeStr(addTimeStr);
 		
-		BigDecimal totalPayBack = this.totalPayBack(vo.getId());
+		//总返利
+		UserSearchVo searchVo = new UserSearchVo();
+		searchVo.setLinkDetailId(vo.getId());
+		BigDecimal totalPayBack = this.totalPayBack(searchVo);
 		if (totalPayBack == null )  totalPayBack = new BigDecimal(0);
 		vo.setTotalPayBack(totalPayBack);
 		return vo;
 	}
 	
 	@Override
-	public BigDecimal totalPayBack(Long linkDetailId) {
-		BigDecimal totalPayBack = new BigDecimal(0);
-		UserSearchVo searchVo = new UserSearchVo();
-		searchVo.setLinkDetailId(linkDetailId);
-		totalPayBack = mapper.totalPayBack(searchVo);		
+	public BigDecimal totalPayBack(UserSearchVo searchVo) {
+		BigDecimal totalPayBack = mapper.totalPayBack(searchVo);	
+		if (totalPayBack == null )  totalPayBack = new BigDecimal(0);
 		return totalPayBack;
 	}
 	
@@ -134,20 +137,31 @@ public class UserScoreDetailServiceImpl implements UserScoreDetailService {
 	 * 计算代理返利的情况
 	 */
 	@Override
-	public List<UserScoreDetailVo> getAgentTreePayBack(User userIdTo, UserScoreDetail item) {
+	public List<UserScoreDetailVo> getAgentTreePayBack(User userTo, UserScoreDetail item) {
 		List<UserScoreDetailVo> result = new ArrayList<UserScoreDetailVo>();
 		
 		//如果是客服直接返回空数据，不做返利
-		if (userIdTo.getUserType().equals(Constants.USER_TYPE_1)) return result;
+		if (userTo.getUserType().equals(Constants.USER_TYPE_1)) return result;
 		
-		Long pId = userIdTo.getpId();
+		//如果不是付款的充值，不做返利
+		if (!item.getScoreType().equals(Constants.SCORE_TYPE_1)) return result;
+		
+		Long pId = userTo.getpId();
 		if (pId.equals(0L)) return result;
 		
 		BigDecimal score = item.getScore();
-		int i = 0;
-		while (i < 6) {
-			User pUser = userService.selectByPrimaryKey(pId);
-			
+		
+		UserSearchVo searchVo = new UserSearchVo();
+		searchVo.setGetParents(1);
+		searchVo.setLft(userTo.getLft());
+		searchVo.setRgt(userTo.getRgt());
+		searchVo.setOrderByProperty(" order by lft desc");
+		
+		List<User> list = userService.selectBySearchVo(searchVo);
+		
+		Short linkBackLevel = 1;
+		for (int i = 0 ; i < list.size(); i++) {
+			User pUser = list.get(i);
 			Short level = pUser.getLevel();
 			BigDecimal leveRatio = BoleUtil.getLevelRatio(level);
 			
@@ -166,14 +180,12 @@ public class UserScoreDetailServiceImpl implements UserScoreDetailService {
 			record.setScoreType(Constants.SCORE_TYPE_2);
 			record.setScorePre(pUser.getScore());
 			record.setScoreAfter(scoreAfter);
+			record.setLinkBackLevel(linkBackLevel);
+			record.setLinkBackRatio(leveRatio);
+			record.setLinkDetailId(item.getId());
 			record.setRemarks(remarks);
 			UserScoreDetailVo vo = this.getVo(record);
-			
 			result.add(vo);
-		
-			if (pUser.getpId().equals(0L)) break;
-			pId = pUser.getpId();
-			i++;
 		}
 		
 		

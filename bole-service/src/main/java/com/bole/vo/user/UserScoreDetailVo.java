@@ -17,7 +17,7 @@ public class UserScoreDetailVo extends UserScoreDetail {
 	private String addTimeStr;
 	
 	private BigDecimal totalPayBack;
-
+	
 	public String getGameIdTo() {
 		return gameIdTo;
 	}

@@ -27,8 +27,8 @@ public interface UserScoreDetailService {
 
 	UserScoreDetailVo getVo(UserScoreDetail item);
 
-	BigDecimal totalPayBack(Long linkDetailId);
-
 	List<UserScoreDetailVo> getAgentTreePayBack(User userIdTo, UserScoreDetail item);
 
+	BigDecimal totalPayBack(UserSearchVo searchVo);
+	
 }

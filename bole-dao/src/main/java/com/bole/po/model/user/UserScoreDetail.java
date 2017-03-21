@@ -18,6 +18,10 @@ public class UserScoreDetail {
     private BigDecimal scoreAfter;
     
     private Long linkDetailId;
+    
+    private Short linkBackLevel;
+    
+    private BigDecimal linkBackRatio;
 
     private String remarks;
 
@@ -101,5 +105,21 @@ public class UserScoreDetail {
 
 	public void setLinkDetailId(Long linkDetailId) {
 		this.linkDetailId = linkDetailId;
+	}
+
+	public Short getLinkBackLevel() {
+		return linkBackLevel;
+	}
+
+	public void setLinkBackLevel(Short linkBackLevel) {
+		this.linkBackLevel = linkBackLevel;
+	}
+
+	public BigDecimal getLinkBackRatio() {
+		return linkBackRatio;
+	}
+
+	public void setLinkBackRatio(BigDecimal linkBackRatio) {
+		this.linkBackRatio = linkBackRatio;
 	}
 }

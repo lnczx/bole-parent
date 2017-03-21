@@ -1,5 +1,6 @@
 package com.bole.service.user;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.bole.po.model.user.UserScoreCash;
@@ -21,5 +22,7 @@ public interface UserScoreCashService {
 	List<UserScoreCash> selectBySearchVo(UserSearchVo searchVo);
 
 	PageInfo selectByListPage(UserSearchVo searchVo, int pageNum, int pageSize);
+
+	BigDecimal totalCash(UserSearchVo searchVo);
 
 }

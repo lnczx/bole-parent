@@ -63,8 +63,9 @@ public class ReChargeController extends BaseController {
 		BeanUtilsExp.copyPropertiesIgnoreNull(record, vo);
 		vo.setGameIdFrom(userFrom.getGameId());
 		vo.setGameIdTo(userTo.getGameId());
-
-		model.addAttribute("contentModel", vo);
+		
+		if (!model.containsAttribute("contentModel"))
+			model.addAttribute("contentModel", vo);
 
 		return "kefu/rechargeForm";
 	}

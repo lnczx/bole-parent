@@ -9,7 +9,7 @@
 <body>
 <body ontouchstart>
 	<header class='demos-header'>
-	<h1 class="demos-title">充值确认</h1>
+	<h1 class="demos-title">充值</h1>
 	</header>
 	<form:form id="recharge-form" modelAttribute="contentModel" action="/bole/kefu/rechargeForm">
 		<form:hidden path="userIdTo" />

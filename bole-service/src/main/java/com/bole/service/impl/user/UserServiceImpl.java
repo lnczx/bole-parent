@@ -13,6 +13,8 @@ import com.bole.po.model.user.User;
 import com.bole.po.model.user.UserLevelStat;
 import com.bole.service.user.UserLevelLogService;
 import com.bole.service.user.UserLevelStatService;
+import com.bole.service.user.UserScoreCashService;
+import com.bole.service.user.UserScoreDetailService;
 import com.bole.service.user.UserService;
 import com.bole.vo.UserSearchVo;
 import com.bole.vo.user.UserVo;
@@ -33,6 +35,12 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserLevelLogService userLevelLogService;
+	
+	@Autowired
+	private UserScoreDetailService userScoreDetailService;
+	
+	@Autowired
+	private UserScoreCashService userScoreCashService;
 
 	@Override
 	public int insertSelective(User record) {
@@ -96,7 +104,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	/**
-	 * 添加用户，设计到左右分支的树形结构. 只应用于代理的生存
+	 * 添加用户，设计到左右分支的树形结构. 只应用于代理的新增
 	 * @param openId
 	 * @param nickName
 	 * @param headImg
@@ -128,31 +136,19 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean isSubUser(Long pId, Long userId) {
 		
-		boolean isExist = false;
-		int i = 0;
-		List<Long> pIds = new ArrayList<Long>();
-		pIds.add(pId);
-		while (true) {
-			UserSearchVo searchVo = new UserSearchVo();
-			searchVo.setpIds(pIds);
-			List<User> list = this.selectBySearchVo(searchVo);
-			
-			if (list.isEmpty()) {
-				isExist = false;
-				break;
-			} 
-			pIds = new ArrayList<Long>();
-			for(User item : list) {
-				pIds.add(item.getUserId());
-				if (item.getUserId().equals(userId)) {
-					isExist = true;
-					break;
-				}
-			}
-		}
+		User pUser = this.selectByPrimaryKey(pId);
 		
+		if (pUser == null) return false;
 		
-		return isExist;
+		UserSearchVo searchVo = new UserSearchVo();
+		searchVo.setGetSubs(1);
+		searchVo.setLft(pUser.getLft());
+		searchVo.setRgt(pUser.getRgt());
+		searchVo.setUserId(userId);
+		List<User> list = this.selectBySearchVo(searchVo);
+		
+		if (!list.isEmpty()) return true;
+		return false;
 	}
 
 	@Override
@@ -179,11 +175,27 @@ public class UserServiceImpl implements UserService {
 		UserVo vo = new UserVo();
 
 		BeanUtilsExp.copyPropertiesIgnoreNull(item, vo);
-
-		vo.setTotalSubAgent(0);
-
-		List<UserLevelStat> userLeveStats = new ArrayList<UserLevelStat>();
+		Long userId = vo.getUserId();
+		//返利情况
 		UserSearchVo searchVo = new UserSearchVo();
+		searchVo.setUserIdTo(userId);
+		searchVo.setScoreType(Constants.SCORE_TYPE_1);
+		BigDecimal totalPayBack = userScoreDetailService.totalPayBack(searchVo);
+		vo.setTotalPayBack(totalPayBack);
+		
+		//提现情况
+		searchVo = new UserSearchVo();
+		searchVo.setUserId(userId);
+		searchVo.setStatus((short) 1);
+		BigDecimal totalCash = userScoreCashService.totalCash(searchVo);
+		vo.setTotalCash(totalCash);
+		
+		BigDecimal totalStore = totalPayBack.subtract(totalCash);
+		vo.setTotalStore(totalStore);
+		//团队成员分布情况
+		vo.setTotalSubAgent(0);
+		List<UserLevelStat> userLeveStats = new ArrayList<UserLevelStat>();
+		searchVo = new UserSearchVo();
 		searchVo.setUserId(vo.getUserId());
 		List<UserLevelStat> list = userLevelStatService.selectBySearchVo(searchVo);
 
@@ -199,34 +211,6 @@ public class UserServiceImpl implements UserService {
 		vo.setUserLevelStats(userLeveStats);
 
 		return vo;
-	}
-
-	// 获得全部上级的gameID,拼装成 001652001653
-	@Override
-	public String getPcode(Long userId) {
-		String pCode = "";
-
-		User u = this.selectByPrimaryKey(userId);
-		Long pId = u.getpId();
-		if (pId.equals(0L))
-			return pCode;
-
-		int i = 0;
-		while (i < 6) {
-			User pUser = this.selectByPrimaryKey(pId);
-			pId = pUser.getpId();
-			pCode = pUser.getGameId() + "-" + pCode;
-			if (pId.equals(0L)) {
-				break;
-			} else {
-				pUser = this.selectByPrimaryKey(pId);
-			}
-			i++;
-		}
-
-		pCode = pCode + "-" + u.getGameId();
-
-		return pCode;
 	}
 
 	/**
@@ -252,11 +236,12 @@ public class UserServiceImpl implements UserService {
 		List<User> list = this.selectBySearchVo(searchVo);
 		for (int i = 0 ; i < list.size(); i++) {
 			User pUser = list.get(i);
+			if (pUser.getUserId().equals(1)) continue;
 			UserSearchVo searchVo1 = new UserSearchVo();
 			searchVo1.setpId(pUser.getUserId());
 			searchVo1.setLevel(pUser.getLevel());
 			searchVo1.setActive(Constants.USER_ACTIVE_1);
-			Integer totalUser = this.totalUser(searchVo);
+			Integer totalUser = this.totalUser(searchVo1);
 
 			if (totalUser >= 3) {
 				//1. 升级用户，

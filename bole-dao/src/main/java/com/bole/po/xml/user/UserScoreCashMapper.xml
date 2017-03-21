@@ -35,6 +35,12 @@
 		order by id desc
 	</select>
 	
+	<select id="totalCash" resultType="java.math.BigDecimal" parameterType="com.bole.vo.UserSearchVo">
+		select sum(score_cash) as total
+		from user_score_cash
+		<include refid="bySearchVo"/>
+	</select>
+	
 	<sql id="bySearchVo">
 	    where 1 = 1
 	    <if test="userId != null">

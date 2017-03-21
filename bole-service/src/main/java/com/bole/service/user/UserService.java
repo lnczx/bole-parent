@@ -30,8 +30,6 @@ public interface UserService {
 
 	UserVo getVo(User item);
 
-	String getPcode(Long userId);
-
 	Boolean userLevelupTree(Long userId);
 
 	Integer totalUser(UserSearchVo searchVo);
