@@ -43,7 +43,7 @@
 		order by id desc
 	</select>
 	
-	<select id="totalPayBack" resultType="java.math.BigDecimal" parameterType="com.bole.vo.UserSearchVo">
+	<select id="totalScore" resultType="java.math.BigDecimal" parameterType="com.bole.vo.UserSearchVo">
 		select
 		sum(score) as total
 		from user_score_detail
@@ -56,7 +56,7 @@
 			and user_id_from = #{userIdFrom,jdbcType=NUMERIC}
 		</if>
 		
-		<if test="gameIdFrom != null">
+		<if test="gameIdFrom != null and gameIdFrom != ''">
 			and user_id_from = (select user_id from user where game_id = #{gameIdFrom,jdbcType=VARCHAR})
 		</if>
 		
@@ -64,12 +64,19 @@
 			and user_id_to = #{userIdTo,jdbcType=NUMERIC}
 		</if>
 		
-		<if test="gameIdTo != null">
+		<if test="gameIdTo != null and gameIdTo != ''">
 			and user_id_to = (select user_id from user where game_id = #{gameIdTo,jdbcType=VARCHAR})
 		</if>
 		
 	    <if test="scoreType != null">
 			and score_type = #{scoreType,jdbcType=NUMERIC}
+		</if>
+		
+		<if test="scoreTypes != null and scoreTypes">
+			and score_type in
+			<foreach item="item" index="index" collection="scoreTypes" open="(" separator="," close=")">
+				${item}
+			</foreach>
 		</if>
 		
 		<if test="linkDetailId != null">

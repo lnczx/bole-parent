@@ -180,7 +180,7 @@ public class UserServiceImpl implements UserService {
 		UserSearchVo searchVo = new UserSearchVo();
 		searchVo.setUserIdTo(userId);
 		searchVo.setScoreType(Constants.SCORE_TYPE_1);
-		BigDecimal totalPayBack = userScoreDetailService.totalPayBack(searchVo);
+		BigDecimal totalPayBack = userScoreDetailService.totalScore(searchVo);
 		vo.setTotalPayBack(totalPayBack);
 		
 		//提现情况

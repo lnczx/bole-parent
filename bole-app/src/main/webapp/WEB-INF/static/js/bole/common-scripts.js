@@ -22,3 +22,8 @@ function btn_del(path) {
 function btn_back() {
 	history.back(-1);
 }
+
+//统一查询
+$("#btn-search").click(function() {
+	$("#search-form").submit();
+})

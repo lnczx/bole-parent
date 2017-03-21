@@ -18,6 +18,8 @@ public class UserScoreDetailVo extends UserScoreDetail {
 	
 	private BigDecimal totalPayBack;
 	
+	private UserScoreDetailVo linkUserScoreDetail;
+	
 	public String getGameIdTo() {
 		return gameIdTo;
 	}
@@ -64,5 +66,13 @@ public class UserScoreDetailVo extends UserScoreDetail {
 
 	public void setLevelTo(Short levelTo) {
 		this.levelTo = levelTo;
+	}
+
+	public UserScoreDetailVo getLinkUserScoreDetail() {
+		return linkUserScoreDetail;
+	}
+
+	public void setLinkUserScoreDetail(UserScoreDetailVo linkUserScoreDetail) {
+		this.linkUserScoreDetail = linkUserScoreDetail;
 	}
 }

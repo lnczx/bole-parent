@@ -11,8 +11,8 @@
 <body>
 <body ontouchstart>
 	<header class='demos-header'>
-	<h1 class="demos-title">充值记录</h1>
-	<p class='demos-sub-title'>总充值：${totalScore }</p>
+	<h1 class="demos-title">返利记录</h1>
+	<p class='demos-sub-title'>总返利：${totalScore }, 未领取返利${totalStore }</p>
 	</header>
 	<c:if test="${ userType != 0 }">
 	<div class="weui-search-bar" id="searchBar">
@@ -38,9 +38,8 @@
 			<thead>
 				<tr class="text-c">
 					<th width="50">时间</th>
-					<th width="35">充值ID</th>
-					<th width="35">钻石数</th>
-					<th width="35">类型</th>
+					<th width="50">游戏ID</th>
+					<th>返利情况</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -48,15 +47,14 @@
 					<tr class="text-c">
 						<td>${ item.addTimeStr }</td>
 						<td>${ item.gameIdTo }</td>
-						<td>${ item.score }</td>
-						<td>${ item.scoreTypeName }</td>
+						<td>${ item.linkUserScoreDetail.gameIdTo}充值${ item.linkUserScoreDetail.score}, ${item.linkBackLevel }层返利${item.score }</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 		<c:import url="../shared/paging.jsp">
 			<c:param name="pageModelName" value="contentModel" />
-			<c:param name="urlAddress" value="/user/rechargeList" />
+			<c:param name="urlAddress" value="/user/payBackList" />
 		</c:import>
 	</div>
 	<%@ include file="../shared/pageFooter.jsp"%>

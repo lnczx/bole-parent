@@ -23,7 +23,7 @@
 			<form:form modelAttribute="searchModel" id="search-form" class="weui-search-bar__form" method="GET">
 				<div class="weui-search-bar__box">
 					<i class="weui-icon-search"></i>
-					<input type="text" class="weui-search-bar__input" id="searchInput" name="gameIdTo" placeholder="搜索" required="">
+					<input type="text" class="weui-search-bar__input" id="searchInput" name="gameId" value="${searchModel.gameId }" placeholder="搜索" required="">
 					<a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
 				</div>
 				<label class="weui-search-bar__label" id="searchText"

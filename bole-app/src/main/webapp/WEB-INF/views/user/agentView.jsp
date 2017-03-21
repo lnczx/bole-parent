@@ -18,52 +18,64 @@
 				<em class="weui-form-preview__value">${contentModel.gameId }</em>
 			</div>
 		</div>
+		<c:if test="${contentModel.userType == 1 }">
+			<div class="weui-form-preview__bd">
+				<div class="weui-form-preview__item">
+					<label class="weui-form-preview__label">余额</label>
+					<em class="weui-form-preview__value">${contentModel.score }</em>
+				</div>
+			</div>
+		
+		</c:if>
+		
+		
+		<c:if test="${contentModel.userType == 0 }">
 		<div class="weui-form-preview__bd">
 			<div class="weui-form-preview__item">
 				<label class="weui-form-preview__label">代理等级</label>
 				<em class="weui-form-preview__value">${contentModel.level }</em>
 			</div>
 		</div>
-		<div class="weui-form-preview__bd">
-			<div class="weui-form-preview__item">
-				<label class="weui-form-preview__label">上级ID</label>
-				<em class="weui-form-preview__value">${contentModel.pGameId }</em>
-			</div>
-		</div>
-		<div class="weui-form-preview__bd">
-			<div class="weui-form-preview__item">
-				<label class="weui-form-preview__label">邀请码</label>
-				<em class="weui-form-preview__value">${contentModel.inviteCode }</em>
-			</div>
-		</div>
-		<div class="weui-form-preview__bd">
-			<div class="weui-form-preview__item">
-				<label class="weui-form-preview__label">状态</label>
-				<em class="weui-form-preview__value"> <c:if test="${contentModel.active == 0 }">
-						<font color="red">未激活</font>
-					</c:if> <c:if test="${contentModel.active == 1 }">
-						<font color="red">已激活</font>
-					</c:if>
-				</em>
-			</div>
-		</div>
-		<div class="weui-form-preview__ft">
-			<a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">返利情况</a>
-		</div>
-		<div class="weui-form-preview__bd">
-			<div class="weui-form-preview__item">
-				<label class="weui-form-preview__label">总返利</label>
-				<em class="weui-form-preview__value">${contentModel.totalPayBack }人</em>
-			</div>
-		</div>
 		
-		<div class="weui-form-preview__bd">
-			<div class="weui-form-preview__item">
-				<label class="weui-form-preview__label">未领取的返利</label>
-				<em class="weui-form-preview__value">${contentModel.totalStore }人</em>
+			<div class="weui-form-preview__bd">
+				<div class="weui-form-preview__item">
+					<label class="weui-form-preview__label">上级ID</label>
+					<em class="weui-form-preview__value">${contentModel.pGameId }</em>
+				</div>
 			</div>
-		</div>
-		
+			<div class="weui-form-preview__bd">
+				<div class="weui-form-preview__item">
+					<label class="weui-form-preview__label">邀请码</label>
+					<em class="weui-form-preview__value">${contentModel.inviteCode }</em>
+				</div>
+			</div>
+			<div class="weui-form-preview__bd">
+				<div class="weui-form-preview__item">
+					<label class="weui-form-preview__label">状态</label>
+					<em class="weui-form-preview__value"> <c:if test="${contentModel.active == 0 }">
+							<font color="red">未激活</font>
+						</c:if> <c:if test="${contentModel.active == 1 }">
+							<font color="red">已激活</font>
+						</c:if>
+					</em>
+				</div>
+			</div>
+			<div class="weui-form-preview__ft">
+				<a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">返利情况</a>
+			</div>
+			<div class="weui-form-preview__bd">
+				<div class="weui-form-preview__item">
+					<label class="weui-form-preview__label">总返利</label>
+					<em class="weui-form-preview__value">${contentModel.totalPayBack }</em>
+				</div>
+			</div>
+			<div class="weui-form-preview__bd">
+				<div class="weui-form-preview__item">
+					<label class="weui-form-preview__label">未领取的返利</label>
+					<em class="weui-form-preview__value">${contentModel.totalStore }</em>
+				</div>
+			</div>
+		</c:if>
 		<div class="weui-msg__opr-area">
 			<p class="weui-btn-area">
 				<a href="#" onclick="btn_back()" class="weui-btn weui-btn_primary">返回</a>
@@ -79,6 +91,5 @@
 	<!-- js placed at the end of the document so the pages load faster -->
 	<!--common script for all pages-->
 	<%@ include file="../shared/importJs.jsp"%>
-	
 </body>
 </html>

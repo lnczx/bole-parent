@@ -120,15 +120,16 @@ public class UserScoreDetailServiceImpl implements UserScoreDetailService {
 		//总返利
 		UserSearchVo searchVo = new UserSearchVo();
 		searchVo.setLinkDetailId(vo.getId());
-		BigDecimal totalPayBack = this.totalPayBack(searchVo);
+		BigDecimal totalPayBack = this.totalScore(searchVo);
 		if (totalPayBack == null )  totalPayBack = new BigDecimal(0);
 		vo.setTotalPayBack(totalPayBack);
+
 		return vo;
 	}
 	
 	@Override
-	public BigDecimal totalPayBack(UserSearchVo searchVo) {
-		BigDecimal totalPayBack = mapper.totalPayBack(searchVo);	
+	public BigDecimal totalScore(UserSearchVo searchVo) {
+		BigDecimal totalPayBack = mapper.totalScore(searchVo);	
 		if (totalPayBack == null )  totalPayBack = new BigDecimal(0);
 		return totalPayBack;
 	}
@@ -162,8 +163,10 @@ public class UserScoreDetailServiceImpl implements UserScoreDetailService {
 		Short linkBackLevel = 1;
 		for (int i = 0 ; i < list.size(); i++) {
 			User pUser = list.get(i);
-			Short level = pUser.getLevel();
-			BigDecimal leveRatio = BoleUtil.getLevelRatio(level);
+			if (!pUser.getUserType().equals(Constants.SCORE_TYPE_0)) continue;
+			if (linkBackLevel > 6) break;
+//			Short level = pUser.getLevel();
+			BigDecimal leveRatio = BoleUtil.getLevelRatio(linkBackLevel);
 			
 			BigDecimal scoreBack = MathBigDecimalUtil.mul(score, leveRatio);
 			scoreBack = MathBigDecimalUtil.round(scoreBack, 2);
@@ -186,6 +189,8 @@ public class UserScoreDetailServiceImpl implements UserScoreDetailService {
 			record.setRemarks(remarks);
 			UserScoreDetailVo vo = this.getVo(record);
 			result.add(vo);
+			
+			linkBackLevel++;
 		}
 		
 		

@@ -40,6 +40,8 @@ public class UserSearchVo  {
 	
 	private Short scoreType;
 	
+	private List<Short> scoreTypes;
+	
 	private Long linkDetailId;
 	
 	private Short active;
@@ -253,6 +255,14 @@ public class UserSearchVo  {
 
 	public void setOrderByProperty(String orderByProperty) {
 		this.orderByProperty = orderByProperty;
+	}
+
+	public List<Short> getScoreTypes() {
+		return scoreTypes;
+	}
+
+	public void setScoreTypes(List<Short> scoreTypes) {
+		this.scoreTypes = scoreTypes;
 	}
 
 }

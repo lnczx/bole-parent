@@ -47,6 +47,18 @@
 			and user_id = #{userId,jdbcType=NUMERIC}
 		</if>
 		
+		<if test="gameId != null and gameId != ''">
+			and user_id = (select user_id from user where game_id = #{gameId,jdbcType=VARCHAR})
+		</if>
+		
+		<if test="gameIdFrom != null and gameIdFrom != ''">
+			and user_id = (select user_id from user where game_id = #{gameIdFrom,jdbcType=VARCHAR})
+		</if>
+		
+		<if test="gameIdTo != null and gameIdTo != ''">
+			and user_id = (select user_id from user where game_id = #{gameIdTo,jdbcType=VARCHAR})
+		</if>
+		
 	    <if test="status != null">
 			and status = #{status,jdbcType=NUMERIC}
 		</if>

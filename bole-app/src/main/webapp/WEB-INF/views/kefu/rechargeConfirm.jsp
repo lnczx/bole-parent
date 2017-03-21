@@ -53,14 +53,26 @@
 			<div class="weui-form-preview__ft">
 				<a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">返利情况</a>
 			</div>
-			<c:forEach items="${paybacks}" var="item">
+
+			
+			<c:if test="${empty payBacks  }">
+				<c:forEach items="${paybacks}" var="item">
+					<div class="weui-form-preview__bd">
+						<div class="weui-form-preview__item">
+							<label class="weui-form-preview__label">游戏ID</label>
+							<em class="weui-form-preview__value">${item.gameIdTo } &nbsp;&nbsp;&nbsp;   ${item.linkBackLevel}层返利=<font color="red">${item.score }</font></em>
+						</div>
+					</div>
+				</c:forEach>
+			</c:if>
+			<c:if test="${!empty payBacks  }">
 				<div class="weui-form-preview__bd">
 					<div class="weui-form-preview__item">
-						<label class="weui-form-preview__label">游戏ID</label>
-						<em class="weui-form-preview__value">${item.gameIdTo }，${item.levelTo}级,共返利=<font color="red">${item.score }</font></em>
+						<label class="weui-form-preview__label">无返利</label>
+						<em class="weui-form-preview__value"></em>
 					</div>
 				</div>
-			</c:forEach>
+			</c:if>
 		</c:if>
 		<div class="weui-msg__opr-area">
 			<p class="weui-btn-area">

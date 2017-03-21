@@ -65,7 +65,7 @@ public class HomeController extends BaseController {
     		//返利记录
     		MenuVo menu4 = new MenuVo();
     		menu4.setIconUrl("/static/images/icon_nav_up.png");
-    		menu4.setLinkUrl("/user/rechargeList");
+    		menu4.setLinkUrl("/user/payBackList");
     		menu4.setName("返利记录");
     		menus.add(menu4);
     		
@@ -112,7 +112,7 @@ public class HomeController extends BaseController {
     		//返利记录
     		MenuVo menu4 = new MenuVo();
     		menu4.setIconUrl("/static/images/icon_nav_cell.png");
-    		menu4.setLinkUrl("/user/rechargeList");
+    		menu4.setLinkUrl("/user/payBackList");
     		menu4.setName("返利记录");
     		menus.add(menu4);
     		
@@ -135,7 +135,7 @@ public class HomeController extends BaseController {
     		//我的团队
     		MenuVo menu2 = new MenuVo();
     		menu2.setIconUrl("/static/images/icon_nav_search_bar.png");
-    		menu2.setLinkUrl("/user/agentList?pId="+u.getUserId());
+    		menu2.setLinkUrl("/user/agentList");
     		menu2.setName("我的团队");
     		menus.add(menu2);
     		//充值记
@@ -147,7 +147,7 @@ public class HomeController extends BaseController {
     		//返利详情
     		MenuVo menu4 = new MenuVo();
     		menu4.setIconUrl("/static/images/icon_nav_up.png");
-    		menu4.setLinkUrl("/user/rechargeList");
+    		menu4.setLinkUrl("/user/payBackList");
     		menu4.setName("返利详情");
     		menus.add(menu4);
     		//申请提现
