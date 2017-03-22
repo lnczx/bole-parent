@@ -25,18 +25,14 @@
 					<em class="weui-form-preview__value">${contentModel.score }</em>
 				</div>
 			</div>
-		
 		</c:if>
-		
-		
 		<c:if test="${contentModel.userType == 0 }">
-		<div class="weui-form-preview__bd">
-			<div class="weui-form-preview__item">
-				<label class="weui-form-preview__label">代理等级</label>
-				<em class="weui-form-preview__value">${contentModel.level }</em>
+			<div class="weui-form-preview__bd">
+				<div class="weui-form-preview__item">
+					<label class="weui-form-preview__label">代理等级</label>
+					<em class="weui-form-preview__value">${contentModel.level }</em>
+				</div>
 			</div>
-		</div>
-		
 			<div class="weui-form-preview__bd">
 				<div class="weui-form-preview__item">
 					<label class="weui-form-preview__label">上级ID</label>
@@ -49,6 +45,21 @@
 					<em class="weui-form-preview__value">${contentModel.inviteCode }</em>
 				</div>
 			</div>
+			<c:if test="${userType != 0 }">
+				<div class="weui-form-preview__bd">
+					<div class="weui-form-preview__item">
+						<label class="weui-form-preview__label">复制下面网址发给代理</label>
+						<em class="weui-form-preview__value"></em>
+					</div>
+				</div>
+				<div class="weui-cells">
+					<div class="weui-cell">
+						<div class="weui-cell__bd">
+							<input class="weui-input" type="text" value="${requestUrl }/home/reg?q=${contentModel.inviteCode}">
+						</div>
+					</div>
+				</div>
+			</c:if>
 			<div class="weui-form-preview__bd">
 				<div class="weui-form-preview__item">
 					<label class="weui-form-preview__label">状态</label>

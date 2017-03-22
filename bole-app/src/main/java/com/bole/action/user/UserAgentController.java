@@ -105,6 +105,11 @@ public class UserAgentController {
 		model.addAttribute("userScoreCashTotalVo", userScoreCashTotalVo);
 		
 		model.addAttribute("contentModel", vo);
+		
+		model.addAttribute("requestUrl", request.getScheme()+"://"+request.getServerName()+":"+ request.getServerPort() + "/bole-app");
+		
+		model.addAttribute("userType", userType);
+		
 		return "user/agentView";
 	}
 }

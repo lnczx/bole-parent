@@ -43,7 +43,12 @@ public class RegisterController extends BaseController {
 	private UserAsyncService userAsyncService;
 
 	@RequestMapping(value = "/reg", method = { RequestMethod.GET })
-	public String reg(Model model) {
+	public String reg(HttpServletRequest request, Model model) {
+		
+		String q = request.getParameter("q");
+		if (StringUtil.isEmpty(q)) q = "";
+		model.addAttribute("q", q);
+		
 		if (!model.containsAttribute("contentModel")) {
 			User u = userService.initPo();
 			model.addAttribute("contentModel", u);
@@ -56,14 +61,14 @@ public class RegisterController extends BaseController {
 			throws ValidationException, NoSuchAlgorithmException {
 		// 如果有验证错误 返回到form页面
 		if (result.hasErrors())
-			return reg(model);
+			return reg(request, model);
 		
 		String inviteCode = u.getInviteCode();
 		String gameId = u.getGameId();
 
 		if (StringUtil.isEmpty(inviteCode) || StringUtil.isEmpty(gameId)) {
 			result.addError(new FieldError("contentModel", "gameId", "请输入邀请码和游戏ID."));
-			return reg(model);
+			return reg(request, model);
 		}
 
 		User agent = null;
@@ -73,14 +78,14 @@ public class RegisterController extends BaseController {
 		
 		if (users.isEmpty()) {
 			result.addError(new FieldError("contentModel", "gameId", "邀请码不正确."));
-			return reg(model);
+			return reg(request, model);
 		}
 		
 		if (!users.isEmpty()) {
 			agent = users.get(0);
 			if (!agent.getInviteCode().equals(inviteCode)) {
 				result.addError(new FieldError("contentModel", "gameId", "邀请码不正确."));
-				return reg(model);
+				return reg(request, model);
 			}
 		}
 

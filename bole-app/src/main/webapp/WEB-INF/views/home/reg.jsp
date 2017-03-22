@@ -28,7 +28,7 @@
 					<label class="weui-label">邀请码<font colore="red">*</font>    </label>
 				</div>
 				<div class="weui-cell__bd">
-					<form:input path="inviteCode" class="weui-input"  maxLength="6" placeholder="请输入邀请码"/>
+					<form:input path="inviteCode" class="weui-input" value="${q }"  maxLength="6" placeholder="请输入邀请码"/>
 				</div>
 			</div>
 			
