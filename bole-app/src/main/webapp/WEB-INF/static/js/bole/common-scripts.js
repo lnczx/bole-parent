@@ -1,6 +1,6 @@
 //Global host+url
 var host = window.location.host;
-var appName = "bole";
+var appName = "bole-app";
 
 var appRootUrl = "http://" + host + "/" + appName + "/";
 

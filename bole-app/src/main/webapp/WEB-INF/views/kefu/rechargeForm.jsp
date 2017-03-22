@@ -11,7 +11,7 @@
 	<header class='demos-header'>
 	<h1 class="demos-title">充值</h1>
 	</header>
-	<form:form id="recharge-form" modelAttribute="contentModel" action="/bole/kefu/rechargeForm">
+	<form:form id="recharge-form" modelAttribute="contentModel" action="/bole-app/kefu/rechargeForm">
 		<form:hidden path="userIdTo" />
 		<div class="weui-cells weui-cells_form">
 			<div class="weui-cell weui-cell_warn">

@@ -11,7 +11,7 @@
 	<header class='demos-header'>
 	<h1 class="demos-title">代理信息</h1>
 	</header>
-	<form:form id="agent-form" modelAttribute="contentModel" action="/bole/kefu/agentForm">
+	<form:form id="agent-form" modelAttribute="contentModel" action="/bole-app/kefu/agentForm">
 		<form:hidden path="userId"/>
 		<form:hidden path="userType"/>
 		<div class="weui-cells weui-cells_form">
