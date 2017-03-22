@@ -122,7 +122,7 @@
 
 	</dependencies>
 	<build>
-		<finalName>bole</finalName>
+		<finalName>bole-app</finalName>
 		<pluginManagement>
 			<plugins>
 				<plugin>
