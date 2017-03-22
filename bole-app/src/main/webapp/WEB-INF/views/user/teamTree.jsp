@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ include file="../shared/taglib.jsp"%>
-<!-- taglib for this page -->
-<%@ taglib prefix="timestampTag" uri="/WEB-INF/tags/timestamp.tld"%>
 <html>
 <head>
 <!--common css for all pages-->
