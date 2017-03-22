@@ -62,6 +62,14 @@
 	    <if test="status != null">
 			and status = #{status,jdbcType=NUMERIC}
 		</if>
+		
+		<if test="startAddTime != null">
+			<![CDATA[and add_time >= #{startAddTime,jdbcType=NUMERIC}]]>
+		</if>
+		
+		<if test="startEndTime != null">
+			<![CDATA[and add_time <= #{startEndTime,jdbcType=NUMERIC}]]>
+		</if>
 	</sql>
 	
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">

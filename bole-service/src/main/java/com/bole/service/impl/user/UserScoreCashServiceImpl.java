@@ -101,7 +101,7 @@ public class UserScoreCashServiceImpl implements UserScoreCashService {
 		User u = userService.selectByPrimaryKey(vo.getUserId());
 		vo.setGameId(u.getGameId());
 		
-		String addTimeStr = TimeStampUtil.timeStampToDateStr(vo.getAddTime() * 1000, "MM-dd HH:MM");
+		String addTimeStr = TimeStampUtil.timeStampToDateStr(vo.getAddTime() * 1000, "MM-dd");
 		vo.setAddTimeStr(addTimeStr);
 		
 		String cashStatusName = BoleUtil.getScoreCashStatusName(vo.getStatus());

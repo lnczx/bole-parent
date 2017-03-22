@@ -10,32 +10,53 @@
 </head>
 <body>
 <body ontouchstart>
-	<header class='demos-header'>
+	<header class='demos-header-top'>
 	<h1 class="demos-title">
 		<c:if test="${userType == 0}">申请返利</c:if>
 		<c:if test="${userType != 0}">返利审核</c:if>
 	</h1>
-	<p class='demos-sub-title'>总返利：${userScoreCashTotalVo.totalScore }, 未领取返利${userScoreCashTotalVo.totalStore }</p>
+	<p class='demos-sub-title'>
+		总返利：<font color="red">${userScoreCashTotalVo.totalScore }</font>, 已领取: <font color="red">${userScoreCashTotalVo.totalCash }</font>,
+		未领取返利:<font color="red">${userScoreCashTotalVo.totalStore }</font>
+	</p>
 	</header>
-	<c:if test="${ userType != 0 }">
-	<div class="weui-search-bar" id="searchBar">
-		<form:form modelAttribute="searchModel" id="search-form" class="weui-search-bar__form" method="GET">
-			<div class="weui-search-bar__box">
-				<i class="weui-icon-search"></i>
-				<input type="text" class="weui-search-bar__input" id="searchInput" name="gameIdTo" value="${searchModel.gameIdTo }" placeholder="搜索" required="">
-				<a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
+	<form:form modelAttribute="searchModel" id="search-form" method="GET">
+		<form:hidden path="searchDate" />
+		<form:hidden path="status" />
+		<div class="weui-cells weui-cells_form">
+			<c:if test="${userType != 0 }">
+				<div class="weui-cell">
+					<div class="weui-cell__hd">
+						<label for="date" class="weui-label">游戏ID</label>
+					</div>
+					<div class="weui-cell__bd">
+						<form:input path="gameId" class="weui-input" />
+					</div>
+					<div class="weui-cell__bd"></div>
+				</div>
+			</c:if>
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label for="date" class="weui-label">日期</label>
+				</div>
+				<div class="weui-cell__bd">
+					<input type="text" id="date" class="weui-input" value="${searchModel.searchDate }" />
+				</div>
+				<div class="weui-cell__bd"></div>
 			</div>
-			<label class="weui-search-bar__label" id="searchText"
-				style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
-				<i class="weui-icon-search"></i>
-				<span>搜索</span>
-			</label>
-			
-		</form:form>
-		<a href="javascript:" class="weui-search-bar__cancel-btn" id="btn-search">搜索</a>
-		<a href="javascript:" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
-	</div>
-	</c:if>
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label for="date" class="weui-label">状态</label>
+				</div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" id="statusSelect" name="statusSelect" type="text" value="">
+				</div>
+				<div class="weui-cell__ft">
+					<a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_plain-primary " id="btn-search">查询</a>
+				</div>
+			</div>
+		</div>
+	</form:form>
 	<c:if test="${ userType == 0 }">
 		<div class="weui-cell__ft">
 			<a href="#" onclick="btn_link('/user/cashForm?id=0')" class="weui-btn weui-btn_mini weui-btn_primary">申请返利</a>
@@ -50,10 +71,9 @@
 					<th width="35">游戏ID</th>
 					<th width="35">数量</th>
 					<th width="30">状态</th>
-					<c:if test="${userType != 0 }">
-					<th width="35">操作</th>
+					<c:if test="${userType == 1 }">
+						<th width="35">操作</th>
 					</c:if>
-
 				</tr>
 			</thead>
 			<tbody>
@@ -63,13 +83,10 @@
 						<td>${ item.gameId }</td>
 						<td>${ item.scoreCash }</td>
 						<td>${ item.statusName }</td>
-						<c:if test="${ userType != 0 }">
-							<td>
-							<c:if test="${item.status == 0 }">
-							<a href="#" onclick="btn_link('/kefu/cashView?id=${item.id}')"
-								class="weui-btn weui-btn_mini weui-btn_primary">审核</a>
-							</c:if>
-							</td>
+						<c:if test="${ userType == 1 }">
+							<td><c:if test="${item.status == 0 }">
+									<a href="#" onclick="btn_link('/kefu/cashView?id=${item.id}')" class="weui-btn weui-btn_mini weui-btn_primary">审核</a>
+								</c:if></td>
 						</c:if>
 					</tr>
 				</c:forEach>
@@ -87,5 +104,6 @@
 	<!--script for this page-->
 	<script type="text/javascript" src="<c:url value='/static/js/lib/datatables/1.10.0/jquery.dataTables.min.js'/>"></script>
 	<script src="<c:url value='/static/js/bole/table.js'/>"></script>
+	<script src="<c:url value='/static/js/bole/user/cashList.js'/>"></script>
 </body>
 </html>

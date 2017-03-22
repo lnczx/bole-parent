@@ -34,7 +34,7 @@
 					<label for="date" class="weui-label">日期</label>
 				</div>
 				<div class="weui-cell__bd">
-					<input type="text" id="date" class="weui-input"/>
+					<input type="text" id="date" class="weui-input" value="${searchModel.searchDate }"/>
 					
 				</div>
 				<div class="weui-cell__bd"></div>
@@ -45,7 +45,7 @@
 					<label for="date" class="weui-label">充值类型</label>
 				</div>
 				<div class="weui-cell__bd">
-					<input class="weui-input" id="scoreTypeSelect" name="scoreTypeSelect"  type="text" value="">
+					<input class="weui-input" id="scoreTypeSelect" type="text" value="">
 					
 					
 				</div>

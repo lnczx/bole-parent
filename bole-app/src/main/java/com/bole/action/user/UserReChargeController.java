@@ -80,12 +80,12 @@ public class UserReChargeController extends BaseController {
 		String searchDate = searchVo.getSearchDate();
 		if (!StringUtil.isEmpty(searchDate)) {
 			String startTimeStr = searchDate + " 00:00:00";
-			Long startTime = TimeStampUtil.getMillisOfDayFull(startTimeStr);
+			Long startTime = TimeStampUtil.getMillisOfDayFull(startTimeStr) / 1000;
 			searchVo.setStartAddTime(startTime);
 			
-			String endTimeStr = searchDate + " 00:00:00";
-			Long endTime = TimeStampUtil.getMillisOfDayFull(endTimeStr);
-			searchVo.setStartAddTime(endTime);
+			String endTimeStr = searchDate + " 23:59:59";
+			Long endTime = TimeStampUtil.getMillisOfDayFull(endTimeStr) / 1000;
+			searchVo.setStartEndTime(endTime);
 		}
 		
 		model.addAttribute("searchModel", searchVo);
@@ -141,6 +141,20 @@ public class UserReChargeController extends BaseController {
 		if (userType.equals(Constants.USER_TYPE_0)) {
 			searchVo.setUserIdTo(userId);
 		}
+		
+		//处理日期的情况
+		String searchDate = searchVo.getSearchDate();
+		if (!StringUtil.isEmpty(searchDate)) {
+			String startTimeStr = searchDate + " 00:00:00";
+			Long startTime = TimeStampUtil.getMillisOfDayFull(startTimeStr) / 1000;
+			searchVo.setStartAddTime(startTime);
+			
+			String endTimeStr = searchDate + " 23:59:59";
+			Long endTime = TimeStampUtil.getMillisOfDayFull(endTimeStr) / 1000;
+			searchVo.setStartEndTime(endTime);
+		}
+		
+		
 		model.addAttribute("searchModel", searchVo);
 		int pageNo = ServletRequestUtils.getIntParameter(request, Constants.PAGE_NO_NAME, Constants.DEFAULT_PAGE_NO);
 		int pageSize = Constants.DEFAULT_PAGE_SIZE;
@@ -183,7 +197,19 @@ public class UserReChargeController extends BaseController {
 		model.addAttribute("contentModel", pageInfo);
 		model.addAttribute("userType", userType);
 		
-		UserScoreCashTotalVo userScoreCashTotalVo = userScoreCashService.getTotalVo(userId);
+		
+		Long searchUserId = searchVo.getUserId();
+		if (!StringUtil.isEmpty(searchVo.getGameId())) {
+			UserSearchVo usearchVo = new UserSearchVo();
+			usearchVo.setGameId(searchVo.getGameId());
+			List<User> searchUsers = userService.selectBySearchVo(usearchVo);
+			if (!searchUsers.isEmpty()) {
+				User searchUser = searchUsers.get(0);
+				searchUserId = searchUser.getUserId();
+			}
+		}
+		
+		UserScoreCashTotalVo userScoreCashTotalVo = userScoreCashService.getTotalVo(searchUserId);
 		
 		model.addAttribute("userScoreCashTotalVo", userScoreCashTotalVo);
 		

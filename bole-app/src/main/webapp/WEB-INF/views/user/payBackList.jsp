@@ -10,34 +10,45 @@
 </head>
 <body>
 <body ontouchstart>
-	<header class='demos-header'>
+	<header class='demos-header-top'>
 	<h1 class="demos-title">返利详情</h1>
-	<p class='demos-sub-title'>总返利：${userScoreCashTotalVo.totalScore }, 未领取返利${userScoreCashTotalVo.totalStore }</p>
+	<p class='demos-sub-title'>
+		总返利：<font color="red">${userScoreCashTotalVo.totalScore }</font>, 已领取: <font color="red">${userScoreCashTotalVo.totalCash }</font>,
+		未领取返利:<font color="red">${userScoreCashTotalVo.totalStore }</font>
+	</p>
 	</header>
-	<c:if test="${ userType != 0 }">
-	<div class="weui-search-bar" id="searchBar">
-		<form:form modelAttribute="searchModel" id="search-form" class="weui-search-bar__form" method="GET">
-			<div class="weui-search-bar__box">
-				<i class="weui-icon-search"></i>
-				<input type="text" class="weui-search-bar__input" id="searchInput" name="gameIdTo" value="${searchModel.gameIdTo }" placeholder="搜索" required="">
-				<a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
+	<form:form modelAttribute="searchModel" id="search-form" method="GET">
+		<form:hidden path="searchDate" />
+		<div class="weui-cells weui-cells_form">
+			<c:if test="${userType != 0 }">
+				<div class="weui-cell">
+					<div class="weui-cell__hd">
+						<label for="date" class="weui-label">游戏ID</label>
+					</div>
+					<div class="weui-cell__bd">
+						<form:input path="gameIdTo" class="weui-input" />
+					</div>
+					<div class="weui-cell__bd"></div>
+				</div>
+			</c:if>
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label for="date" class="weui-label">日期</label>
+				</div>
+				<div class="weui-cell__bd">
+					<input type="text" id="date" class="weui-input" value="${searchModel.searchDate }" />
+				</div>
+				<div class="weui-cell__ft">
+					<a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_plain-primary " id="btn-search">查询</a>
+				</div>
 			</div>
-			<label class="weui-search-bar__label" id="searchText"
-				style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
-				<i class="weui-icon-search"></i>
-				<span>搜索</span>
-			</label>
-			
-		</form:form>
-		<a href="javascript:" class="weui-search-bar__cancel-btn" id="btn-search">搜索</a>
-		<a href="javascript:" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
-	</div>
-	</c:if>
+		</div>
+	</form:form>
 	<div id="DataTables_Table_0_wrapper " class="dataTables_wrapper no-footer">
 		<table id="DataTables_Table_0" class="table table-border table-bordered table-hover table-bg table-sort">
 			<thead>
 				<tr class="text-c">
-					<th width="40">时间</th>
+					<th width="50">时间</th>
 					<th width="60">游戏ID</th>
 					<th>返利详情</th>
 				</tr>
@@ -64,5 +75,6 @@
 	<!--script for this page-->
 	<script type="text/javascript" src="<c:url value='/static/js/lib/datatables/1.10.0/jquery.dataTables.min.js'/>"></script>
 	<script src="<c:url value='/static/js/bole/table.js'/>"></script>
+	<script src="<c:url value='/static/js/bole/user/payBackList.js'/>"></script>
 </body>
 </html>

@@ -84,11 +84,11 @@
 		</if>
 		
 		<if test="startAddTime != null">
-			<![CDATA[and addTime >= #{startAddTime,jdbcType=NUMERIC}]]>
+			<![CDATA[and add_time >= #{startAddTime,jdbcType=NUMERIC}]]>
 		</if>
 		
 		<if test="startEndTime != null">
-			<![CDATA[and addTime <= #{startEndTime,jdbcType=NUMERIC}]]>
+			<![CDATA[and add_time <= #{startEndTime,jdbcType=NUMERIC}]]>
 		</if>
 		
 	</sql>

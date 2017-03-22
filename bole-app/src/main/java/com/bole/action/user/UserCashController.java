@@ -33,6 +33,7 @@ import com.bole.vo.user.UserScoreCashVo;
 import com.bole.vo.user.UserScoreDetailVo;
 import com.github.pagehelper.PageInfo;
 import com.meijia.utils.StringUtil;
+import com.meijia.utils.TimeStampUtil;
 import com.simi.oa.auth.AccountAuth;
 import com.simi.oa.auth.AuthHelper;
 import com.simi.oa.auth.AuthPassport;
@@ -71,6 +72,20 @@ public class UserCashController extends BaseController {
 		if (userType.equals(Constants.USER_TYPE_0)) {
 			searchVo.setUserId(userId);
 		}
+		
+		//处理日期的情况
+		String searchDate = searchVo.getSearchDate();
+		if (!StringUtil.isEmpty(searchDate)) {
+			String startTimeStr = searchDate + " 00:00:00";
+			Long startTime = TimeStampUtil.getMillisOfDayFull(startTimeStr) / 1000;
+			searchVo.setStartAddTime(startTime);
+			
+			String endTimeStr = searchDate + " 23:59:59";
+			Long endTime = TimeStampUtil.getMillisOfDayFull(endTimeStr) / 1000;
+			searchVo.setStartEndTime(endTime);
+		}
+		
+		
 		model.addAttribute("searchModel", searchVo);
 		int pageNo = ServletRequestUtils.getIntParameter(request, Constants.PAGE_NO_NAME, Constants.DEFAULT_PAGE_NO);
 		int pageSize = Constants.DEFAULT_PAGE_SIZE;

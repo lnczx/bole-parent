@@ -5,24 +5,24 @@ $("#date").calendar({
 	}
 });
 
-$("#scoreTypeSelect").select({
-	title : "选择充值类型",
+$("#statusSelect").select({
+	title : "选择状态",
 	items : [ 
 	{
 		title : "全部",
 		value : "",
 	},      
 	{
-		title : "赠送",
+		title : "审核中",
 		value : "0",
 	}, {
-		title : "付款",
+		title : "已通过",
 		value : "1",
 	}],
 
 	beforeClose : function(values, titles) {
 
-		$("#scoreType").val(values);
+		$("#status").val(values);
 		return true;
 	},
 
