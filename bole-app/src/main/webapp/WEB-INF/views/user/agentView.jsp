@@ -94,7 +94,7 @@
 		</div>
 		<div class="weui-msg__opr-area">
 			<p class="weui-btn-area">
-				<a href="#" onclick="btn_link('/home/logout')" class="weui-btn weui-btn_primary">退出登录</a>
+				<a href="#" onclick="btn_link('/home/logout')" class="weui-btn weui-btn_warn">退出登录</a>
 			</p>
 		</div>
 	</div>

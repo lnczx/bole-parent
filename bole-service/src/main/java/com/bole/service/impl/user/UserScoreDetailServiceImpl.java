@@ -114,7 +114,7 @@ public class UserScoreDetailServiceImpl implements UserScoreDetailService {
 		String scoreTypeName = BoleUtil.getScoreTypeName(vo.getScoreType());
 		vo.setScoreTypeName(scoreTypeName);
 		
-		String addTimeStr = TimeStampUtil.timeStampToDateStr(vo.getAddTime() * 1000, "MM-dd HH:MM");
+		String addTimeStr = TimeStampUtil.timeStampToDateStr(vo.getAddTime() * 1000, "MM-dd");
 		vo.setAddTimeStr(addTimeStr);
 		
 		return vo;

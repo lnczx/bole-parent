@@ -20,6 +20,10 @@ body, html {
   padding: 35px 0;
 }
 
+.demos-header-top {
+  padding: 20px 0;
+}
+
 .demos-content-padded {
   padding: 15px;
 }
@@ -35,7 +39,7 @@ body, html {
 footer {
   text-align: center;
   font-size: 14px;
-  padding: 20px;
+  padding: 18px;
 }
 
 footer a {

@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,8 +25,10 @@ import com.bole.vo.UserSearchVo;
 import com.bole.vo.user.UserScoreCashTotalVo;
 import com.bole.vo.user.UserScoreDetailVo;
 import com.github.pagehelper.PageInfo;
+import com.meijia.utils.DateUtil;
 import com.meijia.utils.MathBigDecimalUtil;
 import com.meijia.utils.StringUtil;
+import com.meijia.utils.TimeStampUtil;
 import com.simi.oa.auth.AccountAuth;
 import com.simi.oa.auth.AuthHelper;
 import com.simi.oa.auth.AuthPassport;
@@ -72,6 +75,19 @@ public class UserReChargeController extends BaseController {
 		if (userType.equals(Constants.USER_TYPE_0)) {
 			searchVo.setUserIdTo(userId);
 		}
+		
+		//处理日期的情况
+		String searchDate = searchVo.getSearchDate();
+		if (!StringUtil.isEmpty(searchDate)) {
+			String startTimeStr = searchDate + " 00:00:00";
+			Long startTime = TimeStampUtil.getMillisOfDayFull(startTimeStr);
+			searchVo.setStartAddTime(startTime);
+			
+			String endTimeStr = searchDate + " 00:00:00";
+			Long endTime = TimeStampUtil.getMillisOfDayFull(endTimeStr);
+			searchVo.setStartAddTime(endTime);
+		}
+		
 		model.addAttribute("searchModel", searchVo);
 		int pageNo = ServletRequestUtils.getIntParameter(request, Constants.PAGE_NO_NAME, Constants.DEFAULT_PAGE_NO);
 		int pageSize = Constants.DEFAULT_PAGE_SIZE;

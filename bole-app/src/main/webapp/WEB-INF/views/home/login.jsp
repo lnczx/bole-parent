@@ -43,7 +43,7 @@
 				<input type="submit" class="weui-btn weui-btn_primary" value="登陆">
 			</div>
 			<div class="weui-btn-area">
-				<a class="weui-btn weui-btn_primary" onclick="btn_link('/home/reg')" id="btn-wx-reg">邀请码注册</a>
+				<a class="weui-btn weui-btn_default" onclick="btn_link('/home/reg')" id="btn-wx-reg">邀请码注册</a>
 			</div>
 		</div>
 	</form:form>

@@ -4,27 +4,27 @@ var appName = "bole-app";
 
 var appRootUrl = "http://" + host + "/" + appName;
 
-//按钮时间
+// 按钮时间
 function btn_link(path) {
 	location.href = appRootUrl + path;
 }
 
-//删除按钮事件
+// 删除按钮事件
 function btn_del(path) {
 	var statu = confirm("确定要删除吗?");
-    if(!statu){
-        return false;
-    }
-    location.href = appRootUrl + path;
+	if (!statu) {
+		return false;
+	}
+	location.href = appRootUrl + path;
 }
 
-//统一返回
+// 统一返回
 function btn_back() {
 	history.go(-1);
 	return false;
 }
 
-//统一查询
+// 统一查询
 $("#btn-search").click(function() {
 	$("#search-form").submit();
-})
+});

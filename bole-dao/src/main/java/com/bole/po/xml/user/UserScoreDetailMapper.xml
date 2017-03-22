@@ -82,6 +82,15 @@
 		<if test="linkDetailId != null">
 			and link_detail_id = #{linkDetailId,jdbcType=NUMERIC}
 		</if>
+		
+		<if test="startAddTime != null">
+			<![CDATA[and addTime >= #{startAddTime,jdbcType=NUMERIC}]]>
+		</if>
+		
+		<if test="startEndTime != null">
+			<![CDATA[and addTime <= #{startEndTime,jdbcType=NUMERIC}]]>
+		</if>
+		
 	</sql>
 	
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">

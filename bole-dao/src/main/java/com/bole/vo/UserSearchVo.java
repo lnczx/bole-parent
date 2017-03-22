@@ -56,6 +56,12 @@ public class UserSearchVo  {
 	
 	private String orderByProperty;
 	
+	private String searchDate;
+	
+	private Long startAddTime;
+	
+	private Long startEndTime;
+	
 	public Long getUserId() {
 		return userId;
 	}
@@ -263,6 +269,30 @@ public class UserSearchVo  {
 
 	public void setScoreTypes(List<Short> scoreTypes) {
 		this.scoreTypes = scoreTypes;
+	}
+
+	public String getSearchDate() {
+		return searchDate;
+	}
+
+	public void setSearchDate(String searchDate) {
+		this.searchDate = searchDate;
+	}
+
+	public Long getStartAddTime() {
+		return startAddTime;
+	}
+
+	public void setStartAddTime(Long startAddTime) {
+		this.startAddTime = startAddTime;
+	}
+
+	public Long getStartEndTime() {
+		return startEndTime;
+	}
+
+	public void setStartEndTime(Long startEndTime) {
+		this.startEndTime = startEndTime;
 	}
 
 }

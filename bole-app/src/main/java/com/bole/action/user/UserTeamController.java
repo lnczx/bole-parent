@@ -47,6 +47,7 @@ public class UserTeamController {
 		model.addAttribute("userId", u.getUserId());
 		
 		String name = u.getGameId();
+		name+="-"+u.getLevel()+"级代理";
 		int lft = u.getLft();
 		int rgt = u.getRgt();
 		// (right-left+1)/2
@@ -91,7 +92,7 @@ public class UserTeamController {
 			vo.setId(user.getUserId());
 			vo.setpId(user.getUserId());
 			String name = user.getGameId();
-
+			name+="-"+user.getLevel()+"级代理";
 			int lft = user.getLft();
 			int rgt = user.getRgt();
 			// (right-left+1)/2

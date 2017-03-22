@@ -37,8 +37,8 @@
 		<table id="DataTables_Table_0" class="table table-border table-bordered table-hover table-bg table-sort">
 			<thead>
 				<tr class="text-c">
-					<th width="50">时间</th>
-					<th width="50">游戏ID</th>
+					<th width="40">时间</th>
+					<th width="60">游戏ID</th>
 					<th>返利详情</th>
 				</tr>
 			</thead>
