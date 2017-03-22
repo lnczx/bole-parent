@@ -8,6 +8,8 @@ import com.bole.po.model.user.UserLevelStat;
 
 public class UserVo extends User {
 	
+	private String scoreLastTimeStr;
+	
 	private Integer totalSubAgent;
 		
 	private List<UserLevelStat> userLevelStats;
@@ -26,5 +28,13 @@ public class UserVo extends User {
 
 	public void setUserLevelStats(List<UserLevelStat> userLevelStats) {
 		this.userLevelStats = userLevelStats;
+	}
+
+	public String getScoreLastTimeStr() {
+		return scoreLastTimeStr;
+	}
+
+	public void setScoreLastTimeStr(String scoreLastTimeStr) {
+		this.scoreLastTimeStr = scoreLastTimeStr;
 	}
 }

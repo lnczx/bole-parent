@@ -2,7 +2,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ include file="../shared/taglib.jsp"%>
 <!-- taglib for this page -->
-<%@ taglib prefix="timestampTag" uri="/WEB-INF/tags/timestamp.tld"%>
 <html>
 <head>
 <!--common css for all pages-->
@@ -55,9 +54,7 @@
 						<td><a href="#" onclick="btn_link('/user/agentView?userId=${item.userId}')">${ item.gameId }</a></td>
 						<td>${ item.level }级</td>
 						<td>${ item.score }</td>
-						<td><c:if test="${item.scoreLastTime > 0 }">
-								<timestampTag:timestamp patten="MM-dd" t="${item.scoreLastTime * 1000}" />
-							</c:if></td>
+						<td>${ item.scoreLastTimeStr }</td>
 						<c:if test="${ userType != 0 }">
 							<td>
 							<a href="#" onclick="btn_link('/kefu/rechargeForm?userIdTo=${item.userId}')"

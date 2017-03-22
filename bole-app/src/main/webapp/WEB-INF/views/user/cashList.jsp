@@ -11,7 +11,10 @@
 <body>
 <body ontouchstart>
 	<header class='demos-header'>
-	<h1 class="demos-title">返利详情</h1>
+	<h1 class="demos-title">
+		<c:if test="${userType == 0}">申请返利</c:if>
+		<c:if test="${userType != 0}">返利审核</c:if>
+	</h1>
 	<p class='demos-sub-title'>总返利：${userScoreCashTotalVo.totalScore }, 未领取返利${userScoreCashTotalVo.totalStore }</p>
 	</header>
 	<c:if test="${ userType != 0 }">

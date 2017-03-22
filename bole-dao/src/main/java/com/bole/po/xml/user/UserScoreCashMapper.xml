@@ -32,7 +32,7 @@
 		<include refid="Base_Column_List" />
 		from user_score_cash
 		<include refid="bySearchVo"/>
-		order by update_time desc
+		order by status asc, update_time desc
 	</select>
 	
 	<select id="totalCash" resultType="java.math.BigDecimal" parameterType="com.bole.vo.UserSearchVo">

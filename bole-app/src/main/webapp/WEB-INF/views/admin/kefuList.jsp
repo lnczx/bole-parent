@@ -2,7 +2,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ include file="../shared/taglib.jsp"%>
 <!-- taglib for this page -->
-<%@ taglib prefix="timestampTag" uri="/WEB-INF/tags/timestamp.tld"%>
 <html>
 <head>
 <!--common css for all pages-->
@@ -12,7 +11,7 @@
 <body>
 <body ontouchstart>
 	<header class='demos-header'>
-	<h1 class="demos-title">客服列表</h1>
+	<h1 class="demos-title">客服管理</h1>
 	</header>
 	<div class="weui-cell__ft">
 		<a href="#" onclick="btn_link('/admin/kefuForm?userId=0')" class="weui-btn weui-btn_mini weui-btn_primary">添加客服</a>
@@ -34,9 +33,7 @@
 					<tr class="text-c">
 						<td><a href="#" onclick="btn_link('/user/rechargeList?userIdTo=${item.userId}')">${ item.gameId }</a></td>
 						<td>${ item.score }</td>
-						<td><c:if test="${item.scoreLastTime > 0 }">
-								<timestampTag:timestamp patten="yyyy-MM-dd" t="${item.scoreLastTime * 1000}" />
-							</c:if></td>
+						<td>${ item.scoreLastTimeStr }</td>
 						<td><a href="#" onclick="btn_link('/kefu/rechargeForm?userIdTo=${item.userId}')"
 								class="weui-btn weui-btn_mini weui-btn_primary">充值</a></td>
 					</tr>

@@ -11,7 +11,7 @@
 <body>
 <body ontouchstart>
 	<header class='demos-header'>
-	<h1 class="demos-title">返利记录</h1>
+	<h1 class="demos-title">返利详情</h1>
 	<p class='demos-sub-title'>总返利：${userScoreCashTotalVo.totalScore }, 未领取返利${userScoreCashTotalVo.totalStore }</p>
 	</header>
 	<c:if test="${ userType != 0 }">
@@ -39,7 +39,7 @@
 				<tr class="text-c">
 					<th width="50">时间</th>
 					<th width="50">游戏ID</th>
-					<th>返利情况</th>
+					<th>返利详情</th>
 				</tr>
 			</thead>
 			<tbody>

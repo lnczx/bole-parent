@@ -194,7 +194,12 @@ public class UserServiceImpl implements UserService {
 			}
 		}
 		vo.setUserLevelStats(userLeveStats);
-
+		
+		vo.setScoreLastTimeStr("");
+		Long lastScoreTime = vo.getScoreLastTime() * 1000;
+		if (lastScoreTime > 0L) {
+			vo.setScoreLastTimeStr(TimeStampUtil.timeStampToDateStr(lastScoreTime, "MM-dd"));
+		}
 		return vo;
 	}
 

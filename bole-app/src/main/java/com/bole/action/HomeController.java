@@ -66,7 +66,7 @@ public class HomeController extends BaseController {
     		MenuVo menu4 = new MenuVo();
     		menu4.setIconUrl("/static/images/icon_nav_up.png");
     		menu4.setLinkUrl("/user/payBackList");
-    		menu4.setName("返利记录");
+    		menu4.setName("返利详情");
     		menus.add(menu4);
     		
     		//返利审核
@@ -113,7 +113,7 @@ public class HomeController extends BaseController {
     		MenuVo menu4 = new MenuVo();
     		menu4.setIconUrl("/static/images/icon_nav_cell.png");
     		menu4.setLinkUrl("/user/payBackList");
-    		menu4.setName("返利记录");
+    		menu4.setName("返利详情");
     		menus.add(menu4);
     		
     		//返利记录

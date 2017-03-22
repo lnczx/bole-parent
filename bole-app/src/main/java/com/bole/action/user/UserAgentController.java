@@ -1,5 +1,7 @@
 package com.bole.action.user;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +64,15 @@ public class UserAgentController {
 		int pageSize = Constants.DEFAULT_PAGE_SIZE;
 		
 		PageInfo pageInfo = userService.selectByListPage(searchVo, pageNo, pageSize);
+		List<User> list = pageInfo.getList();
+		for (int i =0; i < list.size(); i++) {
+			User item = list.get(i);
+			UserVo vo = userService.getVo(item);
+			list.set(i, vo);
+		}
+		
+		pageInfo = new PageInfo(list);
+		
 		model.addAttribute("contentModel", pageInfo);
 		model.addAttribute("userType", userType);
 		
