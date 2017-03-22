@@ -20,6 +20,14 @@
 		未领取返利:<font color="red">${userScoreCashTotalVo.totalStore }</font>
 	</p>
 	</header>
+	<c:if test="${ userType == 0 }">
+
+		<div class="weui-cell__bd weui-cell__ft">
+		
+			<a href="#" onclick="btn_link('/user/cashForm?id=0')" class="weui-btn weui-btn_mini weui-btn_plain-primary">申请返利</a>
+		</div>
+	</c:if>
+
 	<form:form modelAttribute="searchModel" id="search-form" method="GET">
 		<form:hidden path="searchDate" />
 		<form:hidden path="status" />
@@ -57,12 +65,7 @@
 			</div>
 		</div>
 	</form:form>
-	<c:if test="${ userType == 0 }">
-		<div class="weui-cell__ft">
-			<a href="#" onclick="btn_link('/user/cashForm?id=0')" class="weui-btn weui-btn_mini weui-btn_primary">申请返利</a>
-		</div>
-		<br>
-	</c:if>
+	
 	<div id="DataTables_Table_0_wrapper " class="dataTables_wrapper no-footer">
 		<table id="DataTables_Table_0" class="table table-border table-bordered table-hover table-bg table-sort">
 			<thead>

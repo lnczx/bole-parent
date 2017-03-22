@@ -15,9 +15,7 @@
 	<p class='demos-sub-title '><font color="red">红色代表未激活</font></p>
 	</header>
 	<c:if test="${ userType != 0 }">
-		<div class="weui-cell__ft">
-			
-		</div>
+
 		<div class="weui-cell__bd weui-cell__ft">
 		
 			<a href="#" onclick="btn_link('/kefu/agentForm?userId=0')" class="weui-btn weui-btn_mini weui-btn_plain-primary">邀请代理</a>
