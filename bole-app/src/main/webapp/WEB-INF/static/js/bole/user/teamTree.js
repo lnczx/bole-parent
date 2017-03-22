@@ -5,9 +5,11 @@ var name = $("#name").val();
 var setting = {
 	view : {
 		dblClickExpand : dblClickExpand,
-//		addHoverDom : addHoverDom,
-//		removeHoverDom : removeHoverDom,
-		selectedMulti : false
+		// addHoverDom : addHoverDom,
+		// removeHoverDom : removeHoverDom,
+		selectedMulti : false,
+		fontCss: getFont,
+		nameIsHTML: true
 	},
 	
 	edit : {
@@ -48,8 +50,13 @@ var zNodes = [ {
 	id : userId,
 	pId : userId,
 	isParent : true,
-	open : "true"
+	open : "true",
+	font:{'font-weight':'bold'}
 } ];
+
+function getFont(treeId, node) {
+	return node.font ? node.font : {};
+}
 
 function filter(treeId, parentNode, childNodes) {
 	if (!childNodes) return null;
@@ -63,15 +70,32 @@ function zTreeOnAsyncSuccess(event, treeId, treeNode, msg) {
 	var data = msg.data;
 	var subTreeNodes = [];
 	
+	var clickUrl = appRootUrl +"/user/agentView?userId=";
 	var item;
 	for (i = 0; i < data.length; i++) {
 		item = data[i];
-		subTreeNodes.push({
+		var tmpNode = {
 			id : item.id,// 节点id
 			name : item.name,// 节点名
 			pId : item.id,
-			isParent : item.is_parent
-		});
+			isParent : item.is_parent,
+//			url: clickUrl + item.id,
+//			target:"_self",
+		};
+		console.log(item.name + "--- active = " + item.active);
+		if (item.active == 0) {
+			tmpNode = {
+					id : item.id,// 节点id
+					name : item.name,// 节点名
+					pId : item.id,
+					isParent : item.is_parent,
+					font:{'color':'red'},
+//					url: clickUrl + item.id,
+//					target:"_self",
+				};
+		}
+		
+		subTreeNodes.push(tmpNode);
 	}
 	
 	var zTree = $.fn.zTree.getZTreeObj("teamTree");
@@ -93,7 +117,8 @@ var newCount = 1;
 function onClick(event, treeId, treeNode, clickFlag) {
 	
 	$("#userId").val(treeNode.id);
-//	TreeNodeClick();
+//	btn_link("/user/agentView?userId="+treeNode.id);
+	
 }
 
 $(document).ready(function() {

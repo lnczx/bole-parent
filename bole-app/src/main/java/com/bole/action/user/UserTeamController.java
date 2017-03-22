@@ -102,7 +102,8 @@ public class UserTeamController {
 			vo.setIsParent(true);
 			if ((rgt - lft) == 1)
 				vo.setIsParent(false);
-
+			
+			vo.setActive(user.getActive());
 			treeNodes.add(vo);
 
 		}

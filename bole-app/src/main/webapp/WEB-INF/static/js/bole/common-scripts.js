@@ -2,7 +2,7 @@
 var host = window.location.host;
 var appName = "bole-app";
 
-var appRootUrl = "http://" + host + "/" + appName + "/";
+var appRootUrl = "http://" + host + "/" + appName;
 
 //按钮时间
 function btn_link(path) {
@@ -20,7 +20,8 @@ function btn_del(path) {
 
 //统一返回
 function btn_back() {
-	history.back(-1);
+	history.go(-1);
+	return false;
 }
 
 //统一查询

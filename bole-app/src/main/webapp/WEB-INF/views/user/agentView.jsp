@@ -89,7 +89,7 @@
 		</c:if>
 		<div class="weui-msg__opr-area">
 			<p class="weui-btn-area">
-				<a href="#" onclick="btn_back()" class="weui-btn weui-btn_primary">返回</a>
+				<a href="#" onclick="javascript:history.back(-1);return false;" class="weui-btn weui-btn_primary">返回</a>
 			</p>
 		</div>
 		<div class="weui-msg__opr-area">

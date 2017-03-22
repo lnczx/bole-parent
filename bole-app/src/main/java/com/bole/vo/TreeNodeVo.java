@@ -9,6 +9,8 @@ public class TreeNodeVo{
 	private Long  pId;
 	
 	private Boolean isParent;
+	
+	private Short active;
 
 	public Long getId() {
 		return id;
@@ -40,6 +42,14 @@ public class TreeNodeVo{
 
 	public void setIsParent(Boolean isParent) {
 		this.isParent = isParent;
+	}
+
+	public Short getActive() {
+		return active;
+	}
+
+	public void setActive(Short active) {
+		this.active = active;
 	}
 	
 	
