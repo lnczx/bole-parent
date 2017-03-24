@@ -46,14 +46,22 @@ public class HomeController extends BaseController {
     		menu1.setIconUrl("/static/images/icon_nav_dialog.png");
     		menu1.setLinkUrl("/admin/kefuList");
     		menu1.setName("客服管理");
+    		menus.add(menu1);
     		
     		//代理管理
-    		menus.add(menu1);
+    		
     		MenuVo menu2 = new MenuVo();
     		menu2.setIconUrl("/static/images/icon_nav_search_bar.png");
     		menu2.setLinkUrl("/user/agentList");
     		menu2.setName("代理管理");
     		menus.add(menu2);
+    		
+    		//团队查看
+    		MenuVo menu21 = new MenuVo();
+    		menu21.setIconUrl("/static/images/icon_nav_search_bar.png");
+    		menu21.setLinkUrl("/user/teamTree");
+    		menu21.setName("团队查看");
+    		menus.add(menu21);
     		
     		//充值记录
     		MenuVo menu3 = new MenuVo();

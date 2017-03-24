@@ -43,11 +43,22 @@ public class UserTeamController {
 		
 		AccountAuth accountAuth = AuthHelper.getSessionAccountAuth(request);
 		User u = accountAuth.getU();
+		Long userId = u.getUserId();
+		Short userType = u.getUserType();
+		if (userType.equals(Constants.USER_TYPE_2)) {
+			userId = 1L;
+		}
 		
-		model.addAttribute("userId", u.getUserId());
+		
+		model.addAttribute("userId", userId);
 		
 		String name = u.getGameId();
 		name+="-"+u.getLevel()+"级代理";
+		
+		if (userType.equals(Constants.USER_TYPE_2)) {
+			name = "顶级代理";
+		}
+		
 		int lft = u.getLft();
 		int rgt = u.getRgt();
 		// (right-left+1)/2

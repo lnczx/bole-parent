@@ -227,7 +227,7 @@ public class UserServiceImpl implements UserService {
 		List<User> list = this.selectBySearchVo(searchVo);
 		for (int i = 0 ; i < list.size(); i++) {
 			User pUser = list.get(i);
-			if (pUser.getUserId().equals(1)) continue;
+			if (pUser.getUserId().equals(1L)) continue;
 			UserSearchVo searchVo1 = new UserSearchVo();
 			searchVo1.setpId(pUser.getUserId());
 			searchVo1.setLevel(pUser.getLevel());
