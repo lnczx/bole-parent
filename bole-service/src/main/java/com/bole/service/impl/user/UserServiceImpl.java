@@ -65,6 +65,7 @@ public class UserServiceImpl implements UserService {
 		record.setUserType(Constants.USER_TYPE_0);
 		record.setOpenId("");
 		record.setNickName("");
+		record.setPayAccount("");
 		record.setHeadImg("");
 		record.setGameId("");
 		record.setPassword("");
@@ -74,7 +75,7 @@ public class UserServiceImpl implements UserService {
 		record.setpGameId("");
 		record.setLft(0);
 		record.setRgt(0);
-		record.setScore(new BigDecimal(0));
+		record.setScoreMoney(new BigDecimal(0));
 		record.setScoreLastTime(0L);
 		record.setEnable((short) 1);
 		record.setActive(Constants.USER_ACTIVE_0);

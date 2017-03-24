@@ -6,6 +6,7 @@
 		<result column="user_id_from" property="userIdFrom" jdbcType="NUMERIC" />
 		<result column="user_id_to" property="userIdTo" jdbcType="NUMERIC" />
 		<result column="score" property="score" jdbcType="DECIMAL" />
+		<result column="score_money" property="scoreMoney" jdbcType="DECIMAL" />
 		<result column="score_type" property="scoreType" jdbcType="NUMERIC" />
 		<result column="score_pre" property="scorePre" jdbcType="DECIMAL" />
 		<result column="score_after" property="scoreAfter" jdbcType="DECIMAL" />
@@ -16,7 +17,7 @@
 		<result column="add_time" property="addTime" jdbcType="NUMERIC" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, user_id_from, user_id_to, score, score_type, score_pre, score_after, link_detail_id, 
+		id, user_id_from, user_id_to, score, score_money, score_type, score_pre, score_after, link_detail_id, 
 		link_back_level, link_back_ratio, remarks,
 		add_time
 	</sql>
@@ -43,9 +44,9 @@
 		order by id desc
 	</select>
 	
-	<select id="totalScore" resultType="java.math.BigDecimal" parameterType="com.bole.vo.UserSearchVo">
+	<select id="totalScoreMoney" resultType="java.math.BigDecimal" parameterType="com.bole.vo.UserSearchVo">
 		select
-		sum(score) as total
+		sum(score_money) as total
 		from user_score_detail
 		<include refid="bySearchVo"/>
 	</select>
@@ -67,6 +68,11 @@
 		<if test="gameIdTo != null and gameIdTo != ''">
 			and user_id_to = (select user_id from user where game_id = #{gameIdTo,jdbcType=VARCHAR})
 		</if>
+		
+		<if test="scoreMoney != null">
+			and score_money = #{scoreMoney,jdbcType=DECIMAL}
+		</if>
+		
 		
 	    <if test="scoreType != null">
 			and score_type = #{scoreType,jdbcType=NUMERIC}
@@ -101,10 +107,11 @@
 		<selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
-		insert into user_score_detail (user_id_from, user_id_to, score,
+		insert into user_score_detail (user_id_from, user_id_to, score, score_money,
 		score_type, score_pre, score_after, link_detail_id, link_back_level, link_back_ratio, 
 		remarks, add_time)
 		values (#{userIdFrom,jdbcType=NUMERIC}, #{userIdTo,jdbcType=NUMERIC}, #{score,jdbcType=DECIMAL},
+		#{scoreMoney,jdbcType=DECIMAL},
 		#{scoreType,jdbcType=NUMERIC}, #{scorePre,jdbcType=DECIMAL}, 
 		#{scoreAfter,jdbcType=DECIMAL}, #{linkDetailId,jdbcType=NUMERIC},
 		#{linkBackLevel,jdbcType=NUMERIC}, #{linkBackRatio,jdbcType=DECIMAL},
@@ -124,6 +131,9 @@
 			</if>
 			<if test="score != null">
 				score,
+			</if>
+			<if test="scoreMoney != null">
+				score_money,
 			</if>
 			<if test="scoreType != null">
 				score_type,
@@ -159,6 +169,9 @@
 			</if>
 			<if test="score != null">
 				#{score,jdbcType=DECIMAL},
+			</if>
+			<if test="scoreMoney != null">
+				#{scoreMoney,jdbcType=DECIMAL},
 			</if>
 			<if test="scoreType != null">
 				#{scoreType,jdbcType=NUMERIC},
@@ -198,6 +211,9 @@
 			<if test="score != null">
 				score = #{score,jdbcType=DECIMAL},
 			</if>
+			<if test="scoreMoney != null">
+				score_money = #{scoreMoney,jdbcType=DECIMAL},
+			</if>
 			<if test="scoreType != null">
 				score_type = #{scoreType,jdbcType=NUMERIC},
 			</if>
@@ -230,6 +246,7 @@
 	set user_id_from = #{userIdFrom,jdbcType=NUMERIC},
 	user_id_to = #{userIdTo,jdbcType=NUMERIC},
 	score = #{score,jdbcType=DECIMAL},
+	score_money = #{scoreMoney,jdbcType=DECIMAL},
 	score_type = #{scoreType,jdbcType=NUMERIC},
 	score_pre = #{scorePre,jdbcType=DECIMAL},
 	score_after = #{scoreAfter,jdbcType=DECIMAL},

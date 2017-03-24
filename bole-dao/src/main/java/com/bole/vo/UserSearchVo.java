@@ -1,5 +1,6 @@
 package com.bole.vo;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class UserSearchVo  {
@@ -61,6 +62,8 @@ public class UserSearchVo  {
 	private Long startAddTime;
 	
 	private Long startEndTime;
+	
+	private BigDecimal scoreMoney;
 	
 	public Long getUserId() {
 		return userId;
@@ -293,6 +296,14 @@ public class UserSearchVo  {
 
 	public void setStartEndTime(Long startEndTime) {
 		this.startEndTime = startEndTime;
+	}
+
+	public BigDecimal getScoreMoney() {
+		return scoreMoney;
+	}
+
+	public void setScoreMoney(BigDecimal scoreMoney) {
+		this.scoreMoney = scoreMoney;
 	}
 
 }

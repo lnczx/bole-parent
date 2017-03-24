@@ -107,7 +107,7 @@ public class UserReChargeController extends BaseController {
 		model.addAttribute("userType", userType);
 		
 		//总充值数据.   
-		BigDecimal totalScore = userScoreDetailService.totalScore(searchVo);
+		BigDecimal totalScore = userScoreDetailService.totalScoreMoney(searchVo);
 		model.addAttribute("totalScore", totalScore);
 		
 		return "user/rechargeList";
@@ -126,12 +126,8 @@ public class UserReChargeController extends BaseController {
 			searchVo = new UserSearchVo();
 		if (userIdTo != null && userIdTo > 0L)
 			searchVo.setUserIdTo(userIdTo);
-		
-		List<Short> scoreTypes = new ArrayList<Short>();
-		scoreTypes.add(Constants.SCORE_TYPE_2);
-		scoreTypes.add(Constants.SCORE_TYPE_3);
-		searchVo.setScoreTypes(scoreTypes);
-		
+				
+		searchVo.setScoreType(Constants.SCORE_TYPE_2);
 		// 如果是代理，则只能看到给自己充值的记录.
 		AccountAuth accountAuth = AuthHelper.getSessionAccountAuth(request);
 		User u = accountAuth.getU();
@@ -177,12 +173,12 @@ public class UserReChargeController extends BaseController {
 			String payBackRemarks = "";
 			
 			if (vo.getScoreType().equals(Constants.SCORE_TYPE_2)) {
-				payBackRemarks = vo.getLinkBackLevel() + "层代理" + linkUserScoreDetailVo.getGameIdTo() + "充值" + linkUserScoreDetailVo.getScore() ;
+				payBackRemarks = vo.getLinkBackLevel() + "层代理" + linkUserScoreDetailVo.getGameIdTo() + "充值" + linkUserScoreDetailVo.getScoreMoney() ;
 				
 				BigDecimal levelRatio = vo.getLinkBackRatio().multiply(new BigDecimal(100));
 				levelRatio = MathBigDecimalUtil.round(levelRatio, 0);
 				String levelRatioStr = levelRatio.toString() + "%";
-				payBackRemarks+= ",返利" + levelRatioStr + "," + vo.getScore();
+				payBackRemarks+= ",返利" + levelRatioStr + "," + vo.getScoreMoney();
 			}
 			
 			if (vo.getScoreType().equals(Constants.SCORE_TYPE_3)) {

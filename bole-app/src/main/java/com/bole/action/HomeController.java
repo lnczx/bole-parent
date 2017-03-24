@@ -72,24 +72,23 @@ public class HomeController extends BaseController {
     		//返利审核
     		MenuVo menu5 = new MenuVo();
     		menu5.setIconUrl("/static/images/icon_nav_panel.png");
-    		menu5.setLinkUrl("/user/rechargeList");
+    		menu5.setLinkUrl("/user/cashList");
     		menu5.setName("返利审核");
     		menus.add(menu5);
     		
     		//代理统计
     		MenuVo menu6 = new MenuVo();
     		menu6.setIconUrl("/static/images/icon_nav_photo.png");
-    		menu6.setLinkUrl("/user/rechargeList");
+    		menu6.setLinkUrl("/home/todo");
     		menu6.setName("代理统计");
     		menus.add(menu6);
     		
     		//充值统计
     		MenuVo menu7 = new MenuVo();
     		menu7.setIconUrl("/static/images/icon_nav_new.png");
-    		menu7.setLinkUrl("/user/rechargeList");
+    		menu7.setLinkUrl("/home/todo");
     		menu7.setName("充值统计");
     		menus.add(menu7);
-    		
     	}
     	
     	//客服
@@ -181,6 +180,13 @@ public class HomeController extends BaseController {
 	public String failView(Model model, String nextUrl) {
 		
 		return "home/fail";
+	}
+    
+    @AuthPassport
+	@RequestMapping(value = "/todo", method = { RequestMethod.GET })
+	public String todoView(Model model) {
+		
+		return "home/todo";
 	}
     
     

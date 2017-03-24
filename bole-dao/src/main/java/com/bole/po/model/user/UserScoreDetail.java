@@ -10,6 +10,8 @@ public class UserScoreDetail {
     private Long userIdTo;
 
     private BigDecimal score;
+    
+    private BigDecimal scoreMoney;
 
     private Short scoreType;
 
@@ -121,5 +123,13 @@ public class UserScoreDetail {
 
 	public void setLinkBackRatio(BigDecimal linkBackRatio) {
 		this.linkBackRatio = linkBackRatio;
+	}
+
+	public BigDecimal getScoreMoney() {
+		return scoreMoney;
+	}
+
+	public void setScoreMoney(BigDecimal scoreMoney) {
+		this.scoreMoney = scoreMoney;
 	}
 }

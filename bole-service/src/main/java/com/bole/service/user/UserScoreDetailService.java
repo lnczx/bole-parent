@@ -29,6 +29,6 @@ public interface UserScoreDetailService {
 
 	List<UserScoreDetailVo> getAgentTreePayBack(User userIdTo, UserScoreDetail item);
 
-	BigDecimal totalScore(UserSearchVo searchVo);
+	BigDecimal totalScoreMoney(UserSearchVo searchVo);
 	
 }

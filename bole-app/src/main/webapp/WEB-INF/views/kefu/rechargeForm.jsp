@@ -32,10 +32,19 @@
 			</div>
 			<div class="weui-cell">
 				<div class="weui-cell__hd">
+					<label class="weui-label">金额</label>
+				</div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" id="scoreMoneySelect" name="scoreMoneySelect"  type="text" value="">
+					<form:hidden path="scoreMoney"/>
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
 					<label class="weui-label">钻石数</label>
 				</div>
 				<div class="weui-cell__bd">
-					<form:input path="score" class="weui-input" placeholder="请输入密码" maxLength="20" />
+					<form:input path="score" class="weui-input" placeholder="请输入钻石数" maxLength="20" />
 				</div>
 			</div>
 			<div class="weui-cell">

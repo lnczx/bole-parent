@@ -667,6 +667,22 @@ public class DateUtil {
 	      return d;
 	}
 	
+	public static int daysOfTwo(Date fDate, Date oDate) {
+
+		Calendar aCalendar = Calendar.getInstance();
+
+		aCalendar.setTime(fDate);
+
+		int day1 = aCalendar.get(Calendar.DAY_OF_YEAR);
+
+		aCalendar.setTime(oDate);
+
+		int day2 = aCalendar.get(Calendar.DAY_OF_YEAR);
+
+		return day2 - day1;
+
+	}
+	
 	
 	
 	
@@ -708,9 +724,16 @@ public class DateUtil {
 //		
 //		System.out.println(DateUtil.compare("2016-08-09", "2016-08-08"));
 		
-		System.out.println(DateUtil.isDate("11111:1", "HH:mm"));
+//		System.out.println(DateUtil.isDate("11111:1", "HH:mm"));
 //		String startTime = "11:00";
 //		System.out.println(DateUtil.parse(startTime));
+		
+		Date nowDate = DateUtil.getNowOfDate();
+		
+		String lastDateStr = "2017-03-18";
+		Date lastDate = DateUtil.parse(lastDateStr);
+		
+		System.out.println(DateUtil.daysOfTwo(lastDate, nowDate));
 		
 	}
 }

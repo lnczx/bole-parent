@@ -10,6 +10,8 @@ public class User {
     private String openId;
 
     private String nickName;
+    
+    private String payAccount;
 
     private String headImg;
 
@@ -29,7 +31,7 @@ public class User {
     
     private Integer rgt;
 
-    private BigDecimal score;
+    private BigDecimal scoreMoney;
     
     private Long scoreLastTime;
     
@@ -161,14 +163,6 @@ public class User {
 		this.active = active;
 	}
 
-	public BigDecimal getScore() {
-		return score;
-	}
-
-	public void setScore(BigDecimal score) {
-		this.score = score;
-	}
-
 	public Long getScoreLastTime() {
 		return scoreLastTime;
 	}
@@ -191,5 +185,21 @@ public class User {
 
 	public void setRgt(Integer rgt) {
 		this.rgt = rgt;
+	}
+
+	public String getPayAccount() {
+		return payAccount;
+	}
+
+	public void setPayAccount(String payAccount) {
+		this.payAccount = payAccount;
+	}
+
+	public BigDecimal getScoreMoney() {
+		return scoreMoney;
+	}
+
+	public void setScoreMoney(BigDecimal scoreMoney) {
+		this.scoreMoney = scoreMoney;
 	}
 }

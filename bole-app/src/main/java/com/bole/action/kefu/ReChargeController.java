@@ -3,6 +3,7 @@ package com.bole.action.kefu;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -94,34 +95,41 @@ public class ReChargeController extends BaseController {
 		}
 		
 		BigDecimal score = formData.getScore();
+		BigDecimal scoreMoney = formData.getScoreMoney();
 		Short scoreType = formData.getScoreType();
 
 		//如果为客服，需要判断金额是否足够.
 		if (userType.equals(Constants.USER_TYPE_1)) {
-			BigDecimal userScore = userFrom.getScore();
-			if (userScore.compareTo(score) == -1) {
-				result.addError(new FieldError("contentModel", "userIdFrom", "钻石不足,请联系管理员充值"));
+			BigDecimal userScoreMoney = userFrom.getScoreMoney();
+			if (userScoreMoney.compareTo(scoreMoney) == -1) {
+				result.addError(new FieldError("contentModel", "userIdFrom", "金额不足,请联系管理员充值"));
 				return rechargeForm(request, model, userIdTo);
 			}
 		}
 
 		UserScoreDetail record = userScoreDetailService.initPo();
 		
-		BigDecimal scoreAfter = userTo.getScore().add(score);
+		BigDecimal scoreAfter = userTo.getScoreMoney().add(scoreMoney);
 		scoreAfter = MathBigDecimalUtil.round(scoreAfter, 2);
 		record.setUserIdFrom(userIdFrom);
 		record.setUserIdTo(userIdTo);
+		record.setScoreMoney(scoreMoney);
 		record.setScore(score);
 		record.setScoreType(scoreType);
-		record.setScorePre(userTo.getScore());
+		record.setScorePre(userTo.getScoreMoney());
 		record.setScoreAfter(scoreAfter);
 		record.setRemarks(formData.getRemarks());
 		record.setAddTime(TimeStampUtil.getNowSecond());
 		
 		UserScoreDetailVo vo = userScoreDetailService.getVo(record);
-		//计算代理返利的情况
-		List<UserScoreDetailVo> paybacks = userScoreDetailService.getAgentTreePayBack(userTo, record);
 		
+		
+		//计算代理返利的情况
+		List<UserScoreDetailVo> paybacks = new ArrayList<UserScoreDetailVo>();
+		
+		if (scoreType.equals(Constants.SCORE_TYPE_1)) {
+			paybacks = userScoreDetailService.getAgentTreePayBack(userTo, record);
+		}
 		model.addAttribute("contentModel", vo);
 		model.addAttribute("paybacks", paybacks);
 		model.addAttribute("userToUserType", userTo.getUserType());
@@ -154,25 +162,27 @@ public class ReChargeController extends BaseController {
 		}
 		
 		BigDecimal score = formData.getScore();
+		BigDecimal scoreMoney = formData.getScoreMoney();
 		Short scoreType = formData.getScoreType();
 
 		//如果为客服，需要判断金额是否足够.
 		if (userType.equals(Constants.USER_TYPE_1)) {
-			BigDecimal userScore = userFrom.getScore();
-			if (userScore.compareTo(score) == -1) {
-				result.addError(new FieldError("contentModel", "userIdFrom", "钻石不足,请联系管理员充值"));
+			BigDecimal userScoreMoney = userFrom.getScoreMoney();
+			if (userScoreMoney.compareTo(scoreMoney) == -1) {
+				result.addError(new FieldError("contentModel", "userIdFrom", "余额不足,请联系管理员充值"));
 				return rechargeForm(request, model, userIdTo);
 			}
 		}
 
 		UserScoreDetail record = userScoreDetailService.initPo();
-		BigDecimal scoreAfter = userTo.getScore().add(score);
+		BigDecimal scoreAfter = userTo.getScoreMoney().add(scoreMoney);
 		scoreAfter = MathBigDecimalUtil.round(scoreAfter, 2);
 		record.setUserIdFrom(userIdFrom);
 		record.setUserIdTo(userIdTo);
 		record.setScore(score);
+		record.setScoreMoney(scoreMoney);
 		record.setScoreType(scoreType);
-		record.setScorePre(userTo.getScore());
+		record.setScorePre(userTo.getScoreMoney());
 		record.setScoreAfter(scoreAfter);
 		record.setRemarks(formData.getRemarks());
 		record.setAddTime(TimeStampUtil.getNowSecond());
@@ -180,19 +190,25 @@ public class ReChargeController extends BaseController {
 		userScoreDetailService.insertSelective(record);
 		
 		//更新user表余额
-		userTo.setScore(scoreAfter);
+		userTo.setScoreMoney(scoreAfter);
 		userTo.setScoreLastTime(TimeStampUtil.getNowSecond());
 		userTo.setUpdateTime(TimeStampUtil.getNowSecond());
 		userService.updateByPrimaryKeySelective(userTo);
 		
+		//扣除代理的余额 
+		userFrom.setScoreMoney(userFrom.getScoreMoney().subtract(scoreMoney));
+		userFrom.setUpdateTime(TimeStampUtil.getNowSecond());
+		userService.updateByPrimaryKeySelective(userFrom);
+
 		//计算代理返利的情况
-		List<UserScoreDetailVo> paybacks = userScoreDetailService.getAgentTreePayBack(userTo, record);
-		
-		for (UserScoreDetailVo item : paybacks) {
-			userScoreDetailService.insertSelective(item);
+		List<UserScoreDetailVo> paybacks = new ArrayList<UserScoreDetailVo>();
+		if (scoreType.equals(Constants.SCORE_TYPE_1)) {
+			paybacks = userScoreDetailService.getAgentTreePayBack(userTo, record);
+			for (UserScoreDetailVo item : paybacks) {
+				userScoreDetailService.insertSelective(item);
+			}
 		}
-		
-		
+
 		String returnUrl = "/home/success?nextUrl=";
 		String nextUrl = "/user/rechargeList?userIdTo="+userIdTo;
 		nextUrl = URLEncoder.encode(nextUrl);

@@ -24,7 +24,12 @@
 		<include refid="Base_Column_List" />
 		from user_score_cash
 		<include refid="bySearchVo"/>
-		order by update_time desc
+		<if test="orderByProperty!=null">
+			${orderByProperty}
+		</if>
+		<if test="orderByProperty==null or orderByProperty==''">
+			order by update_time desc
+		</if>
 	</select>
 	
 	<select id="selectByListPage" resultMap="BaseResultMap" parameterType="com.bole.vo.UserSearchVo">
@@ -32,7 +37,13 @@
 		<include refid="Base_Column_List" />
 		from user_score_cash
 		<include refid="bySearchVo"/>
-		order by status asc, update_time desc
+		<if test="orderByProperty!=null">
+			${orderByProperty}
+		</if>
+		<if test="orderByProperty==null or orderByProperty==''">
+			order by status asc, update_time desc
+		</if>
+		
 	</select>
 	
 	<select id="totalCash" resultType="java.math.BigDecimal" parameterType="com.bole.vo.UserSearchVo">

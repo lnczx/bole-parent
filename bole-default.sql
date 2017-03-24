@@ -27,6 +27,7 @@ CREATE TABLE `user` (
   `user_type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '0 = 代理  1 = 客服  2 = 超级管理员',
   `open_id` varchar(128) NOT NULL COMMENT '微信ID',
   `nick_name` varchar(64) NOT NULL COMMENT '昵称',
+  `pay_account` varchar(128) NOT NULL COMMENT '支付宝账号',
   `head_img` varchar(255) NOT NULL COMMENT '头像',
   `game_id` varchar(32) NOT NULL COMMENT '游戏ID',
   `password` varchar(32) NOT NULL COMMENT '密码',
@@ -36,7 +37,7 @@ CREATE TABLE `user` (
   `p_game_id` varchar(32) NOT NULL COMMENT '上级游戏ID',
   `lft` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT ' 树形左值',
   `rgt` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '树形右值',
-  `score` decimal(9,2) NOT NULL DEFAULT '0.00' COMMENT '余额',
+  `score_money` decimal(9,2) NOT NULL DEFAULT '0.00' COMMENT '余额',
   `score_last_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '最后充值时间',
   `enable` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否可用',
   `active` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否激活 0 = 未激活 1 = 激活',
@@ -44,7 +45,7 @@ CREATE TABLE `user` (
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间戳',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `game_id` (`game_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -53,7 +54,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,2,'','','','001652','d1a8192d98c2cc4426e08ba73c91421e','',1,0,'',1,2,0.00,0,1,1,1489570243,1489570243),(2,2,'','','','001653','d1a8192d98c2cc4426e08ba73c91421e','',1,0,'',0,0,0.00,0,1,1,1489643503,1489643503),(3,1,'','','','001654','6d0d2621c95de44eb6d56aa31bf7ad34','',1,0,'',0,0,0.00,0,1,1,1490026550,1490026550),(4,1,'','','','001655','6d0d2621c95de44eb6d56aa31bf7ad34','',1,0,'',0,0,0.00,0,1,1,1490026585,1490026585);
+INSERT INTO `user` VALUES (1,2,'','','','','000000','d20de65510f1690056650ea84c18a766','',0,0,'',1,10,0.00,0,1,1,1490353401,1490353401),(2,1,'','','','','001654','6d0d2621c95de44eb6d56aa31bf7ad34','',1,0,'',0,0,0.00,0,1,1,1490353589,1490353589),(3,1,'','','','','001655','6d0d2621c95de44eb6d56aa31bf7ad34','',1,0,'',0,0,0.00,0,1,1,1490355268,1490355268),(4,2,'','','bole@126.com','','001521','d1a8192d98c2cc4426e08ba73c91421e','wp8o4p',1,1,'000000',2,3,0.00,0,1,1,1490355476,1490355692),(5,2,'','','bole@126.com','','001522','d1a8192d98c2cc4426e08ba73c91421e','wpaoj6',1,1,'000000',4,5,0.00,0,1,1,1490355488,1490355745),(6,2,'','','bole@126.com','','001523','d1a8192d98c2cc4426e08ba73c91421e','wpsof3',1,1,'000000',6,7,0.00,0,1,1,1490355492,1490355778),(7,2,'','','bole@126.com','','001524','d1a8192d98c2cc4426e08ba73c91421e','wp2oqh',1,1,'000000',8,9,0.00,0,1,1,1490355497,1490355811);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -104,7 +105,7 @@ CREATE TABLE `user_level_stat` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `user_id_2` (`user_id`,`level`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -113,6 +114,7 @@ CREATE TABLE `user_level_stat` (
 
 LOCK TABLES `user_level_stat` WRITE;
 /*!40000 ALTER TABLE `user_level_stat` DISABLE KEYS */;
+INSERT INTO `user_level_stat` VALUES (1,1,0,4,1490355476,1490355811),(2,1,1,4,1490355476,1490355811),(3,1,2,0,1490355476,1490355811),(4,1,3,0,1490355476,1490355811),(5,1,4,0,1490355476,1490355811),(6,1,5,0,1490355476,1490355811),(7,1,6,0,1490355476,1490355811);
 /*!40000 ALTER TABLE `user_level_stat` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -133,7 +135,7 @@ CREATE TABLE `user_logined` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `mobile` (`mobile`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='用户登录记录表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='用户登录记录表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -142,7 +144,7 @@ CREATE TABLE `user_logined` (
 
 LOCK TABLES `user_logined` WRITE;
 /*!40000 ALTER TABLE `user_logined` DISABLE KEYS */;
-INSERT INTO `user_logined` VALUES (1,1,'',1,2130706433,1490026408);
+INSERT INTO `user_logined` VALUES (1,1,'',1,2130706433,1490353568),(2,1,'',1,2130706433,1490355260),(3,4,'',1,2130706433,1490355823),(4,4,'',1,2130706433,1490355948);
 /*!40000 ALTER TABLE `user_logined` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -187,10 +189,13 @@ CREATE TABLE `user_score_detail` (
   `user_id_from` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '来源ID',
   `user_id_to` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '目的ID',
   `score` decimal(9,2) NOT NULL DEFAULT '0.00' COMMENT '数值',
-  `score_type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '0 = 赠送，  1= 付款   2= 返利提现.',
+  `score_money` decimal(7,2) NOT NULL DEFAULT '0.00' COMMENT '金额',
+  `score_type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '0 = 赠送，  1= 付款   2= 返利 3 = 领取.',
   `score_pre` decimal(9,2) NOT NULL DEFAULT '0.00' COMMENT '充值前数值',
   `score_after` decimal(9,2) NOT NULL DEFAULT '0.00' COMMENT '充值后数值',
   `link_detail_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '返利的对应ID',
+  `link_back_level` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '第几层返利',
+  `link_back_ratio` decimal(3,2) NOT NULL DEFAULT '0.00' COMMENT '返利的比例',
   `remarks` varchar(255) NOT NULL COMMENT '备注',
   `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间戳',
   PRIMARY KEY (`id`),
@@ -218,4 +223,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-21  0:21:34
+-- Dump completed on 2017-03-24 19:45:53

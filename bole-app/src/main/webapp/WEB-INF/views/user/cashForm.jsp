@@ -14,7 +14,7 @@
 	<form:form id="cash-form" modelAttribute="contentModel" action="/bole-app/user/cashForm">
 		<form:hidden path="userId"/>
 		<form:hidden path="id"/>
-		<input type="hidden" id="minScoreCash" value="${minScoreCash }"/>
+		<input type="hidden" id="minScoreMoneyCash" value="${minScoreMoneyCash }"/>
 		<input type="hidden" id="totalStore" value="${userScoreCashTotalVo.totalStore }"/>
 		<input type="hidden" id="totalScore" value="${userScoreCashTotalVo.totalScore }"/>
 		<div class="weui-cells weui-cells_form">
@@ -33,7 +33,7 @@
 					<label class="weui-label weui-cell_warn">说明</label>
 				</div>
 				<div class="weui-cell__bd">
-					必须累积返利满1000以上才能领取，每次领取为1000的整数倍.
+					必须累积返利满<font color="red">${minScoreMoneyCash }</font>以上才能领取，每次领取为<font color="red">${minScoreMoneyCash }</font>的整数倍.申请领取返利后需隔<font color="red">${minCashDate }</font>天方可再次领取.
 				</div>
 			</div>
 			

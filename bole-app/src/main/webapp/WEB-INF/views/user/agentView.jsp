@@ -22,7 +22,7 @@
 			<div class="weui-form-preview__bd">
 				<div class="weui-form-preview__item">
 					<label class="weui-form-preview__label">余额</label>
-					<em class="weui-form-preview__value">${contentModel.score }</em>
+					<em class="weui-form-preview__value">${contentModel.scoreMoney }</em>
 				</div>
 			</div>
 		</c:if>
@@ -37,6 +37,12 @@
 				<div class="weui-form-preview__item">
 					<label class="weui-form-preview__label">上级ID</label>
 					<em class="weui-form-preview__value">${contentModel.pGameId }</em>
+				</div>
+			</div>
+			<div class="weui-form-preview__bd">
+				<div class="weui-form-preview__item">
+					<label class="weui-form-preview__label">支付宝账户</label>
+					<em class="weui-form-preview__value">${contentModel.payAccount }</em>
 				</div>
 			</div>
 			<div class="weui-form-preview__bd">
@@ -84,6 +90,13 @@
 				<div class="weui-form-preview__item">
 					<label class="weui-form-preview__label">未领取的返利</label>
 					<em class="weui-form-preview__value">${userScoreCashTotalVo.totalStore }</em>
+				</div>
+			</div>
+			
+			<div class="weui-form-preview__bd">
+				<div class="weui-form-preview__item">
+					<label class="weui-form-preview__label">审核中的返利</label>
+					<em class="weui-form-preview__value">${userScoreCashTotalVo.totalCashing }</em>
 				</div>
 			</div>
 		</c:if>

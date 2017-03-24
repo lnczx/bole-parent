@@ -71,7 +71,8 @@ public class CashController extends BaseController {
 		UserScoreCashTotalVo userScoreCashTotalVo = userScoreCashService.getTotalVo(cashUserId);
 		model.addAttribute("userScoreCashTotalVo", userScoreCashTotalVo);
 		
-		model.addAttribute("minScoreCash", Constants.MIN_SCORE_CASH);
+		model.addAttribute("minScoreMoneyCash", Constants.MIN_SCORE_MONEY_CASH);
+		model.addAttribute("minCashDate", Constants.MIN_CASH_DATE);
 		return "kefu/cashView";
 	}
 	
@@ -85,7 +86,10 @@ public class CashController extends BaseController {
 		
 		AccountAuth accountAuth = AuthHelper.getSessionAccountAuth(request);
 		User u = accountAuth.getU();
-		Long userId = u.getUserId();	
+		Long userId = u.getUserId();
+		u = userService.selectByPrimaryKey(userId);
+		
+		
 		Short userType = u.getUserType();
 		if (userType.equals(Constants.USER_TYPE_0)) {
 			result.addError(new FieldError("contentModel", "userId", "权限不足"));
@@ -101,16 +105,23 @@ public class CashController extends BaseController {
 		
 		UserScoreCashTotalVo userScoreCashTotalVo = userScoreCashService.getTotalVo(cashUserId);
 		BigDecimal totalScore = userScoreCashTotalVo.getTotalScore();
-		if (totalScore.compareTo(Constants.MIN_SCORE_CASH) == -1) {
-			result.addError(new FieldError("contentModel", "userId", "代理返利不满"+Constants.MIN_SCORE_CASH));
+		if (totalScore.compareTo(Constants.MIN_SCORE_MONEY_CASH) == -1) {
+			result.addError(new FieldError("contentModel", "userId", "返利不满"+Constants.MIN_SCORE_MONEY_CASH));
 			return cashView(request, model, id);
 		}
 		
 		BigDecimal totalStore = userScoreCashTotalVo.getTotalStore();
 		if (scoreCash.compareTo(totalStore) == 1) {
-			result.addError(new FieldError("contentModel", "userId", "代理可领取数不足"));
+			result.addError(new FieldError("contentModel", "userId", "可领取数不足"));
 			return cashView(request, model, id);
 		}
+		
+		//判断当前客服是否有足够余额审核
+		if (u.getScoreMoney().compareTo(scoreCash) == -1) {
+			result.addError(new FieldError("contentModel", "userId", "你的余额不足,请联系管理员充值."));
+			return cashView(request, model, id);
+		}
+		
 		
 		record.setStatus((short) 1);
 		record.setUpdateTime(TimeStampUtil.getNowSecond());
@@ -121,11 +132,16 @@ public class CashController extends BaseController {
 		userScoreDetail.setUserIdFrom(0L);
 		userScoreDetail.setUserIdTo(cashUserId);
 		userScoreDetail.setScoreType(Constants.SCORE_TYPE_3);
-		userScoreDetail.setScore(scoreCash);
-		userScoreDetail.setScorePre(cashUser.getScore());
-		userScoreDetail.setScoreAfter(cashUser.getScore().add(scoreCash));
+		userScoreDetail.setScoreMoney(scoreCash);
+		userScoreDetail.setScorePre(cashUser.getScoreMoney());
+		userScoreDetail.setScoreAfter(cashUser.getScoreMoney().add(scoreCash));
 		userScoreDetail.setRemarks("领取返利");
 		userScoreDetailService.insertSelective(userScoreDetail);
+		
+		//客服扣除余额 
+		u.setScoreMoney(u.getScoreMoney().subtract(scoreCash));
+		u.setUpdateTime(TimeStampUtil.getNowSecond());
+		userService.updateByPrimaryKeySelective(u);
 		
 		String returnUrl = "/home/success?nextUrl=";
 		String nextUrl = "/user/cashList";

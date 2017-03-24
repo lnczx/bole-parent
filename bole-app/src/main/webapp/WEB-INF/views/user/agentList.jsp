@@ -62,7 +62,7 @@
 					</c:if>
 						<td><a href="#" onclick="btn_link('/user/agentView?userId=${item.userId}')">${ item.gameId }</a></td>
 						<td>${ item.level }级</td>
-						<td class="text-r">${ item.score }</td>
+						<td class="text-r">${ item.scoreMoney }</td>
 						<td>${ item.scoreLastTimeStr }</td>
 						<c:if test="${ userType == 1 }">
 							<td>

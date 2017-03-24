@@ -31,13 +31,13 @@ $(function() {
 		submitHandler : function(form) {
 			
 			$.confirm("您确定要申请返利吗?", "确认?", function() {
-				var minScoreCash = $("#minScoreCash").val();
+				var minScoreMoneyCash = $("#minScoreMoneyCash").val();
 				var totalStore = $("#totalStore").val();
 				var totalScore = $("#totalScore").val();
 				var scoreCash = $("#scoreCash").val();
 				
-				if (parseFloat(totalScore) < parseFloat(minScoreCash)) {
-					$.toptip("总返利必须满" + minScoreCash+ "才能领取." );
+				if (parseFloat(totalScore) < parseFloat(minScoreMoneyCash)) {
+					$.toptip("总返利必须满" + minScoreMoneyCash+ "才能领取." );
 					return false;
 				}
 				
@@ -45,6 +45,12 @@ $(function() {
 					$.toptip("可领取数不足" );
 					return false;
 				}
+				
+				if (scoreCash % minScoreMoneyCash != 0) {
+					$.toptip("领取数为" + minScoreMoneyCash+ "的整数倍." );
+					return false;
+				}
+				
 				form.submit();
 			})
 		}

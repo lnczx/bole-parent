@@ -53,8 +53,9 @@ public class Constants {
 	public static Short SCORE_TYPE_2 = 2;    //返利
 	public static Short SCORE_TYPE_3 = 3;    //领取
 	//最低可领取数
-	public static BigDecimal MIN_SCORE_CASH = new BigDecimal(1); //最低可领取数
+	public static BigDecimal MIN_SCORE_MONEY_CASH = new BigDecimal(100); //最低可领取数
 	
-	
+	//最低可领取天数间隔
+	public static int MIN_CASH_DATE = 7;
 
 }

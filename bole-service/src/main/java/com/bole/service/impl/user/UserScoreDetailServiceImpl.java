@@ -57,6 +57,7 @@ public class UserScoreDetailServiceImpl implements UserScoreDetailService {
 		record.setUserIdFrom(0L);
 		record.setUserIdTo(0L);
 		record.setScore(new BigDecimal(0));
+		record.setScoreMoney(new BigDecimal(0));
 		record.setScoreType((short) 0);
 		record.setScorePre(new BigDecimal(0));
 		record.setScoreAfter(new BigDecimal(0));
@@ -121,8 +122,8 @@ public class UserScoreDetailServiceImpl implements UserScoreDetailService {
 	}
 	
 	@Override
-	public BigDecimal totalScore(UserSearchVo searchVo) {
-		BigDecimal totalPayBack = mapper.totalScore(searchVo);	
+	public BigDecimal totalScoreMoney(UserSearchVo searchVo) {
+		BigDecimal totalPayBack = mapper.totalScoreMoney(searchVo);	
 		if (totalPayBack == null )  totalPayBack = new BigDecimal(0);
 		return totalPayBack;
 	}
@@ -143,6 +144,7 @@ public class UserScoreDetailServiceImpl implements UserScoreDetailService {
 		Long pId = userTo.getpId();
 		if (pId.equals(0L)) return result;
 		
+		BigDecimal scoreMoney = item.getScoreMoney();
 		BigDecimal score = item.getScore();
 		
 		UserSearchVo searchVo = new UserSearchVo();
@@ -161,20 +163,26 @@ public class UserScoreDetailServiceImpl implements UserScoreDetailService {
 //			Short level = pUser.getLevel();
 			BigDecimal leveRatio = BoleUtil.getLevelRatio(linkBackLevel);
 			
+			//充值返利金额计算
+			BigDecimal scoreMoneyBack = MathBigDecimalUtil.mul(scoreMoney, leveRatio);
+			scoreMoneyBack = MathBigDecimalUtil.round(scoreMoneyBack, 2);
+			
+			BigDecimal scoreAfter = pUser.getScoreMoney().add(scoreMoneyBack);
+			scoreAfter = MathBigDecimalUtil.round(scoreAfter, 2);
+			String remarks = "充值返利:" + MathBigDecimalUtil.round2(scoreMoney) +"x";
+			remarks+= MathBigDecimalUtil.round(leveRatio.multiply(new BigDecimal(100)), 0) + "%=" + MathBigDecimalUtil.round2(scoreMoneyBack);
+			
+			//充值返利钻石数计算
 			BigDecimal scoreBack = MathBigDecimalUtil.mul(score, leveRatio);
 			scoreBack = MathBigDecimalUtil.round(scoreBack, 2);
-			
-			BigDecimal scoreAfter = pUser.getScore().add(scoreBack);
-			scoreAfter = MathBigDecimalUtil.round(scoreAfter, 2);
-			String remarks = "充值返利:" + MathBigDecimalUtil.round2(score) +"x";
-			remarks+= MathBigDecimalUtil.round(leveRatio.multiply(new BigDecimal(100)), 0) + "%=" + MathBigDecimalUtil.round2(scoreBack);
 			
 			UserScoreDetail record = this.initPo();
 			record.setUserIdFrom(0L);
 			record.setUserIdTo(pUser.getUserId());
+			record.setScoreMoney(scoreMoneyBack);
 			record.setScore(scoreBack);
 			record.setScoreType(Constants.SCORE_TYPE_2);
-			record.setScorePre(pUser.getScore());
+			record.setScorePre(pUser.getScoreMoney());
 			record.setScoreAfter(scoreAfter);
 			record.setLinkBackLevel(linkBackLevel);
 			record.setLinkBackRatio(leveRatio);

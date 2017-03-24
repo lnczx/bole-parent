@@ -9,6 +9,8 @@ public class UserScoreCashVo extends UserScoreCash {
 	private String statusName;
 	
 	private String addTimeStr;
+	
+	private String payAccount;
 
 	public String getGameId() {
 		return gameId;
@@ -32,6 +34,14 @@ public class UserScoreCashVo extends UserScoreCash {
 
 	public void setAddTimeStr(String addTimeStr) {
 		this.addTimeStr = addTimeStr;
+	}
+
+	public String getPayAccount() {
+		return payAccount;
+	}
+
+	public void setPayAccount(String payAccount) {
+		this.payAccount = payAccount;
 	}
 	
 

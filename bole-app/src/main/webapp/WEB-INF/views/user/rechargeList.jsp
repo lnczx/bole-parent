@@ -16,6 +16,7 @@
 	</header>
 	<form:form modelAttribute="searchModel" id="search-form" method="GET">
 		<form:hidden path="searchDate"/>
+		<form:hidden path="scoreMoney"/>
 		<form:hidden path="scoreType"/>
 		<div class="weui-cells weui-cells_form">
 			<c:if test="${userType != 0 }">
@@ -36,6 +37,16 @@
 				<div class="weui-cell__bd">
 					<input type="text" id="date" class="weui-input" value="${searchModel.searchDate }"/>
 					
+				</div>
+				<div class="weui-cell__bd"></div>
+			</div>
+			
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label for="date" class="weui-label">充值金额</label>
+				</div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" id="scoreMoneySelect" type="text" value="">
 				</div>
 				<div class="weui-cell__bd"></div>
 			</div>
@@ -63,7 +74,7 @@
 				<tr class="text-c">
 					<th width="50">时间</th>
 					<th width="35">充值ID</th>
-					<th width="35" class="text-r">钻石数</th>
+					<th width="35" class="text-r">金额</th>
 					<th width="35">类型</th>
 				</tr>
 			</thead>
@@ -72,7 +83,7 @@
 					<tr class="text-c">
 						<td>${ item.addTimeStr }</td>
 						<td>${ item.gameIdTo }</td>
-						<td>${ item.score }</td>
+						<td>${ item.scoreMoney }</td>
 						<td>${ item.scoreTypeName }</td>
 					</tr>
 				</c:forEach>

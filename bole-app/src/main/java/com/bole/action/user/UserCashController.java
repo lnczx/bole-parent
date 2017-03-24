@@ -4,11 +4,13 @@ import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +34,7 @@ import com.bole.vo.user.UserScoreCashTotalVo;
 import com.bole.vo.user.UserScoreCashVo;
 import com.bole.vo.user.UserScoreDetailVo;
 import com.github.pagehelper.PageInfo;
+import com.meijia.utils.DateUtil;
 import com.meijia.utils.StringUtil;
 import com.meijia.utils.TimeStampUtil;
 import com.simi.oa.auth.AccountAuth;
@@ -156,7 +159,8 @@ public class UserCashController extends BaseController {
 		UserScoreCashTotalVo userScoreCashTotalVo = userScoreCashService.getTotalVo(userId);
 		model.addAttribute("userScoreCashTotalVo", userScoreCashTotalVo);
 		
-		model.addAttribute("minScoreCash", Constants.MIN_SCORE_CASH);
+		model.addAttribute("minScoreMoneyCash", Constants.MIN_SCORE_MONEY_CASH);
+		model.addAttribute("minCashDate", Constants.MIN_CASH_DATE);
 		return "user/cashForm";
 	}
 	
@@ -177,8 +181,8 @@ public class UserCashController extends BaseController {
 		
 		UserScoreCashTotalVo userScoreCashTotalVo = userScoreCashService.getTotalVo(userId);
 		BigDecimal totalScore = userScoreCashTotalVo.getTotalScore();
-		if (totalScore.compareTo(Constants.MIN_SCORE_CASH) == -1) {
-			result.addError(new FieldError("contentModel", "userId", "返利必须满"+Constants.MIN_SCORE_CASH+"以上才可领取."));
+		if (totalScore.compareTo(Constants.MIN_SCORE_MONEY_CASH) == -1) {
+			result.addError(new FieldError("contentModel", "userId", "返利必须满"+Constants.MIN_SCORE_MONEY_CASH+"以上才可领取."));
 			return cashForm(request, model, id);
 		}
 		
@@ -187,7 +191,29 @@ public class UserCashController extends BaseController {
 			result.addError(new FieldError("contentModel", "userId", "可领取数不足"));
 			return cashForm(request, model, id);
 		}
-
+		
+		//判断距离上次是否超过7天.
+		UserSearchVo searchVo = new UserSearchVo();
+		searchVo.setUserId(userId);
+		searchVo.setStatus((short) 1);
+		searchVo.setOrderByProperty(" order by update_time desc");
+		PageInfo pageInfo = userScoreCashService.selectByListPage(searchVo, 1, 1);
+		List<UserScoreCash> list = pageInfo.getList();
+		if (!list.isEmpty()) {
+			UserScoreCash uc = list.get(0);
+			Long updateTime = uc.getUpdateTime();
+			String lastCashDateStr = TimeStampUtil.timeStampToDateStr(updateTime * 1000);
+			Date lastCashDate = DateUtil.parse(lastCashDateStr);
+			Date nowDate = DateUtil.getNowOfDate();
+			
+			int days = DateUtil.daysOfTwo(lastCashDate, nowDate);
+			if (days <= Constants.MIN_CASH_DATE) {
+				result.addError(new FieldError("contentModel", "userId", "一个星期可领取一次."));
+				return cashForm(request, model, id);
+			}
+		}
+		
+		
 		UserScoreCash record = userScoreCashService.initPo();
 		record.setUserId(userId);
 		record.setScoreCash(scoreCash);

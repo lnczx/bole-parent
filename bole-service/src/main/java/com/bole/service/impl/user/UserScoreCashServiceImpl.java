@@ -101,11 +101,15 @@ public class UserScoreCashServiceImpl implements UserScoreCashService {
 		User u = userService.selectByPrimaryKey(vo.getUserId());
 		vo.setGameId(u.getGameId());
 		
+		vo.setPayAccount(u.getPayAccount());
+		
 		String addTimeStr = TimeStampUtil.timeStampToDateStr(vo.getAddTime() * 1000, "MM-dd");
 		vo.setAddTimeStr(addTimeStr);
 		
 		String cashStatusName = BoleUtil.getScoreCashStatusName(vo.getStatus());
 		vo.setStatusName(cashStatusName);
+		
+		
 		
 		return vo;
 	}
@@ -126,7 +130,7 @@ public class UserScoreCashServiceImpl implements UserScoreCashService {
 		UserSearchVo totalPayBackSearchVo = new UserSearchVo();
 		if (userId != null && userId > 0L)  totalPayBackSearchVo.setUserIdTo(userId);
 		totalPayBackSearchVo.setScoreType(Constants.SCORE_TYPE_2);
-		BigDecimal totalScore = userScoreDetailService.totalScore(totalPayBackSearchVo);
+		BigDecimal totalScore = userScoreDetailService.totalScoreMoney(totalPayBackSearchVo);
 		vo.setTotalScore(totalScore);
 		
 		//总领取数据

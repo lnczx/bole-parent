@@ -15,6 +15,7 @@
 		<form:hidden path="userIdTo" />
 		<form:hidden path="gameIdTo" />
 		<form:hidden path="score" />
+		<form:hidden path="scoreMoney" />
 		<form:hidden path="scoreType" />
 		<form:hidden path="remarks" />
 	</form:form>
@@ -23,6 +24,12 @@
 			<div class="weui-form-preview__item">
 				<label class="weui-form-preview__label">游戏ID</label>
 				<em class="weui-form-preview__value">${contentModel.gameIdTo }</em>
+			</div>
+		</div>
+		<div class="weui-form-preview__bd">
+			<div class="weui-form-preview__item">
+				<label class="weui-form-preview__label">金额</label>
+				<em class="weui-form-preview__value"><font color="red">${contentModel.scoreMoney }</font></em>
 			</div>
 		</div>
 		<div class="weui-form-preview__bd">
@@ -59,8 +66,8 @@
 				<c:forEach items="${paybacks}" var="item">
 					<div class="weui-form-preview__bd">
 						<div class="weui-form-preview__item">
-							<label class="weui-form-preview__label">游戏ID</label>
-							<em class="weui-form-preview__value">${item.gameIdTo } &nbsp;&nbsp;&nbsp;   ${item.linkBackLevel}层返利=<font color="red">${item.score }</font></em>
+							<label class="weui-form-preview__label">上级游戏ID</label>
+							<em class="weui-form-preview__value">${item.gameIdTo } &nbsp;&nbsp;&nbsp;   ${item.linkBackLevel}层返利=<font color="red">${item.scoreMoney }.</font></em>
 						</div>
 					</div>
 				</c:forEach>
@@ -81,7 +88,7 @@
 		</div>
 		<div class="weui-msg__opr-area">
 			<p class="weui-btn-area">
-				<a href="#" onclick="btn_back()" class="weui-btn weui-btn_primary">返回</a>
+				<a href="#" onclick="btn_link('/kefu/rechargeForm?userIdTo=${contentModel.userIdTo}')" class="weui-btn weui-btn_primary">返回</a>
 			</p>
 		</div>
 	</div>

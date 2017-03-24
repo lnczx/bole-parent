@@ -65,9 +65,15 @@ public class RegisterController extends BaseController {
 		
 		String inviteCode = u.getInviteCode();
 		String gameId = u.getGameId();
+		String payAccount = u.getPayAccount();
 
 		if (StringUtil.isEmpty(inviteCode) || StringUtil.isEmpty(gameId)) {
 			result.addError(new FieldError("contentModel", "gameId", "请输入邀请码和游戏ID."));
+			return reg(request, model);
+		}
+		
+		if (StringUtil.isEmpty(payAccount)) {
+			result.addError(new FieldError("contentModel", "gameId", "请输入支付宝账户."));
 			return reg(request, model);
 		}
 
@@ -88,7 +94,7 @@ public class RegisterController extends BaseController {
 				return reg(request, model);
 			}
 		}
-
+		agent.setPayAccount(payAccount);
 		agent.setPassword(StringUtil.md5(u.getPassword()));
         agent.setActive(Constants.USER_ACTIVE_1);
         agent.setUpdateTime(TimeStampUtil.getNowSecond());

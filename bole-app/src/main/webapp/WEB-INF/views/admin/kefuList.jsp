@@ -22,7 +22,7 @@
 			<thead>
 				<tr class="text-c">
 					<th width="40">游戏ID</th>
-					<th width="40">钻石数</th>
+					<th width="40">金额</th>
 					<th width="50">最后充值时间</th>
 					<th width="40">操作</th>
 				</tr>
@@ -32,7 +32,7 @@
 					
 					<tr class="text-c">
 						<td><a href="#" onclick="btn_link('/user/rechargeList?userIdTo=${item.userId}')">${ item.gameId }</a></td>
-						<td>${ item.score }</td>
+						<td>${ item.scoreMoney }</td>
 						<td>${ item.scoreLastTimeStr }</td>
 						<td><a href="#" onclick="btn_link('/kefu/rechargeForm?userIdTo=${item.userId}')"
 								class="weui-btn weui-btn_mini weui-btn_primary">充值</a></td>

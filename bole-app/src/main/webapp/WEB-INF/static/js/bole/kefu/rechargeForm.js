@@ -8,10 +8,15 @@ $(function() {
 				minlength : 6
 			},
 			
+			scoreMoneySelect : {
+				required : true,
+			
+			},
+			
 			score : {
 				required : true,
 				digits : true,
-				min : 1,
+				min : 0,
 			},
 			
 			scoreTypeSelect : {
@@ -29,10 +34,14 @@ $(function() {
 				minlength : "请输入正确的游戏ID"
 			},
 			
+			scoreMoneySelect : {
+				required : "请选择充值金额",
+			},
+			
 			score : {
 				required : "请输入钻石数",
 				digits : "请输入正确钻石数",
-				min : "钻石数不能为0",
+				min : "钻石数不正确",
 			},
 			
 			scoreTypeSelect : {
@@ -58,6 +67,32 @@ $(function() {
 		}
 	});
 	
+});
+
+$("#scoreMoneySelect").select({
+	title : "选择充值金额",
+	items : [ {
+		title : "300",
+		value : "300",
+	}, {
+		title : "500",
+		value : "500",
+	},
+	{
+		title : "1000",
+		value : "1000",
+	},
+	{
+		title : "2000",
+		value : "2000",
+	}],
+
+	beforeClose : function(values, titles) {
+
+		$("#scoreMoney").val(values);
+		return true;
+	},
+
 });
 
 $("#scoreTypeSelect").select({
