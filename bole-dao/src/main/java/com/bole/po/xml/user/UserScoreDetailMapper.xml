@@ -51,6 +51,13 @@
 		<include refid="bySearchVo"/>
 	</select>
 	
+	<select id="totalScore" resultType="java.math.BigDecimal" parameterType="com.bole.vo.UserSearchVo">
+		select
+		sum(score) as total
+		from user_score_detail
+		<include refid="bySearchVo"/>
+	</select>
+	
 	<sql id="bySearchVo">
 	    where 1 = 1
 	    <if test="userIdFrom != null">

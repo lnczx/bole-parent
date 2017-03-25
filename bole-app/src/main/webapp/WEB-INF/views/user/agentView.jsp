@@ -25,6 +25,13 @@
 					<em class="weui-form-preview__value">${contentModel.scoreMoney }</em>
 				</div>
 			</div>
+			
+			<div class="weui-form-preview__bd">
+				<div class="weui-form-preview__item">
+					<label class="weui-form-preview__label">钻石数</label>
+					<em class="weui-form-preview__value">${contentModel.score }</em>
+				</div>
+			</div>
 		</c:if>
 		<c:if test="${contentModel.userType == 0 }">
 			<div class="weui-form-preview__bd">

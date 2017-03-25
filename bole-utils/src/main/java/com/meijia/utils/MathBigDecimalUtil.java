@@ -97,6 +97,14 @@ public class MathBigDecimalUtil {
       bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
       return bd.toString();
     }
+    
+    /**
+     * 使用BigDecimal，保留小数点后两位
+     */
+    public static String roundInt(BigDecimal bd) {
+      bd = bd.setScale(0, BigDecimal.ROUND_HALF_UP);
+      return bd.toString();
+    }
 
 	public static void main(String[] args) {
 		BigDecimal pay = new BigDecimal(0.01);

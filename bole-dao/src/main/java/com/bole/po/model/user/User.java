@@ -33,6 +33,8 @@ public class User {
 
     private BigDecimal scoreMoney;
     
+    private BigDecimal score;
+    
     private Long scoreLastTime;
     
     private Short enable;
@@ -201,5 +203,13 @@ public class User {
 
 	public void setScoreMoney(BigDecimal scoreMoney) {
 		this.scoreMoney = scoreMoney;
+	}
+
+	public BigDecimal getScore() {
+		return score;
+	}
+
+	public void setScore(BigDecimal score) {
+		this.score = score;
 	}
 }

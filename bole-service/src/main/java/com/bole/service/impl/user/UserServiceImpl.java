@@ -76,6 +76,7 @@ public class UserServiceImpl implements UserService {
 		record.setLft(0);
 		record.setRgt(0);
 		record.setScoreMoney(new BigDecimal(0));
+		record.setScore(new BigDecimal(0));
 		record.setScoreLastTime(0L);
 		record.setEnable((short) 1);
 		record.setActive(Constants.USER_ACTIVE_0);

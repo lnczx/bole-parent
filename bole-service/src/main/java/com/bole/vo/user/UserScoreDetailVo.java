@@ -18,6 +18,8 @@ public class UserScoreDetailVo extends UserScoreDetail {
 	
 	private String payBackRemarks;
 	
+	private String scoreStr;
+	
 	public String getGameIdTo() {
 		return gameIdTo;
 	}
@@ -64,5 +66,13 @@ public class UserScoreDetailVo extends UserScoreDetail {
 
 	public void setPayBackRemarks(String payBackRemarks) {
 		this.payBackRemarks = payBackRemarks;
+	}
+
+	public String getScoreStr() {
+		return scoreStr;
+	}
+
+	public void setScoreStr(String scoreStr) {
+		this.scoreStr = scoreStr;
 	}
 }

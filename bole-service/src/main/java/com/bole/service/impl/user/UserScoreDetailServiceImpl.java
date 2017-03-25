@@ -95,6 +95,10 @@ public class UserScoreDetailServiceImpl implements UserScoreDetailService {
 		
 		BeanUtilsExp.copyPropertiesIgnoreNull(item, vo);
 		
+		BigDecimal score = vo.getScore();
+		String scoreStr = MathBigDecimalUtil.roundInt(score);
+		vo.setScoreStr(scoreStr);
+		
 		vo.setGameIdFrom("");
 		Long userIdFrom = vo.getUserIdFrom();
 		if (userIdFrom > 0L) {
@@ -124,6 +128,13 @@ public class UserScoreDetailServiceImpl implements UserScoreDetailService {
 	@Override
 	public BigDecimal totalScoreMoney(UserSearchVo searchVo) {
 		BigDecimal totalPayBack = mapper.totalScoreMoney(searchVo);	
+		if (totalPayBack == null )  totalPayBack = new BigDecimal(0);
+		return totalPayBack;
+	}
+	
+	@Override
+	public BigDecimal totalScore(UserSearchVo searchVo) {
+		BigDecimal totalPayBack = mapper.totalScore(searchVo);	
 		if (totalPayBack == null )  totalPayBack = new BigDecimal(0);
 		return totalPayBack;
 	}
@@ -159,7 +170,8 @@ public class UserScoreDetailServiceImpl implements UserScoreDetailService {
 		for (int i = 0 ; i < list.size(); i++) {
 			User pUser = list.get(i);
 			if (linkBackLevel > 6) break;
-//			Short level = pUser.getLevel();
+			Short level = pUser.getLevel();
+			if (level < linkBackLevel) continue;
 			BigDecimal leveRatio = BoleUtil.getLevelRatio(linkBackLevel);
 			
 			//充值返利金额计算
@@ -170,16 +182,11 @@ public class UserScoreDetailServiceImpl implements UserScoreDetailService {
 			scoreAfter = MathBigDecimalUtil.round(scoreAfter, 2);
 			String remarks = "充值返利:" + MathBigDecimalUtil.round2(scoreMoney) +"x";
 			remarks+= MathBigDecimalUtil.round(leveRatio.multiply(new BigDecimal(100)), 0) + "%=" + MathBigDecimalUtil.round2(scoreMoneyBack);
-			
-			//充值返利钻石数计算
-			BigDecimal scoreBack = MathBigDecimalUtil.mul(score, leveRatio);
-			scoreBack = MathBigDecimalUtil.round(scoreBack, 2);
-			
+						
 			UserScoreDetail record = this.initPo();
 			record.setUserIdFrom(0L);
 			record.setUserIdTo(pUser.getUserId());
 			record.setScoreMoney(scoreMoneyBack);
-			record.setScore(scoreBack);
 			record.setScoreType(Constants.SCORE_TYPE_2);
 			record.setScorePre(pUser.getScoreMoney());
 			record.setScoreAfter(scoreAfter);

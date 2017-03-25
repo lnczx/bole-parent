@@ -98,11 +98,11 @@ public class ReChargeController extends BaseController {
 		BigDecimal scoreMoney = formData.getScoreMoney();
 		Short scoreType = formData.getScoreType();
 
-		//如果为客服，需要判断金额是否足够.
+		//如果为客服，需要判断钻石数是否足够.
 		if (userType.equals(Constants.USER_TYPE_1)) {
-			BigDecimal userScoreMoney = userFrom.getScoreMoney();
-			if (userScoreMoney.compareTo(scoreMoney) == -1) {
-				result.addError(new FieldError("contentModel", "userIdFrom", "金额不足,请联系管理员充值"));
+			BigDecimal userScore = userFrom.getScore();
+			if (userScore.compareTo(scoreMoney) == -1) {
+				result.addError(new FieldError("contentModel", "userIdFrom", "钻石不足,请联系管理员充值"));
 				return rechargeForm(request, model, userIdTo);
 			}
 		}
@@ -167,9 +167,9 @@ public class ReChargeController extends BaseController {
 
 		//如果为客服，需要判断金额是否足够.
 		if (userType.equals(Constants.USER_TYPE_1)) {
-			BigDecimal userScoreMoney = userFrom.getScoreMoney();
-			if (userScoreMoney.compareTo(scoreMoney) == -1) {
-				result.addError(new FieldError("contentModel", "userIdFrom", "余额不足,请联系管理员充值"));
+			BigDecimal userScore = userFrom.getScore();
+			if (userScore.compareTo(score) == -1) {
+				result.addError(new FieldError("contentModel", "userIdFrom", "钻石不足,请联系管理员充值"));
 				return rechargeForm(request, model, userIdTo);
 			}
 		}
@@ -191,14 +191,18 @@ public class ReChargeController extends BaseController {
 		
 		//更新user表余额
 		userTo.setScoreMoney(scoreAfter);
+		userTo.setScore(userTo.getScore().add(score));
 		userTo.setScoreLastTime(TimeStampUtil.getNowSecond());
 		userTo.setUpdateTime(TimeStampUtil.getNowSecond());
 		userService.updateByPrimaryKeySelective(userTo);
 		
-		//扣除代理的余额 
-		userFrom.setScoreMoney(userFrom.getScoreMoney().subtract(scoreMoney));
-		userFrom.setUpdateTime(TimeStampUtil.getNowSecond());
-		userService.updateByPrimaryKeySelective(userFrom);
+		//如果充值方式为付款，则扣除代理的钻石和增加代理的金额
+		if (userType.equals(Constants.USER_TYPE_1)) {
+			userFrom.setScore(userFrom.getScore().subtract(score));
+			userFrom.setScoreMoney(userFrom.getScoreMoney().add(scoreMoney));
+			userFrom.setUpdateTime(TimeStampUtil.getNowSecond());
+			userService.updateByPrimaryKeySelective(userFrom);
+		}
 
 		//计算代理返利的情况
 		List<UserScoreDetailVo> paybacks = new ArrayList<UserScoreDetailVo>();

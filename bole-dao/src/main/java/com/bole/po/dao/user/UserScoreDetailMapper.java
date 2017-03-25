@@ -24,4 +24,7 @@ public interface UserScoreDetailMapper {
     List<UserScoreDetail> selectBySearchVo(UserSearchVo searchVo);  
     
 	BigDecimal totalScoreMoney(UserSearchVo searchVo);
+
+	BigDecimal totalScore(UserSearchVo searchVo);
+
 }

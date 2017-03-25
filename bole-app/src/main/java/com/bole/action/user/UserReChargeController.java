@@ -106,9 +106,15 @@ public class UserReChargeController extends BaseController {
 		model.addAttribute("contentModel", pageInfo);
 		model.addAttribute("userType", userType);
 		
-		//总充值数据.   
-		BigDecimal totalScore = userScoreDetailService.totalScoreMoney(searchVo);
-		model.addAttribute("totalScore", totalScore);
+		//总充值数据钻石数   
+		BigDecimal totalScore = userScoreDetailService.totalScore(searchVo);
+		String totalScoreStr = MathBigDecimalUtil.roundInt(totalScore);
+		model.addAttribute("totalScore", totalScoreStr);
+		
+		//总充值金额.
+		BigDecimal totalScoreMoney = userScoreDetailService.totalScoreMoney(searchVo);
+		model.addAttribute("totalScoreMoney", totalScoreMoney);
+		
 		
 		return "user/rechargeList";
 	}

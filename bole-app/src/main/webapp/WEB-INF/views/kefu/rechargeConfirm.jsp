@@ -28,6 +28,12 @@
 		</div>
 		<div class="weui-form-preview__bd">
 			<div class="weui-form-preview__item">
+				<label class="weui-form-preview__label">充值方式</label>
+				<em class="weui-form-preview__value"><font color="red">${contentModel.scoreTypeName }</font></em>
+			</div>
+		</div>
+		<div class="weui-form-preview__bd">
+			<div class="weui-form-preview__item">
 				<label class="weui-form-preview__label">金额</label>
 				<em class="weui-form-preview__value"><font color="red">${contentModel.scoreMoney }</font></em>
 			</div>
@@ -38,18 +44,7 @@
 				<em class="weui-form-preview__value"><font color="red">${contentModel.score }</font></em>
 			</div>
 		</div>
-		<div class="weui-form-preview__bd">
-			<div class="weui-form-preview__item">
-				<label class="weui-form-preview__label">充值前</label>
-				<em class="weui-form-preview__value">${contentModel.scorePre }</em>
-			</div>
-		</div>
-		<div class="weui-form-preview__bd">
-			<div class="weui-form-preview__item">
-				<label class="weui-form-preview__label">充值后</label>
-				<em class="weui-form-preview__value">${contentModel.scoreAfter }</em>
-			</div>
-		</div>
+		
 		<div class="weui-form-preview__bd">
 			<div class="weui-form-preview__item">
 				<label class="weui-form-preview__label">备注</label>

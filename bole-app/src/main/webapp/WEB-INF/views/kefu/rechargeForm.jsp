@@ -13,6 +13,9 @@
 	</header>
 	<form:form id="recharge-form" modelAttribute="contentModel" action="/bole-app/kefu/rechargeForm">
 		<form:hidden path="userIdTo" />
+		<form:hidden path="scoreType" />
+		<form:hidden path="scoreMoney" value="0" />
+		<form:hidden path="score" value="0" />
 		<div class="weui-cells weui-cells_form">
 			<div class="weui-cell weui-cell_warn">
 				<div class="weui-cell__hd">
@@ -32,28 +35,40 @@
 			</div>
 			<div class="weui-cell">
 				<div class="weui-cell__hd">
-					<label class="weui-label">金额</label>
-				</div>
-				<div class="weui-cell__bd">
-					<input class="weui-input" id="scoreMoneySelect" name="scoreMoneySelect"  type="text" value="">
-					<form:hidden path="scoreMoney"/>
-				</div>
-			</div>
-			<div class="weui-cell">
-				<div class="weui-cell__hd">
-					<label class="weui-label">钻石数</label>
-				</div>
-				<div class="weui-cell__bd">
-					<form:input path="score" class="weui-input" placeholder="请输入钻石数" maxLength="20" />
-				</div>
-			</div>
-			<div class="weui-cell">
-				<div class="weui-cell__hd">
 					<label for="name" class="weui-label">充值类型</label>
 				</div>
 				<div class="weui-cell__bd">
-					<input class="weui-input" id="scoreTypeSelect" name="scoreTypeSelect"  type="text" value="">
-					<form:hidden path="scoreType"/>
+					<input class="weui-input" id="scoreTypeSelect" name="scoreTypeSelect" type="text" value="">
+				</div>
+			</div>
+			<div class="weui-cell" id="divScoreMoneySelect" style="display: none">
+				<div class="weui-cell">
+					<div class="weui-cell__hd">
+						<label class="weui-label">金额</label>
+					</div>
+					<div class="weui-cell__bd">
+						<input class="weui-input" id="scoreMoneySelect" name="scoreMoneySelect" type="text" value="">
+					</div>
+				</div>
+			</div>
+			<div class="weui-cell" id="divScoreSelect" style="display: none">
+				<div class="weui-cell">
+					<div class="weui-cell__hd">
+						<label class="weui-label">钻石数</label>
+					</div>
+					<div class="weui-cell__bd">
+						<input class="weui-input" id="scoreSelect" name="scoreSelect" type="text" value="" readonly="true" />
+					</div>
+				</div>
+			</div>
+			<div class="weui-cell" id="divScoreInput" style="display: block">
+				<div class="weui-cell">
+					<div class="weui-cell__hd">
+						<label class="weui-label">钻石数</label>
+					</div>
+					<div class="weui-cell__bd">
+						<input type="text" class="weui-input" id="scoreInput" name="scoreInput"  maxLength="20" placeholder="请输入钻石数" />
+					</div>
 				</div>
 			</div>
 			<div class="weui-cells__title"></div>

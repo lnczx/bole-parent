@@ -43,9 +43,9 @@
 		<table id="DataTables_Table_0" class="table table-border table-bordered table-hover table-bg table-sort">
 			<thead>
 				<tr class="text-c">
-					<th width="50">游戏ID</th>
+					<th width="40">游戏ID</th>
 					<th width="20">级别</th>
-					<th width="50" >共充值</th>
+					<th width="40" >钻石</th>
 					<th width="35">时间</th>
 					<c:if test="${ userType == 1 }">
 						<th width="35">操作</th>
@@ -61,8 +61,8 @@
 						<tr class="text-c">
 					</c:if>
 						<td><a href="#" onclick="btn_link('/user/agentView?userId=${item.userId}')">${ item.gameId }</a></td>
-						<td>${ item.level }级</td>
-						<td class="text-r">${ item.scoreMoney }</td>
+						<td>${ item.level }</td>
+						<td class="text-r">${ item.score }</td>
 						<td>${ item.scoreLastTimeStr }</td>
 						<c:if test="${ userType == 1 }">
 							<td>

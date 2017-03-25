@@ -12,7 +12,7 @@
 <body ontouchstart>
 	<header class='.demos-header-top'>
 	<h1 class="demos-title">充值记录</h1>
-	<p class='demos-sub-title'>总充值：<font color="red">${totalScore }</font>. </p>
+	<p class='demos-sub-title'>总充值钻石：<font color="red">${totalScore }</font>. 总充值金额：<font color="red">${totalScoreMoney }</font></p>
 	</header>
 	<form:form modelAttribute="searchModel" id="search-form" method="GET">
 		<form:hidden path="searchDate"/>
@@ -72,10 +72,11 @@
 		<table id="DataTables_Table_0" class="table table-border table-bordered table-hover table-bg table-sort">
 			<thead>
 				<tr class="text-c">
-					<th width="50">时间</th>
-					<th width="35">充值ID</th>
-					<th width="35" class="text-r">金额</th>
-					<th width="35">类型</th>
+					<th width="35">时间</th>
+					<th width="40">充值ID</th>
+					<th width="40" class="text-r">金额</th>
+					<th width="50" class="text-r">钻石</th>
+					<th width="25">类型</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -84,6 +85,7 @@
 						<td>${ item.addTimeStr }</td>
 						<td>${ item.gameIdTo }</td>
 						<td>${ item.scoreMoney }</td>
+						<td>${ item.scoreStr }</td>
 						<td>${ item.scoreTypeName }</td>
 					</tr>
 				</c:forEach>
