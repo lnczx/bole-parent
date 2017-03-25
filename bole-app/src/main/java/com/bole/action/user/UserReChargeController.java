@@ -194,7 +194,7 @@ public class UserReChargeController extends BaseController {
 		model.addAttribute("userType", userType);
 		
 		
-		Long searchUserId = searchVo.getUserId();
+		Long searchUserId = searchVo.getUserIdTo();
 		if (!StringUtil.isEmpty(searchVo.getGameId())) {
 			UserSearchVo usearchVo = new UserSearchVo();
 			usearchVo.setGameId(searchVo.getGameId());
