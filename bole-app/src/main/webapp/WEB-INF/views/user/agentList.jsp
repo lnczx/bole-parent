@@ -11,14 +11,14 @@
 <body>
 <body ontouchstart>
 	<header class='demos-header-top'>
-	<h1 class="demos-title">代理列表</h1>
+	<h1 class="demos-title">会员列表</h1>
 	<p class='demos-sub-title '><font color="red">红色代表未激活</font></p>
 	</header>
 	<c:if test="${ userType != 0 }">
 
 		<div class="weui-cell__bd weui-cell__ft">
 		
-			<a href="#" onclick="btn_link('/kefu/agentForm?userId=0')" class="weui-btn weui-btn_mini weui-btn_plain-primary">邀请代理</a>
+			<a href="#" onclick="btn_link('/kefu/agentForm?userId=0')" class="weui-btn weui-btn_mini weui-btn_plain-primary">邀请会员</a>
 		</div>
 		<form:form modelAttribute="searchModel" id="search-form"  method="GET">
 		<div class="weui-cells weui-cells_form">

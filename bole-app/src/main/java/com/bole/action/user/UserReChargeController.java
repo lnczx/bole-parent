@@ -66,7 +66,7 @@ public class UserReChargeController extends BaseController {
 			searchVo.setScoreTypes(scoreTypes);
 		}
 		
-		// 如果是代理，则只能看到给自己充值的记录.
+		// 如果是会员，则只能看到给自己充值的记录.
 		AccountAuth accountAuth = AuthHelper.getSessionAccountAuth(request);
 		User u = accountAuth.getU();
 		Long userId = u.getUserId();
@@ -134,7 +134,7 @@ public class UserReChargeController extends BaseController {
 			searchVo.setUserIdTo(userIdTo);
 				
 		searchVo.setScoreType(Constants.SCORE_TYPE_2);
-		// 如果是代理，则只能看到给自己充值的记录.
+		// 如果是会员，则只能看到给自己充值的记录.
 		AccountAuth accountAuth = AuthHelper.getSessionAccountAuth(request);
 		User u = accountAuth.getU();
 		Long userId = u.getUserId();
@@ -179,7 +179,7 @@ public class UserReChargeController extends BaseController {
 			String payBackRemarks = "";
 			
 			if (vo.getScoreType().equals(Constants.SCORE_TYPE_2)) {
-				payBackRemarks = vo.getLinkBackLevel() + "层代理" + linkUserScoreDetailVo.getGameIdTo() + "充值" + linkUserScoreDetailVo.getScoreMoney() ;
+				payBackRemarks = vo.getLinkBackLevel() + "层会员" + linkUserScoreDetailVo.getGameIdTo() + "充值" + linkUserScoreDetailVo.getScoreMoney() ;
 				
 				BigDecimal levelRatio = vo.getLinkBackRatio().multiply(new BigDecimal(100));
 				levelRatio = MathBigDecimalUtil.round(levelRatio, 0);
@@ -188,7 +188,7 @@ public class UserReChargeController extends BaseController {
 			}
 			
 			if (vo.getScoreType().equals(Constants.SCORE_TYPE_3)) {
-				payBackRemarks = "代理领取返利"+ vo.getScore();
+				payBackRemarks = "会员领取返利"+ vo.getScore();
 			}
 			vo.setPayBackRemarks(payBackRemarks);
 			list.set(i, vo);

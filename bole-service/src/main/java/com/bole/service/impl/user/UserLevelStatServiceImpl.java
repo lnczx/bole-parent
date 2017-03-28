@@ -74,7 +74,7 @@ public class UserLevelStatServiceImpl implements UserLevelStatService {
 	}
 
 	/**
-	 * 统计每个级别的代理数
+	 * 统计每个级别的会员数
 	 */
 	@Override
 	public void totalLevel(User u, Short level) {

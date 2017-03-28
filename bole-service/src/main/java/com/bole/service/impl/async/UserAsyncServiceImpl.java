@@ -33,7 +33,7 @@ public class UserAsyncServiceImpl implements UserAsyncService {
 	
 	
 	/**
-	 * 异步统计用户的各级代理人数和总人数
+	 * 异步统计用户的各级会员人数和总人数
 	 */
 	@Async
 	@Override

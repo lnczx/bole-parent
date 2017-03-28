@@ -53,10 +53,10 @@ public class UserTeamController {
 		model.addAttribute("userId", userId);
 		
 		String name = u.getGameId();
-		name+="-"+u.getLevel()+"级代理";
+		name+="-"+u.getLevel()+"级会员";
 		
 		if (userType.equals(Constants.USER_TYPE_2)) {
-			name = "顶级代理";
+			name = "顶级会员";
 		}
 		
 		int lft = u.getLft();
@@ -103,7 +103,7 @@ public class UserTeamController {
 			vo.setId(user.getUserId());
 			vo.setpId(user.getUserId());
 			String name = user.getGameId();
-			name+="-"+user.getLevel()+"级代理";
+			name+="-"+user.getLevel()+"级会员";
 			int lft = user.getLft();
 			int rgt = user.getRgt();
 			// (right-left+1)/2

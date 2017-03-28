@@ -30,7 +30,7 @@ public class Constants {
 	public static int ERROR_100 = 100;
 	
 	//用户类型
-	public static Short USER_TYPE_0 = 0;	//代理
+	public static Short USER_TYPE_0 = 0;	//会员
 	public static Short USER_TYPE_1 = 1;   //客服
 	public static Short USER_TYPE_2 = 2;   //管理员
 	

@@ -69,10 +69,10 @@
 			
 			<%-- <div class="weui-cell">
 				<div class="weui-cell__hd">
-					<label class="weui-label">上级代理ID</label>
+					<label class="weui-label">上级会员ID</label>
 				</div>
 				<div class="weui-cell__bd">
-					<form:input path="pGameId" class="weui-input"  maxLength="20" placeholder="请输入上级代理游戏ID"/>
+					<form:input path="pGameId" class="weui-input"  maxLength="20" placeholder="请输入上级会员游戏ID"/>
 				</div>
 			</div> --%>
 			

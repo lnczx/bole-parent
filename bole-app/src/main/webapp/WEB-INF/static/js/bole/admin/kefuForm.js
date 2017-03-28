@@ -53,7 +53,7 @@ $(function() {
 			var pGameId = $("#pGameId").val();
 			var gameId = $("#gameId").val();
 			if (pGameId == gameId) {
-				$.toptip("上级代理ID和游戏ID不能相同.");
+				$.toptip("上级会员ID和游戏ID不能相同.");
 				return false;
 			}
 			form.submit();

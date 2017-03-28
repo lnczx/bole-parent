@@ -106,7 +106,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	/**
-	 * 添加用户，设计到左右分支的树形结构. 只应用于代理的新增
+	 * 添加用户，设计到左右分支的树形结构. 只应用于会员的新增
 	 * @param openId
 	 * @param nickName
 	 * @param headImg
@@ -206,7 +206,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
-	 * 代理激活后，需要进行上级的升级校验，进行升级.并记录到升级日志中.
+	 * 会员激活后，需要进行上级的升级校验，进行升级.并记录到升级日志中.
 	 * 1. 检测是否需要升级
 	 * 2. 记录升级日志.
 	 * 3. 统计上级用户的团队人数
@@ -234,7 +234,8 @@ public class UserServiceImpl implements UserService {
 			searchVo1.setLevel(pUser.getLevel());
 			searchVo1.setActive(Constants.USER_ACTIVE_1);
 			Integer totalUser = this.totalUser(searchVo1);
-
+			
+//			boolean canUp 
 			if (totalUser >= 3) {
 				//1. 升级用户，
 				Short levelPre = pUser.getLevel();

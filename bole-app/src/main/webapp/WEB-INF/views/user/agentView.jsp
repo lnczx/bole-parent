@@ -9,7 +9,7 @@
 <body>
 <body ontouchstart>
 	<header class='demos-header'>
-	<h1 class="demos-title">代理信息</h1>
+	<h1 class="demos-title">会员信息</h1>
 	</header>
 	<div class="weui-form-preview">
 		<div class="weui-form-preview__bd">
@@ -36,7 +36,7 @@
 		<c:if test="${contentModel.userType == 0 }">
 			<div class="weui-form-preview__bd">
 				<div class="weui-form-preview__item">
-					<label class="weui-form-preview__label">代理等级</label>
+					<label class="weui-form-preview__label">会员等级</label>
 					<em class="weui-form-preview__value">${contentModel.level }</em>
 				</div>
 			</div>
@@ -61,7 +61,7 @@
 			<c:if test="${userType != 0 }">
 				<div class="weui-form-preview__bd">
 					<div class="weui-form-preview__item">
-						<label class="weui-form-preview__label">复制下面网址发给代理</label>
+						<label class="weui-form-preview__label">复制下面网址发给会员</label>
 						<em class="weui-form-preview__value"></em>
 					</div>
 				</div>

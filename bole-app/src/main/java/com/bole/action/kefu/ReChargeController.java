@@ -124,7 +124,7 @@ public class ReChargeController extends BaseController {
 		UserScoreDetailVo vo = userScoreDetailService.getVo(record);
 		
 		
-		//计算代理返利的情况
+		//计算会员返利的情况
 		List<UserScoreDetailVo> paybacks = new ArrayList<UserScoreDetailVo>();
 		
 		if (scoreType.equals(Constants.SCORE_TYPE_1)) {
@@ -196,7 +196,7 @@ public class ReChargeController extends BaseController {
 		userTo.setUpdateTime(TimeStampUtil.getNowSecond());
 		userService.updateByPrimaryKeySelective(userTo);
 		
-		//如果充值方式为付款，则扣除代理的钻石和增加代理的金额
+		//如果充值方式为付款，则扣除会员的钻石和增加会员的金额
 		if (userType.equals(Constants.USER_TYPE_1)) {
 			userFrom.setScore(userFrom.getScore().subtract(score));
 			userFrom.setScoreMoney(userFrom.getScoreMoney().add(scoreMoney));
@@ -204,7 +204,7 @@ public class ReChargeController extends BaseController {
 			userService.updateByPrimaryKeySelective(userFrom);
 		}
 
-		//计算代理返利的情况
+		//计算会员返利的情况
 		List<UserScoreDetailVo> paybacks = new ArrayList<UserScoreDetailVo>();
 		if (scoreType.equals(Constants.SCORE_TYPE_1)) {
 			paybacks = userScoreDetailService.getAgentTreePayBack(userTo, record);

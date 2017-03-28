@@ -140,7 +140,7 @@ public class UserScoreDetailServiceImpl implements UserScoreDetailService {
 	}
 	
 	/**
-	 * 计算代理返利的情况
+	 * 计算会员返利的情况
 	 */
 	@Override
 	public List<UserScoreDetailVo> getAgentTreePayBack(User userTo, UserScoreDetail item) {

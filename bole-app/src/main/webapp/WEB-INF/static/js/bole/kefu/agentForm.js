@@ -21,7 +21,7 @@ $(function() {
 		messages : {
 			
 			pGameId : {
-				required : "请输入上级代理ID,没有请输入0",
+				required : "请输入上级会员ID,没有请输入0",
 				digits:"请输入正确的游戏ID" ,
 				minlength:"请输入正确的游戏ID" 	
 			},
@@ -46,7 +46,7 @@ $(function() {
 			var pGameId = $("#pGameId").val();
 			var gameId = $("#gameId").val();
 			if (pGameId == gameId) {
-				$.toptip("上级代理ID和游戏ID不能相同.");
+				$.toptip("上级会员ID和游戏ID不能相同.");
 				return false;
 			}
 			form.submit();

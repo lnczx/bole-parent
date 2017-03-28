@@ -9,8 +9,8 @@
 <body>
 <body ontouchstart>
 	<header class='demos-header'>
-	<h1 class="demos-title">代理专区</h1>
-	<p class='demos-sub-title'>博乐广西麻将代理专区</p>
+	<h1 class="demos-title">会员专区</h1>
+	<p class='demos-sub-title'>博乐广西麻将会员专区</p>
 	</header>
 	<div class="weui-grids">
 		<c:forEach items="${menus}" var="item">

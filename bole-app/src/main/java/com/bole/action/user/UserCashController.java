@@ -66,7 +66,7 @@ public class UserCashController extends BaseController {
 			searchVo = new UserSearchVo();
 		
 		
-		// 如果是代理，则只能看到给自己领取返利的记录.
+		// 如果是会员，则只能看到给自己领取返利的记录.
 		AccountAuth accountAuth = AuthHelper.getSessionAccountAuth(request);
 		User u = accountAuth.getU();
 		Long userId = u.getUserId();

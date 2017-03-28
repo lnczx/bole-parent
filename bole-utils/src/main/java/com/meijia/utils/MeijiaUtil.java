@@ -231,7 +231,7 @@ public class MeijiaUtil {
 			userTypeName = "普通用户";
 			break;
 		case 1:
-			userTypeName = "代理商";
+			userTypeName = "会员商";
 			break;
 		default:
 			userTypeName = "";

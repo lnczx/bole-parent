@@ -48,12 +48,12 @@ public class HomeController extends BaseController {
     		menu1.setName("客服管理");
     		menus.add(menu1);
     		
-    		//代理管理
+    		//会员管理
     		
     		MenuVo menu2 = new MenuVo();
     		menu2.setIconUrl("/static/images/icon_nav_search_bar.png");
     		menu2.setLinkUrl("/user/agentList");
-    		menu2.setName("代理管理");
+    		menu2.setName("会员管理");
     		menus.add(menu2);
     		
     		//团队查看
@@ -84,11 +84,11 @@ public class HomeController extends BaseController {
     		menu5.setName("返利审核");
     		menus.add(menu5);
     		
-    		//代理统计
+    		//会员统计
     		MenuVo menu6 = new MenuVo();
     		menu6.setIconUrl("/static/images/icon_nav_photo.png");
     		menu6.setLinkUrl("/home/todo");
-    		menu6.setName("代理统计");
+    		menu6.setName("会员统计");
     		menus.add(menu6);
     		
     		//充值统计
@@ -97,16 +97,17 @@ public class HomeController extends BaseController {
     		menu7.setLinkUrl("/home/todo");
     		menu7.setName("充值统计");
     		menus.add(menu7);
+
     	}
     	
     	//客服
     	if (userType.equals(Constants.USER_TYPE_1)) {
 
-    		//代理管理
+    		//会员管理
     		MenuVo menu2 = new MenuVo();
     		menu2.setIconUrl("/static/images/icon_nav_search_bar.png");
     		menu2.setLinkUrl("/user/agentList");
-    		menu2.setName("代理管理");
+    		menu2.setName("会员管理");
     		menus.add(menu2);
     		
     		//充值记录
@@ -131,7 +132,7 @@ public class HomeController extends BaseController {
     		menus.add(menu5);
     	}
     	
-    	//代理
+    	//会员
     	if (userType.equals(Constants.USER_TYPE_0)) {
     		//我的信息
     		MenuVo menu1 = new MenuVo();
@@ -167,7 +168,7 @@ public class HomeController extends BaseController {
     	
     	MenuVo menuHelper = new MenuVo();
     	menuHelper.setIconUrl("/static/images/icon_nav_noti.png");
-    	menuHelper.setLinkUrl("/kefu/agentList");
+    	menuHelper.setLinkUrl("/user/leveldesc");
     	menuHelper.setName("等级说明");
     	menus.add(menuHelper);
     	

@@ -79,7 +79,7 @@ public class AgentController extends BaseController {
 		}
 		if (pUser != null) {
 			if (pUser.getpGameId().equals(gameId)) {
-				result.addError(new FieldError("contentModel", "gameId", "上级代理ID不正确."));
+				result.addError(new FieldError("contentModel", "gameId", "上级会员ID不正确."));
 				return agentForm(request, model, userId);
 			}
 		}
@@ -88,7 +88,7 @@ public class AgentController extends BaseController {
 		searchVo.setGameId(gameId);
 		List<User> list = userService.selectBySearchVo(searchVo);
 		if (!list.isEmpty()) {
-			result.addError(new FieldError("contentModel", "gameId", "代理已经添加过了."));
+			result.addError(new FieldError("contentModel", "gameId", "会员已经添加过了."));
 			return agentForm(request, model, userId);
 		}
 		
@@ -107,7 +107,7 @@ public class AgentController extends BaseController {
 			pUser = userService.selectByPrimaryKey(1L);
 		record = userService.genAgenUser(pUser, record);
 		
-		//异步父级统计代理人数
+		//异步父级统计会员人数
 		userAsyncService.totalUser(pId);
 
 		String returnUrl = "/user/agentView?userId="+ record.getUserId();
