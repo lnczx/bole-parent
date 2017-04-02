@@ -110,4 +110,10 @@ public class RegisterController extends BaseController {
 		return "redirect:" + returnUrl;
 
 	}
+	
+	@RequestMapping(value = "/agreement", method = { RequestMethod.GET })
+	public String agreement(HttpServletRequest request, Model model) {
+		
+		return "user/agreement";
+	}
 }
