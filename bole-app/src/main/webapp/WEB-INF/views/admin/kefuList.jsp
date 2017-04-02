@@ -21,21 +21,25 @@
 		<table id="DataTables_Table_0" class="table table-border table-bordered table-hover table-bg table-sort">
 			<thead>
 				<tr class="text-c">
-					<th width="40">游戏ID</th>
+					<th width="30">游戏ID</th>
 					<th width="40">金额</th>
-					<th width="50">最后充值时间</th>
-					<th width="40">操作</th>
+					<th width="40">最后充值时间</th>
+					<th width="50">操作</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${contentModel.list}" var="item">
 					
 					<tr class="text-c">
-						<td><a href="#" onclick="btn_link('/user/rechargeList?userIdTo=${item.userId}')">${ item.gameId }</a></td>
+						<td><a href="#" onclick="btn_link('/user/agentView?userId=${item.userId}')">${ item.gameId }</a></td>
 						<td>${ item.scoreMoney }</td>
 						<td>${ item.scoreLastTimeStr }</td>
-						<td><a href="#" onclick="btn_link('/kefu/rechargeForm?userIdTo=${item.userId}')"
-								class="weui-btn weui-btn_mini weui-btn_primary">充值</a></td>
+						<td>
+						
+							<a href="#" id="kefuAction" onclick="doKefuAction(${item.userId})"
+								class="weui-btn weui-btn_mini weui-btn_plain-primary">操作</a>
+						
+						</td>
 					</tr>
 					
 				</c:forEach>
@@ -43,7 +47,7 @@
 		</table>
 		<c:import url="../shared/paging.jsp">
 			<c:param name="pageModelName" value="contentModel" />
-			<c:param name="urlAddress" value="/project/list" />
+			<c:param name="urlAddress" value="/kefu/list" />
 		</c:import>
 	</div>
 	<%@ include file="../shared/pageFooter.jsp"%>
@@ -53,5 +57,6 @@
 	<!--script for this page-->
 	<script type="text/javascript" src="<c:url value='/static/js/lib/datatables/1.10.0/jquery.dataTables.min.js'/>"></script>
 	<script src="<c:url value='/static/js/bole/table.js'/>"></script>
+	<script src="<c:url value='/static/js/bole/admin/kefuList.js'/>"></script>
 </body>
 </html>

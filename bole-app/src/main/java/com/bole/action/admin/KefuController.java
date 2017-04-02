@@ -96,6 +96,8 @@ public class KefuController extends BaseController {
 		String password = formData.getPassword();
 		password = StringUtil.md5(password);
 		
+		String payAccount = formData.getPayAccount();
+		
 		User record = userService.initPo();
 		if (userId > 0L) {
 			record = userService.selectByPrimaryKey(userId);
@@ -104,6 +106,7 @@ public class KefuController extends BaseController {
 		record.setPassword(password);
 		record.setUserType((short) 1);
 		record.setActive(Constants.USER_ACTIVE_1);
+		record.setPayAccount(payAccount);
 		if (userId.equals(0L)) {
 			record.setAddTime(TimeStampUtil.getNowSecond());
 			userService.insertSelective(record);

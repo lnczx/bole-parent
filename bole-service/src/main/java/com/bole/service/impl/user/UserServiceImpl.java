@@ -235,8 +235,14 @@ public class UserServiceImpl implements UserService {
 			searchVo1.setActive(Constants.USER_ACTIVE_1);
 			Integer totalUser = this.totalUser(searchVo1);
 			
-//			boolean canUp 
-			if (totalUser >= 3) {
+			boolean canUp = false;
+			if (pUser.getLevel().equals(Constants.USER_LEVEL_1)) {
+				if (totalUser >= 3) canUp = true;
+			} else {
+				if (totalUser >= 2) canUp = true;
+			}
+			
+			if (canUp) {
 				//1. 升级用户，
 				Short levelPre = pUser.getLevel();
 				Short levelAfter = (short) (levelPre + 1);

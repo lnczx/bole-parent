@@ -19,6 +19,10 @@ $(function() {
 				equalTo:"#password",
 				minlength:6 
 			},
+			
+			payAccount : {
+				required : true,
+			},
 		},
 		
 		messages : {
@@ -38,6 +42,10 @@ $(function() {
 				required : "请再次输入密码",
 				equalTo: "两次密码不相同",
 				minlength: "密码为六位以上"
+			},
+			
+			payAccount : {
+				required : "请输入支付宝账户.",
 			},
 		},
 				

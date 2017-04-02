@@ -51,6 +51,15 @@
 				</div>
 			</div>
 			
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label class="weui-label">支付宝账户</label>
+				</div>
+				<div class="weui-cell__bd">
+					<form:input path="payAccount" class="weui-input"  maxLength="20" placeholder="请输入支付宝账户"/>
+				</div>
+			</div>
+			
 			<div class="weui-btn-area">
 				<input type="submit" class="weui-btn weui-btn_primary" value="保存">
 			</div>

@@ -18,6 +18,12 @@
 				<em class="weui-form-preview__value">${contentModel.gameId }</em>
 			</div>
 		</div>
+		<div class="weui-form-preview__bd">
+				<div class="weui-form-preview__item">
+					<label class="weui-form-preview__label">支付宝账户</label>
+					<em class="weui-form-preview__value">${contentModel.payAccount }</em>
+				</div>
+			</div>
 		<c:if test="${contentModel.userType == 1 }">
 			<div class="weui-form-preview__bd">
 				<div class="weui-form-preview__item">
@@ -46,12 +52,7 @@
 					<em class="weui-form-preview__value">${contentModel.pGameId }</em>
 				</div>
 			</div>
-			<div class="weui-form-preview__bd">
-				<div class="weui-form-preview__item">
-					<label class="weui-form-preview__label">支付宝账户</label>
-					<em class="weui-form-preview__value">${contentModel.payAccount }</em>
-				</div>
-			</div>
+			
 			<div class="weui-form-preview__bd">
 				<div class="weui-form-preview__item">
 					<label class="weui-form-preview__label">邀请码</label>
@@ -73,6 +74,9 @@
 					</div>
 				</div>
 			</c:if>
+			
+			
+			
 			<div class="weui-form-preview__bd">
 				<div class="weui-form-preview__item">
 					<label class="weui-form-preview__label">状态</label>
