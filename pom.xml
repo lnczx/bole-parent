@@ -44,7 +44,7 @@
 		<module>bole-utils</module>
 		<module>bole-dao</module>
 		<module>bole-service</module>
-		<module>bole-app</module>
+		<module>bole-test</module>
 	</modules>
 	<build>
 		<pluginManagement>

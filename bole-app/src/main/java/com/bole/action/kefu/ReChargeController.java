@@ -65,9 +65,15 @@ public class ReChargeController extends BaseController {
 		vo.setGameIdFrom(userFrom.getGameId());
 		vo.setGameIdTo(userTo.getGameId());
 		
+		//当前时间
+		Long addTime = TimeStampUtil.getNowSecond();
+		String addTimeStrFull = TimeStampUtil.timeStampToDateStr(addTime * 1000, "yyyy年MM月dd日 HH时mm分");
+		model.addAttribute("addTimeStrFull", addTimeStrFull);
+		
 		if (!model.containsAttribute("contentModel"))
 			model.addAttribute("contentModel", vo);
-
+		
+		
 		return "kefu/rechargeForm";
 	}
 
@@ -106,7 +112,15 @@ public class ReChargeController extends BaseController {
 				return rechargeForm(request, model, userIdTo);
 			}
 		}
-
+		
+		//查看是否有选择充值时间
+		Long addTime = TimeStampUtil.getNowSecond();
+		String addTimeStrFull = request.getParameter("addTimeStrFull");
+		if (!StringUtil.isEmpty(addTimeStrFull)) {
+			addTime = TimeStampUtil.getMillisOfDayFull(addTimeStrFull) / 1000;
+		}
+		
+		
 		UserScoreDetail record = userScoreDetailService.initPo();
 		
 		BigDecimal scoreAfter = userTo.getScoreMoney().add(scoreMoney);
@@ -119,7 +133,7 @@ public class ReChargeController extends BaseController {
 		record.setScorePre(userTo.getScoreMoney());
 		record.setScoreAfter(scoreAfter);
 		record.setRemarks(formData.getRemarks());
-		record.setAddTime(TimeStampUtil.getNowSecond());
+		record.setAddTime(addTime);
 		
 		UserScoreDetailVo vo = userScoreDetailService.getVo(record);
 		
@@ -185,22 +199,22 @@ public class ReChargeController extends BaseController {
 		record.setScorePre(userTo.getScoreMoney());
 		record.setScoreAfter(scoreAfter);
 		record.setRemarks(formData.getRemarks());
-		record.setAddTime(TimeStampUtil.getNowSecond());
+		record.setAddTime(formData.getAddTime());
 		
 		userScoreDetailService.insertSelective(record);
 		
 		//更新user表余额
 		userTo.setScoreMoney(scoreAfter);
 		userTo.setScore(userTo.getScore().add(score));
-		userTo.setScoreLastTime(TimeStampUtil.getNowSecond());
-		userTo.setUpdateTime(TimeStampUtil.getNowSecond());
+		userTo.setScoreLastTime(formData.getAddTime());
+		userTo.setUpdateTime(formData.getAddTime());
 		userService.updateByPrimaryKeySelective(userTo);
 		
 		//如果充值方式为付款，则扣除会员的钻石和增加会员的金额
 		if (userType.equals(Constants.USER_TYPE_1)) {
 			userFrom.setScore(userFrom.getScore().subtract(score));
 			userFrom.setScoreMoney(userFrom.getScoreMoney().add(scoreMoney));
-			userFrom.setUpdateTime(TimeStampUtil.getNowSecond());
+			userFrom.setUpdateTime(formData.getAddTime());
 			userService.updateByPrimaryKeySelective(userFrom);
 		}
 
@@ -209,6 +223,7 @@ public class ReChargeController extends BaseController {
 		if (scoreType.equals(Constants.SCORE_TYPE_1)) {
 			paybacks = userScoreDetailService.getAgentTreePayBack(userTo, record);
 			for (UserScoreDetailVo item : paybacks) {
+				item.setAddTime(formData.getAddTime());
 				userScoreDetailService.insertSelective(item);
 			}
 		}

@@ -11,7 +11,7 @@
 	<header class='demos-header'>
 	<h1 class="demos-title">申请返利</h1>
 	</header>
-	<form:form id="cash-form" modelAttribute="contentModel" action="/bole-app/user/cashForm">
+	<form:form id="cash-form" modelAttribute="contentModel" action="/bole-test/user/cashForm">
 		<form:hidden path="userId"/>
 		<form:hidden path="id"/>
 		<input type="hidden" id="minScoreMoneyCash" value="${minScoreMoneyCash }"/>

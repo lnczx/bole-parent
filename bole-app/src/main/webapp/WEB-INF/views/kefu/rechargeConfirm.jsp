@@ -11,13 +11,14 @@
 	<header class='demos-header'>
 	<h1 class="demos-title">充值确认</h1>
 	</header>
-	<form:form id="recharge-confirm-form" modelAttribute="contentModel" action="/bole-app/kefu/rechargeConfirm">
+	<form:form id="recharge-confirm-form" modelAttribute="contentModel" action="/bole-test/kefu/rechargeConfirm">
 		<form:hidden path="userIdTo" />
 		<form:hidden path="gameIdTo" />
 		<form:hidden path="score" />
 		<form:hidden path="scoreMoney" />
 		<form:hidden path="scoreType" />
 		<form:hidden path="remarks" />
+		<form:hidden path="addTime" />
 	</form:form>
 	<div class="weui-form-preview">
 		<div class="weui-form-preview__bd">
@@ -49,6 +50,13 @@
 			<div class="weui-form-preview__item">
 				<label class="weui-form-preview__label">备注</label>
 				<em class="weui-form-preview__value">${contentModel.remarks }</em>
+			</div>
+		</div>
+		
+		<div class="weui-form-preview__bd">
+			<div class="weui-form-preview__item">
+				<label class="weui-form-preview__label">充值时间</label>
+				<em class="weui-form-preview__value">${contentModel.addTimeStrFull }</em>
 			</div>
 		</div>
 		<c:if test="${userToUserType == 0 }">

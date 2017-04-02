@@ -11,11 +11,12 @@
 	<header class='demos-header'>
 	<h1 class="demos-title">充值</h1>
 	</header>
-	<form:form id="recharge-form" modelAttribute="contentModel" action="/bole-app/kefu/rechargeForm">
+	<form:form id="recharge-form" modelAttribute="contentModel" action="/bole-test/kefu/rechargeForm">
 		<form:hidden path="userIdTo" />
 		<form:hidden path="scoreType" />
 		<form:hidden path="scoreMoney" value="0" />
 		<form:hidden path="score" value="0" />
+		<input type="hidden" id="addTimeStrFull" name="addTimeStrFull" value=""/>
 		<div class="weui-cells weui-cells_form">
 			<div class="weui-cell weui-cell_warn">
 				<div class="weui-cell__hd">
@@ -67,7 +68,7 @@
 						<label class="weui-label">钻石数</label>
 					</div>
 					<div class="weui-cell__bd">
-						<input type="text" class="weui-input" id="scoreInput" name="scoreInput"  maxLength="20" placeholder="请输入钻石数" />
+						<input type="text" class="weui-input" id="scoreInput" name="scoreInput" maxLength="20" placeholder="请输入钻石数" />
 					</div>
 				</div>
 			</div>
@@ -77,6 +78,14 @@
 					<div class="weui-cell__bd">
 						<form:textarea path="remarks" class="weui-textarea" rows="3" placeholder="备注一下" maxlength="100" />
 					</div>
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label for="time-format" class="weui-label">充值时间</label>
+				</div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" id="time-format" type="text" value="${addTimeStrFull }">
 				</div>
 			</div>
 			<div class="weui-btn-area">

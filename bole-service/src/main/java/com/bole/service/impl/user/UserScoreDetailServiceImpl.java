@@ -122,6 +122,8 @@ public class UserScoreDetailServiceImpl implements UserScoreDetailService {
 		String addTimeStr = TimeStampUtil.timeStampToDateStr(vo.getAddTime() * 1000, "MM-dd");
 		vo.setAddTimeStr(addTimeStr);
 		
+		String addTimeStrFull = TimeStampUtil.timeStampToDateStr(vo.getAddTime() * 1000, "yyyy年MM月dd日 HH时mm分");
+		vo.setAddTimeStrFull(addTimeStrFull);
 		return vo;
 	}
 	

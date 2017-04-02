@@ -17,7 +17,7 @@
 		<div class="weui-tabbar__icon">
 			<img src="<c:url value='/static/images/icon_nav_cell.png'/>" alt="">
 		</div>
-		<p class="weui-tabbar__label">我的</p>
+		<p class="weui-tabbar__label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我的</p>
 	</a>
 </div>
 </div>

@@ -106,7 +106,7 @@ public class UserAgentController {
 		
 		model.addAttribute("contentModel", vo);
 		
-		model.addAttribute("requestUrl", request.getScheme()+"://"+request.getServerName()+":"+ request.getServerPort() + "/bole-app");
+		model.addAttribute("requestUrl", request.getScheme()+"://"+request.getServerName()+":"+ request.getServerPort() + "/bole-test");
 		
 		model.addAttribute("userType", userType);
 		

@@ -7,7 +7,7 @@ $(function() {
 				digits : true,
 				minlength : 6
 			},
-
+			
 			scoreTypeSelect : {
 				required : true,
 			},
@@ -62,7 +62,7 @@ $(function() {
 						return false;
 					}
 				}
-
+				
 				form.submit();
 			}, function() {
 				// 取消操作
@@ -80,10 +80,10 @@ $("#scoreTypeSelect").select({
 	}, {
 		title : "付款",
 		value : "1",
-	}],
-
+	} ],
+	
 	beforeClose : function(values, titles) {
-
+		
 		$("#scoreType").val(values);
 		var scoreType = $("#scoreType").val();
 		if (scoreType == 0) {
@@ -98,12 +98,10 @@ $("#scoreTypeSelect").select({
 			$("#divScoreInput").css("display", "none");
 		}
 		
-		
 		return true;
 	},
 
 });
-
 
 $("#scoreMoneySelect").select({
 	title : "选择充值金额",
@@ -113,18 +111,16 @@ $("#scoreMoneySelect").select({
 	}, {
 		title : "500",
 		value : "500",
-	},
-	{
+	}, {
 		title : "1000",
 		value : "1000",
-	},
-	{
+	}, {
 		title : "2000",
 		value : "2000",
-	}],
-
+	} ],
+	
 	beforeClose : function(values, titles) {
-
+		
 		$("#scoreMoney").val(values);
 		
 		if (values == "300") {
@@ -151,3 +147,45 @@ $("#scoreMoneySelect").select({
 
 });
 
+$("#time-format").datetimePicker({
+	title : '选择充值时间',
+	yearSplit : '年',
+	monthSplit : '月',
+	dateSplit : '日',
+	times : function() {
+		return [ // 自定义的时间
+		{
+			values : (function() {
+				var hours = [];
+				for (var i = 0; i < 24; i++)
+					hours.push(i > 9 ? i : '0' + i);
+				return hours;
+			})()
+		}, {
+			divider : true, // 这是一个分隔符
+			content : '时'
+		}, {
+			values : (function() {
+				var minutes = [];
+				for (var i = 0; i < 59; i++)
+					minutes.push(i > 9 ? i : '0' + i);
+				return minutes;
+			})()
+		}, {
+			divider : true, // 这是一个分隔符
+			content : '分'
+		} ];
+	},
+	onChange : function(picker, values, displayValues) {
+//		console.log(values);
+		var y = values[0];
+		var m = values[1];
+		var d = values[2];
+		var h = values[3];
+		var min = values[4];
+		
+		var selectDateStr = y + "-" + m + "-" + d + " " + h + ":" + m + ":00";
+		$("#addTimeStrFull").val(selectDateStr);
+//		console.log("addTimeStr = " + $("#addTimeStr").val());
+	}
+});

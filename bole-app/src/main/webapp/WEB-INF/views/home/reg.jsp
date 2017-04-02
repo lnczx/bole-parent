@@ -11,7 +11,7 @@
 	<header class='demos-header'>
 	<h1 class="demos-title">会员注册</h1>
 	</header>
-	<form:form id="reg-form" modelAttribute="contentModel" action="/bole-app/home/reg">
+	<form:form id="reg-form" modelAttribute="contentModel" action="/bole-test/home/reg">
 		<div class="weui-cells weui-cells_form">
 			
 			<div class="weui-cell weui-cell_warn">

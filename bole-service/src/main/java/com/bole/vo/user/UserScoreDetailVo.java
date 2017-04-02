@@ -16,6 +16,8 @@ public class UserScoreDetailVo extends UserScoreDetail {
 	
 	private String addTimeStr;
 	
+	private String addTimeStrFull;
+	
 	private String payBackRemarks;
 	
 	private String scoreStr;
@@ -74,5 +76,13 @@ public class UserScoreDetailVo extends UserScoreDetail {
 
 	public void setScoreStr(String scoreStr) {
 		this.scoreStr = scoreStr;
+	}
+
+	public String getAddTimeStrFull() {
+		return addTimeStrFull;
+	}
+
+	public void setAddTimeStrFull(String addTimeStrFull) {
+		this.addTimeStrFull = addTimeStrFull;
 	}
 }

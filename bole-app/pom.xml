@@ -6,8 +6,8 @@
 		<artifactId>bole-parent</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>bole-app</artifactId>
-	<name>bole-app Maven Webapp</name>
+	<artifactId>bole-test</artifactId>
+	<name>bole-test Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<packaging>war</packaging>
 	<properties>
@@ -122,7 +122,7 @@
 
 	</dependencies>
 	<build>
-		<finalName>bole-app</finalName>
+		<finalName>bole-test</finalName>
 		<pluginManagement>
 			<plugins>
 				<plugin>

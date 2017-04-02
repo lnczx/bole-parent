@@ -11,7 +11,7 @@
 	<header class='demos-header'>
 	<h1 class="demos-title">客服信息</h1>
 	</header>
-	<form:form id="kefu-form" modelAttribute="contentModel" action="/bole-app/admin/kefuForm">
+	<form:form id="kefu-form" modelAttribute="contentModel" action="/bole-test/admin/kefuForm">
 		<form:hidden path="userId"/>
 		<form:hidden path="userType"/>
 		<div class="weui-cells weui-cells_form">

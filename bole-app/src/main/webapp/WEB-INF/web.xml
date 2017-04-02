@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
 
-	<display-name>bole-app</display-name>
+	<display-name>bole-test</display-name>
 
 	<!-- 设计路径变量值 -->
 	<context-param>
 		<param-name>webAppRootKey</param-name>
-		<param-value>bole-app.root</param-value>
+		<param-value>bole-test.root</param-value>
 	</context-param>
 	    
      <!-- 日志记录 -->
@@ -36,7 +36,7 @@
         
     <!-- springMVC核心配置 -->
     <servlet>
-        <servlet-name>spring-bole-app</servlet-name>
+        <servlet-name>spring-bole-test</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
@@ -47,7 +47,7 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>spring-bole-app</servlet-name>
+        <servlet-name>spring-bole-test</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
         
