@@ -33,7 +33,7 @@
 		<include refid="Base_Column_List" />
 		from user_score_detail
 		<include refid="bySearchVo"/>
-		order by id desc
+		order by add_time desc
 	</select>
 	
 	<select id="selectByListPage" resultMap="BaseResultMap" parameterType="com.bole.vo.UserSearchVo">
@@ -41,7 +41,7 @@
 		<include refid="Base_Column_List" />
 		from user_score_detail
 		<include refid="bySearchVo"/>
-		order by id desc
+		order by add_time desc
 	</select>
 	
 	<select id="totalScoreMoney" resultType="java.math.BigDecimal" parameterType="com.bole.vo.UserSearchVo">
