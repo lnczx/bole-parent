@@ -20,6 +20,7 @@ import com.bole.common.Constants;
 import com.bole.po.model.user.User;
 import com.bole.service.async.UserAsyncService;
 import com.bole.service.user.UserService;
+import com.bole.service.user.UserTreeService;
 import com.bole.vo.UserSearchVo;
 import com.meijia.utils.StringUtil;
 import com.meijia.utils.TimeStampUtil;
@@ -31,6 +32,9 @@ public class AgentController extends BaseController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	public UserTreeService userTreeService;
 	
 	@Autowired
 	private UserAsyncService userAsyncService;
@@ -105,7 +109,7 @@ public class AgentController extends BaseController {
 		
 		if (pUser == null)
 			pUser = userService.selectByPrimaryKey(1L);
-		record = userService.genAgenUser(pUser, record);
+		record = userTreeService.genAgenUser(pUser, record);
 		
 		//异步父级统计会员人数
 		userAsyncService.totalUser(pId);

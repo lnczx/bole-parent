@@ -17,6 +17,7 @@ import com.bole.common.Constants;
 import com.bole.po.model.user.User;
 import com.bole.service.user.UserScoreCashService;
 import com.bole.service.user.UserService;
+import com.bole.service.user.UserTreeService;
 import com.bole.vo.TreeNodeVo;
 import com.bole.vo.UserSearchVo;
 import com.meijia.utils.vo.AppResultData;
@@ -30,6 +31,9 @@ public class UserTeamController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	public UserTreeService userTreeService;
 
 	@Autowired
 	private UserScoreCashService userScoreCashService;
@@ -86,7 +90,7 @@ public class UserTeamController {
 		}
 
 		if (userType.equals(Constants.USER_TYPE_0) && !id.equals(u.getUserId())) {
-			if (!userService.isSubUser(u.getUserId(), id)) {
+			if (!userTreeService.isSubUser(u.getUserId(), id)) {
 				return result;
 			}
 		}

@@ -1,5 +1,6 @@
 package com.bole.po.dao.user;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import com.bole.po.model.user.User;
@@ -29,4 +30,7 @@ public interface UserMapper {
 	
 	//更新所有的右级 基于左右值的无限分类算法
 	int updateAllRight(User record);
+	
+	//直接执行SQL
+	int updateBySql(String sql);
 }

@@ -23,17 +23,10 @@ public interface UserService {
 
 	PageInfo selectByListPage(UserSearchVo searchVo, int pageNum, int pageSize);
 
-
-	boolean isSubUser(Long pId, Long userId);
-
 	String genShareCode(String gameId);
 
 	UserVo getVo(User item);
 
-	Boolean userLevelupTree(Long userId);
-
 	Integer totalUser(UserSearchVo searchVo);
-
-	User genAgenUser(User pUser, User newUser);
 
 }

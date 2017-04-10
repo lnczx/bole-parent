@@ -15,6 +15,7 @@ import com.bole.common.Constants;
 import com.bole.po.model.user.User;
 import com.bole.service.user.UserScoreCashService;
 import com.bole.service.user.UserService;
+import com.bole.service.user.UserTreeService;
 import com.bole.vo.UserSearchVo;
 import com.bole.vo.user.UserScoreCashTotalVo;
 import com.bole.vo.user.UserVo;
@@ -29,6 +30,9 @@ public class UserAgentController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	public UserTreeService userTreeService;
 	
 	@Autowired
 	private UserScoreCashService userScoreCashService;
@@ -53,7 +57,7 @@ public class UserAgentController {
     		}
     		
     		if (pId.equals(u.getUserId())) {
-    			Boolean isSub = userService.isSubUser(u.getUserId(), pId);
+    			Boolean isSub = userTreeService.isSubUser(u.getUserId(), pId);
     			if (isSub) searchVo.setpId(u.getUserId());
     		}
     	}
@@ -91,7 +95,7 @@ public class UserAgentController {
     	if (userId == null ) userId = sessionUserId;
     	
     	if (userType.equals(Constants.USER_TYPE_0) && !sessionUserId.equals(userId)) {
-    		Boolean isSub = userService.isSubUser(u.getUserId(), userId);
+    		Boolean isSub = userTreeService.isSubUser(u.getUserId(), userId);
 			if (!isSub) {
 				userId = u.getUserId();
 			}
