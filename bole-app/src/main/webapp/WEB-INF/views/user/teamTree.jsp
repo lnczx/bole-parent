@@ -11,7 +11,7 @@
 <body ontouchstart>
 	<header class='demos-header'>
 	<h1 class="demos-title">我的团队</h1>
-	<p class='demos-sub-title '><font color="red">红色代表未激活</font></p>
+	<p class='demos-sub-title '><font color="red">红色代表未激活, 人数计算包含自己</font></p>
 	</header>
 	<input type="hidden" id="userId" value="${userId }"/>
 	<input type="hidden" id="name" value="${name }"/>

@@ -105,54 +105,6 @@ public class UserServiceImpl implements UserService {
 		return info;
 	}
 	
-	/**
-	 * 添加用户，设计到左右分支的树形结构. 只应用于会员的新增
-	 * @param openId
-	 * @param nickName
-	 * @param headImg
-	 * @param gameId
-	 * @return
-	 */
-	@Override
-	public User genAgenUser(User pUser, User newUser) {
-			
-		String gameId = newUser.getGameId();
-
-		//生成注册码
-		String shareCode = this.genShareCode(gameId);
-		newUser.setInviteCode(shareCode);
-		
-		Integer pUserRgt = pUser.getRgt();
-		newUser.setLft(pUserRgt);
-		newUser.setRgt(pUserRgt + 1);
-		
-		//先更新左右值之后，再进行插入
-		mapper.updateAllLeft(pUser);
-		mapper.updateAllRight(pUser);
-		
-		this.insertSelective(newUser);
-
-		return newUser;
-	}
-
-	@Override
-	public boolean isSubUser(Long pId, Long userId) {
-		
-		User pUser = this.selectByPrimaryKey(pId);
-		
-		if (pUser == null) return false;
-		
-		UserSearchVo searchVo = new UserSearchVo();
-		searchVo.setGetSubs(1);
-		searchVo.setLft(pUser.getLft());
-		searchVo.setRgt(pUser.getRgt());
-		searchVo.setUserId(userId);
-		List<User> list = this.selectBySearchVo(searchVo);
-		
-		if (!list.isEmpty()) return true;
-		return false;
-	}
-
 	@Override
 	public String genShareCode(String gameId) {
 		String shareCode = "";
@@ -203,65 +155,6 @@ public class UserServiceImpl implements UserService {
 			vo.setScoreLastTimeStr(TimeStampUtil.timeStampToDateStr(lastScoreTime, "MM-dd"));
 		}
 		return vo;
-	}
-
-	/**
-	 * 会员激活后，需要进行上级的升级校验，进行升级.并记录到升级日志中.
-	 * 1. 检测是否需要升级
-	 * 2. 记录升级日志.
-	 * 3. 统计上级用户的团队人数
-	 * 4. 统计上级用户每一个级别的总人数
-	 */
-	@Override
-	public Boolean userLevelupTree(Long userId) {
-		User u = this.selectByPrimaryKey(userId);
-		Long pId = u.getpId();
-		if (pId.equals(0L))
-			return true;
-		//找出所有的上级
-		UserSearchVo searchVo = new UserSearchVo();
-		searchVo.setGetParents(1);
-		searchVo.setLft(u.getLft());
-		searchVo.setRgt(u.getRgt());
-		searchVo.setOrderByProperty(" order by lft desc");
-		
-		List<User> list = this.selectBySearchVo(searchVo);
-		for (int i = 0 ; i < list.size(); i++) {
-			User pUser = list.get(i);
-			if (pUser.getUserId().equals(1L)) continue;
-			UserSearchVo searchVo1 = new UserSearchVo();
-			searchVo1.setpId(pUser.getUserId());
-			searchVo1.setLevel(pUser.getLevel());
-			searchVo1.setActive(Constants.USER_ACTIVE_1);
-			Integer totalUser = this.totalUser(searchVo1);
-			
-			boolean canUp = false;
-			if (pUser.getLevel().equals(Constants.USER_LEVEL_1)) {
-				if (totalUser >= 3) canUp = true;
-			} else {
-				if (totalUser >= 2) canUp = true;
-			}
-			
-			if (canUp) {
-				//1. 升级用户，
-				Short levelPre = pUser.getLevel();
-				Short levelAfter = (short) (levelPre + 1);
-				if (!levelPre.equals(Constants.USER_LEVEL_6)) {
-					pUser.setLevel(levelAfter);
-					pUser.setUpdateTime(TimeStampUtil.getNowSecond());
-					this.updateByPrimaryKeySelective(pUser);
-					//2. 记录日志.
-					userLevelLogService.setUserLevelLog(pUser.getUserId(), (short)0, levelPre, levelAfter, 0L);
-				} 
-			}
-			
-			//3. 统计总人数，并且记录下级每一级别的用户数.
-			for (int l = 0 ; l <=6; l++) {
-				userLevelStatService.totalLevel(pUser, (short) l);
-			}
-		}
-
-		return true;
 	}
 
 	/**

@@ -11,12 +11,16 @@ import com.bole.po.model.user.User;
 import com.bole.service.async.UserAsyncService;
 import com.bole.service.user.UserLevelStatService;
 import com.bole.service.user.UserService;
+import com.bole.service.user.UserTreeService;
 
 @Service
 public class UserAsyncServiceImpl implements UserAsyncService {
 
 	@Autowired
 	public UserService userService;
+	
+	@Autowired
+	public UserTreeService userTreeService;
 	
 	@Autowired
 	private UserLevelStatService userLevelStatService;
@@ -27,7 +31,7 @@ public class UserAsyncServiceImpl implements UserAsyncService {
 	@Async
 	@Override
 	public Future<Boolean> userLevelupTree(Long userId) {
-		userService.userLevelupTree(userId);
+		userTreeService.userLevelupTree(userId);
 		return new AsyncResult<Boolean>(true);
 	}
 	
