@@ -97,6 +97,13 @@ public class HomeController extends BaseController {
     		menu7.setLinkUrl("/home/todo");
     		menu7.setName("充值统计");
     		menus.add(menu7);
+    		
+    		//常见问题
+    		MenuVo menu8 = new MenuVo();
+    		menu8.setIconUrl("/static/images/icon_nav_new.png");
+    		menu8.setLinkUrl("/home/faq");
+    		menu8.setName("常见问题");
+    		menus.add(menu8);
 
     	}
     	
@@ -130,6 +137,13 @@ public class HomeController extends BaseController {
     		menu5.setLinkUrl("/user/cashList");
     		menu5.setName("返利审核");
     		menus.add(menu5);
+    		
+    		//常见问题
+    		MenuVo menu8 = new MenuVo();
+    		menu8.setIconUrl("/static/images/icon_nav_new.png");
+    		menu8.setLinkUrl("/home/faq");
+    		menu8.setName("常见问题");
+    		menus.add(menu8);
     	}
     	
     	//会员
@@ -196,6 +210,13 @@ public class HomeController extends BaseController {
 	public String todoView(Model model) {
 		
 		return "home/todo";
+	}
+    
+    @AuthPassport
+	@RequestMapping(value = "/faq", method = { RequestMethod.GET })
+	public String faq(Model model) {
+		
+		return "home/faq";
 	}
     
     
