@@ -66,7 +66,7 @@
 		</table>
 	</div>
 	
-	<h2 class="title">【游戏消耗钻石对应表】</h2>
+	<!-- <h2 class="title">【游戏消耗钻石对应表】</h2>
 	<div id="DataTables_Table_0_wrapper " class="dataTables_wrapper no-footer">
 		<table id="DataTables_Table_0" class="table table-border table-bordered table-hover table-bg table-sort">
 			<thead>
@@ -86,7 +86,7 @@
 				</tr>
 			</tbody>
 		</table>
-	</div>
+	</div> -->
 	<h2 class="title">【等级表格】</h2>
 	<div id="DataTables_Table_0_wrapper " class="dataTables_wrapper no-footer">
 		<table id="DataTables_Table_0" class="table table-border table-bordered table-hover table-bg table-sort">
