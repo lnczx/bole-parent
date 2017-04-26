@@ -107,7 +107,13 @@ $("#scoreTypeSelect").select({
 
 $("#scoreMoneySelect").select({
 	title : "选择充值金额",
-	items : [ {
+	items : [ 
+	
+	{
+		title : "100",
+		value : "100",
+	},
+	{
 		title : "300",
 		value : "300",
 	}, {
@@ -127,24 +133,29 @@ $("#scoreMoneySelect").select({
 
 		$("#scoreMoney").val(values);
 		
+		if (values == "100") {
+			$("#scoreSelect").val("3600");
+			$("#score").val("3600");
+		}
+		
 		if (values == "300") {
-			$("#scoreSelect").val("6500");
-			$("#score").val("6500");
+			$("#scoreSelect").val("12000");
+			$("#score").val("12000");
 		}
 		
 		if (values == "500") {
-			$("#scoreSelect").val("11700");
-			$("#score").val("11700");
+			$("#scoreSelect").val("21600");
+			$("#score").val("21600");
 		}
 		
 		if (values == "1000") {
-			$("#scoreSelect").val("24700");
-			$("#score").val("24700");
+			$("#scoreSelect").val("45600");
+			$("#score").val("45600");
 		}
 		
 		if (values == "2000") {
-			$("#scoreSelect").val("52000");
-			$("#score").val("52000");
+			$("#scoreSelect").val("96000");
+			$("#score").val("96000");
 		}
 		return true;
 	},
